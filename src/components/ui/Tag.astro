@@ -1,0 +1,7 @@
+---
+const { tag } = Astro.props;
+---
+
+<li class={`${tag.class} text-white flex justify-center items-center gap-x-1 lg:gap-x-2 gap-y-1 rounded-md p-3 text-sm`}>
+  <tag.icon class="size-6 lg:size-9" /> {tag.name}
+</li>

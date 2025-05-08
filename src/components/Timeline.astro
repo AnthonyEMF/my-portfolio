@@ -1,0 +1,72 @@
+---
+import { educations } from "../storage/educations";
+---
+
+<ol 
+  class="relative border-s-2 border-white ml-4  
+  before:content-[''] before:absolute before:left-[-6px] before:top-[-5px] 
+  before:w-2.5 before:h-2.5 before:rounded-full before:bg-white
+  after:content-[''] after:absolute after:left-[-6px] after:bottom-[-5px] 
+  after:w-2.5 after:h-2.5 after:rounded-full after:bg-white">
+  {
+    educations.map(({ title, date, description, link, logo }) => (
+      <span>
+        {/* Contenido */}
+        <li class="mb-4 lg:mb-10 flex flex-col lg:flex-row gap-1 lg:gap-4 lg:items-center">
+
+          {/* Imagen */}
+          <span class="flex items-center">
+            {/* Linea del diseño */}
+            <hr class="bg-white h-[2px] w-5" />
+            {/* Logo */}
+            <img src={logo} class="rounded-lg size-20 lg:size-30" alt={title} />
+          </span>
+
+          {/* Contenido */}
+          <span class="ml-5 lg:ml-0">
+            {/* Fecha */}
+            <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+              {date}
+            </time>
+            {/* Título */}
+            <h3 class="text-md lg:text-lg font-semibold text-gray-900 dark:text-white">
+              {title}
+            </h3>
+            {/* Descripción */}
+            <p class="mb-2 text-xs lg:text-base font-normal text-gray-500 dark:text-gray-400">
+              {description}
+            </p>
+            {/* Sitio Web */}
+            {link && (
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hidden lg:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full 
+                text-white border-white/10 hover:bg-white/10 hover:text-white border-2"
+              >
+                Ir al sitio{" "}
+                <svg
+                  class="w-3 h-3 ms-2 rtl:rotate-180"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </a>
+            )}
+          </span>
+          
+        </li>
+      </span>
+    ))
+  }
+</ol>

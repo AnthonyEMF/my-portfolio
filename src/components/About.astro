@@ -1,0 +1,22 @@
+---
+import { aboutInfo } from "../storage/aboutInfo";
+import AboutCard from "./ui/AboutCard.astro";
+---
+
+<article class="flex flex-col lg:flex-row text-gray-400 text-sm lg:text-base mb-0 lg:mb-10">
+  <!-- Contenido -->
+  <div class="flex flex-col gap-y-2 items-center justify-center w-full lg:w-4/6 pt-4 lg:pt-8">
+    {aboutInfo.map((aboutInfo) => (
+      <AboutCard aboutInfo={aboutInfo} />
+    ))}
+  </div>
+
+  <!-- Imagen -->
+  <div class="flex flex-row items-center justify-center w-full lg:w-2/6 ">
+    <img
+      src="/images/about-photo.webp"
+      alt="about photo"
+      class="w-full h-full border-b-2 lg:border-b-0 border-white"
+    />
+  </div>
+</article>

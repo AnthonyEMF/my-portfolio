@@ -1,0 +1,55 @@
+---
+import "../styles/global.css"; /* Importe de los estilos con Tailwind */
+import "@fontsource-variable/onest"; /* Importe de las fuentes */
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Anthony Miranda | Desarrollador Web y Mobile Full Stack</title>
+    <meta 
+      name="description" 
+      content="Desarrollador web y mobile. Creo soluciones digitales a medida con tecnologías modernas. Mira mis proyectos y contáctame para tu próximo desarrollo."
+    />
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="fixed inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"/>
+    <!-- Encabezado -->
+    <Header /> 
+    <!-- Contenido de la página -->
+    <slot /> 
+    <!-- Pie de página -->
+    <Footer/>
+  </body>
+  <!-- Script de Flowbite -->
+  <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
+</html>
+
+<!-- Estilos globales -->
+<style is:global>
+  :root {
+    /* color-scheme: light dark;  Tema claro y oscuro */
+  }
+  html {
+    font-family: "Onest Variable", system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: #050505;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>
