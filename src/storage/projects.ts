@@ -103,11 +103,13 @@ export const otherProjects = {
   links: [
     {
       name: "Revista de Carpintería",
-      href: "https://drive.google.com/file/d/1DKPMG1q0avtVHAEvwtq5M3NSpB1a_15u/view?usp=sharing",
+      image: "/images/revista-01.webp",
+      href: "https://drive.google.com/file/d/1rvNVsJn-dUcBnSh6D6qSWkHfsBbXdVjK/view?usp=sharing",
     },
     {
       name: "Revista de Jardinería",
-      href: "https://drive.google.com/file/d/1cvVvMAAubHIOGGwymEROaD5JHwpH6Njb/view?usp=sharing",
+      image: "/images/revista-02.webp",
+      href: "https://drive.google.com/file/d/1woo7eHkjJC-z7FueLnuDbDXryXSxoNtL/view?usp=sharing",
     },
   ],
 }
