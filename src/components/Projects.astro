@@ -1,0 +1,76 @@
+---
+import { projects, otherProjects } from "../storage/projects";
+import Carousel from "./ui/Carousel.astro";
+import ProjectCard from "./ui/ProjectCard.astro";
+import ThemedButton from "./ui/ThemedButton.astro";
+---
+
+<!-- Proyectos de programación -->
+{
+  projects.map(({ title, description, images, links, tags }) => (
+    <ProjectCard>
+      {/* Información */}
+      <h3 class="text-white text-2xl text-center font-semibold">{title}</h3>
+      <p class="lg:text-center text-sm lg:text-base text-tertiary-gray mb-1">
+        {description}
+      </p>
+
+      {/* Imagenes */}
+      <Carousel images={images} title={title} />
+
+      {/* {images.map((image) => (
+        <img src={image} class="rounded-lg w-full h-full" alt={title} />
+      ))} */}
+
+      {/* Etiquetas */}
+      <div class="flex gap-2 flex-wrap mt-2">
+        {tags.map((tag) => (
+          <span
+            class={`${tag.class} text-white flex justify-center items-center rounded-md px-2 py-1 text-xs gap-1`}
+          >
+            <tag.icon class="size-4" /> {tag.name}
+          </span>
+        ))}
+      </div>
+
+      {/* Links del repositorio */}
+      <span class="flex gap-2 flex-wrap">
+        {links.map(({ name, href }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-cyan-400 text-xs lg:text-base hover:underline"
+          >
+            + {name}
+          </a>
+        ))}
+      </span>
+    </ProjectCard>
+  ))
+}
+
+<!-- Otros proyectos -->
+<ProjectCard>
+  {/* Información */}
+  <h3 class="text-white text-2xl text-center font-semibold">
+    {otherProjects.title}
+  </h3>
+  <p class="lg:text-center text-sm lg:text-base text-tertiary-gray mb-1">
+    {otherProjects.description}
+  </p>
+
+  {/* Links */}
+  <span class="flex justify-evenly gap-2 flex-wrap">
+    {
+      otherProjects.links.map(({ name, image, href }) => (
+        <ThemedButton
+          href={href}
+          class="rounded-lg"
+        >
+          <img src={image} alt={name} class="py-1 lg:py-2 w-60 h-full" />
+        </ThemedButton>
+      ))
+    }
+  </span>
+</ProjectCard>

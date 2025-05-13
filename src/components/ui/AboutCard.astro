@@ -1,0 +1,12 @@
+---
+const { aboutInfo } = Astro.props;
+---
+
+<p 
+  class="flex items-center gap-x-2 text-start text-xs lg:text-sm p-3 rounded-lg border-2 
+  bg-primary-gray border-secondary-gray text-tertiary-gray">
+  <span class="flex items-center justify-center w-20 mr-1">
+    <aboutInfo.icon class="size-9 lg:size-11" />
+  </span>
+  {aboutInfo.content}
+</p>

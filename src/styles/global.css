@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Estilos personalizados */
+@theme {
+  --color-primary-gray: color-mix(in oklab, var(--color-gray-500) 30%, transparent);
+  --color-secondary-gray: color-mix(in oklab, var(--color-white) 10%, transparent);
+  --color-tertiary-gray: var(--color-gray-300);
+
+  --color-primary-black: color-mix(in oklab, var(--color-black) 50%, transparent);
+}

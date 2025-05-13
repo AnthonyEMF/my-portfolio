@@ -1,0 +1,36 @@
+---
+import { languages, frameworks, databases, tools } from "../storage/tags";
+import Tag from "./ui/Tag.astro";
+---
+
+<article class="flex justify-center flex-col items-center gap-y-6">
+
+  <h3 class="text-2xl text-tertiary-gray">Lenguajes</h3>
+  <ul class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+    {Object.keys(languages).map((language) => (
+      <Tag tag={languages[language]} />
+    ))}
+  </ul>
+
+  <h3 class="text-2xl text-tertiary-gray">Frameworks y Librerías</h3>
+  <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    {Object.keys(frameworks).map((framework) => (
+      <Tag tag={frameworks[framework]} />
+    ))}
+  </ul>
+
+  <h3 class="text-2xl text-tertiary-gray">Bases de datos</h3>
+  <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    {Object.keys(databases).map((database) => (
+      <Tag tag={databases[database]} />
+    ))}
+  </ul>
+
+  <h3 class="text-2xl text-tertiary-gray">Otras herramientas</h3>
+  <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    {Object.keys(tools).map((tool) => (
+      <Tag tag={tools[tool]} />
+    ))}
+  </ul>
+  
+</article>

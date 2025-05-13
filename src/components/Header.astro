@@ -1,0 +1,43 @@
+---
+import NavPill from "./ui/NavPill.astro";
+import HomeIcon from "../icons/Home.astro";
+import SchoolIcon from "../icons/School.astro";
+import CodeIcon from "../icons/Code.astro";
+import BladesIcon from "../icons/Blades.astro";
+import AboutUserIcon from "../icons/AboutUser.astro";
+---
+
+<header class="fixed z-50 bg-primary-black flex justify-center items-center py-5 w-full xl:w-full mx-auto">
+  <nav class="opacity-80 flex flex-row gap-x-3 lg:gap-x-6 text-white">
+    <!-- Inicio -->
+    <NavPill href="#top">
+      <span class="hidden sm:inline">Inicio</span>
+      <HomeIcon class="size-6 sm:hidden"/>
+    </NavPill>
+    
+    <!-- Sobre mí -->
+    <NavPill href="#about">
+      <span class="hidden sm:inline">Sobre mí</span>
+      <AboutUserIcon class="size-6 sm:hidden"/>
+    </NavPill>
+    
+    <!-- Formación -->
+    <NavPill href="#timeline">
+      <span class="hidden sm:inline">Formación</span>
+      <SchoolIcon class="size-6 sm:hidden"/>
+    </NavPill>
+    
+    <!-- Habilidades -->
+    <NavPill href="#skills">
+      <span class="hidden sm:inline">Habilidades</span>
+      <BladesIcon class="size-6 sm:hidden"/>
+    </NavPill>
+    
+    <!-- Proyectos -->
+    <NavPill href="#projects">
+      <span class="hidden sm:inline">Proyectos</span>
+      <CodeIcon class="size-6 sm:hidden"/>
+    </NavPill>
+  </nav>
+</header>
+

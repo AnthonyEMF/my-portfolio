@@ -1,0 +1,115 @@
+import { languages, frameworks, databases } from "../storage/tags";
+
+export interface Project {
+  title: string;
+  description: string;
+  images: string[];
+  links: { name: string; href: string }[];
+  tags: any[];
+}
+
+export const projects : Project[] = [
+  {
+    title: "ClassNotes",
+    description: 
+      "Este es un proyecto de clase que fue desarrollado en equipo, orientado al ámbito educativo con el fin de optimizar las labores docentes. Ofrece una amplia variedad de herramientas intuitivas, prácticas y fáciles de implementar, garantizando una experiencia eficiente y accesible para los usuarios.",
+    images: [
+      "/images/classnotes/classnotes-01.webp",
+      "/images/classnotes/classnotes-02.webp",
+      "/images/classnotes/classnotes-03.webp",
+      "/images/classnotes/classnotes-04.webp",
+      "/images/classnotes/classnotes-05.webp",
+      "/images/classnotes/classnotes-06.webp",
+    ],
+    links: [
+      {
+        name: "Backend",
+        href: "https://github.com/TETvega/ClassNotes-BE",
+      },
+      {
+        name: "Frontend Web",
+        href: "https://github.com/TETvega/ClassNotes-FE",
+      },
+      {
+        name: "Frontend Mobile",
+        href: "https://github.com/TETvega/ClassNotes-FE-Movil",
+      },
+    ],
+    tags: [
+      languages.cSharp,
+      languages.javaScript,
+      languages.typeScript,
+      frameworks.react,
+      frameworks.net,
+      databases.mssql,
+      databases.mongoDb,
+    ],
+  },
+  {
+    title: "MeetPoint",
+    description: "Una red social de eventos que permite a los usuarios descubrir, organizar y participar en eventos sociales. Los usuarios pueden crear eventos, registrarse para asistir a estos e interactuar a través de comentarios. La plataforma clasifica los eventos por categorías, facilita la gestión de asistencias y ofrece un espacio para la interacción social en torno a eventos de interés común.",
+    images: [
+      "/images/meetpoint/meetpoint-01.webp",
+      "/images/meetpoint/meetpoint-02.webp",
+      "/images/meetpoint/meetpoint-03.webp",
+      "/images/meetpoint/meetpoint-04.webp",
+      "/images/meetpoint/meetpoint-05.webp",
+      "/images/meetpoint/meetpoint-06.webp",
+    ],
+    links: [
+      {
+        name: "Backend + Frontend Web",
+        href: "https://github.com/AnthonyEMF/meetpoint",
+      },
+    ],
+    tags: [
+      languages.cSharp,
+      languages.javaScript,
+      frameworks.react,
+      frameworks.net,
+      databases.mssql,
+    ],
+  },
+  {
+    title: "SisPaCo",
+    description: "Un sistema que esta enfocado en la gestión financiera con partidas contables para facilitar el registro de transacciones, ofreciendo un catálogo de cuentas estructurado, automatizando la actualización de saldos de cuentas, con el objetivo de proporcionar una herramienta eficiente y precisa para manejar la contabilidad de una empresa.",
+    images: [
+      "/images/sispaco/sispaco-01.webp",
+      "/images/sispaco/sispaco-02.webp",
+      "/images/sispaco/sispaco-03.webp",
+      "/images/sispaco/sispaco-04.webp",
+      "/images/sispaco/sispaco-05.webp",
+      "/images/sispaco/sispaco-06.webp",
+    ],
+    links: [
+      {
+        name: "Backend + Frontend Web",
+        href: "https://github.com/AnthonyEMF/sis-pa-co",
+      },
+    ],
+    tags: [
+      languages.cSharp,
+      languages.javaScript,
+      frameworks.react,
+      frameworks.net,
+      databases.mssql,
+    ],
+  },
+];
+
+export const otherProjects = {
+  title: "Revistas",
+  description: "Durante el bachillerato, reforcé mis habilidades en diseño gráfico creando dos revistas con CorelDraw (para ilustración y maquetación) y Photoshop (para edición de imágenes), lo que me permitió mejorar en composición, tipografía y manejo de color.",
+  links: [
+    {
+      name: "Revista de Carpintería",
+      image: "/images/revista-01.webp",
+      href: "https://drive.google.com/file/d/1rvNVsJn-dUcBnSh6D6qSWkHfsBbXdVjK/view?usp=sharing",
+    },
+    {
+      name: "Revista de Jardinería",
+      image: "/images/revista-02.webp",
+      href: "https://drive.google.com/file/d/1woo7eHkjJC-z7FueLnuDbDXryXSxoNtL/view?usp=sharing",
+    },
+  ],
+}
