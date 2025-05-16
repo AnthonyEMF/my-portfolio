@@ -27,7 +27,7 @@ export const Carousel = ({ images }: { images: string[] }) => {
   return (
     <div className="space-y-4">
       <div className="relative">
-        <div ref={emblaRef} className="overflow-hidden rounded-lg">
+        <div ref={emblaRef} className="overflow-hidden rounded-lg border-2 border-secondary-gray">
           <div className="flex">
             {images.map((image, index) => (
               <div className="relative flex-[0_0_100%]" key={index}>
