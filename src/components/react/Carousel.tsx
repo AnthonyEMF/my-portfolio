@@ -35,7 +35,7 @@ export const Carousel = ({ images }: { images: string[] }) => {
                   <img
                     src={image}
                     alt={`Slide ${index + 1}`}
-                    className="h-full w-full object-cover"
+                    className="h-auto w-auto object-cover"
                   />
                 </div>
               </div>
@@ -85,7 +85,7 @@ export const Carousel = ({ images }: { images: string[] }) => {
               <img
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
-                className="h-full w-full object-cover"
+                className="h-auto w-auto object-cover"
               />
             </div>
           </button>

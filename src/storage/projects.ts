@@ -20,6 +20,20 @@ export const projects : Project[] = [
       "/images/classnotes/classnotes-04.webp",
       "/images/classnotes/classnotes-05.webp",
       "/images/classnotes/classnotes-06.webp",
+      "/images/classnotes/classnotes-07.webp",
+      "/images/classnotes/classnotes-08.webp",
+      "/images/classnotes/classnotes-09.webp",
+      "/images/classnotes/classnotes-10.webp",
+      "/images/classnotes/classnotes-11.webp",
+      "/images/classnotes/classnotes-12.webp",
+      "/images/classnotes/classnotes-13.webp",
+      "/images/classnotes/classnotes-14.webp",
+      "/images/classnotes/classnotes-15.webp",
+      "/images/classnotes/classnotes-16.webp",
+      "/images/classnotes/classnotes-17.webp",
+      "/images/classnotes/classnotes-18.webp",
+      "/images/classnotes/classnotes-19.webp",
+      "/images/classnotes/classnotes-20.webp",
     ],
     links: [
       {
@@ -55,6 +69,12 @@ export const projects : Project[] = [
       "/images/meetpoint/meetpoint-04.webp",
       "/images/meetpoint/meetpoint-05.webp",
       "/images/meetpoint/meetpoint-06.webp",
+      "/images/meetpoint/meetpoint-07.webp",
+      "/images/meetpoint/meetpoint-08.webp",
+      "/images/meetpoint/meetpoint-09.webp",
+      "/images/meetpoint/meetpoint-10.webp",
+      "/images/meetpoint/meetpoint-11.webp",
+      "/images/meetpoint/meetpoint-12.webp",
     ],
     links: [
       {
@@ -80,6 +100,8 @@ export const projects : Project[] = [
       "/images/sispaco/sispaco-04.webp",
       "/images/sispaco/sispaco-05.webp",
       "/images/sispaco/sispaco-06.webp",
+      "/images/sispaco/sispaco-07.webp",
+      "/images/sispaco/sispaco-08.webp",
     ],
     links: [
       {
