@@ -4,11 +4,26 @@ const { href, class: className } = Astro.props;
 
 <a 
   href={href}
-  class={`${className} border-secondary-gray hover:bg-secondary-gray hover:text-white text-white
-  rounded-full border-2 flex justify-center items-center 
-  gap-x-2 py-1 px-2 lg:py-2 lg:px-4 text-sm lg:text-base`}
+  class={`${className} group/btn relative overflow-hidden
+  border-2 border-secondary-gray/50 hover:border-secondary-gray
+  bg-transparent hover:bg-secondary-gray
+  text-tertiary-gray hover:text-white
+  rounded-full inline-flex justify-center items-center 
+  gap-x-2 py-2 px-4 lg:py-2.5 lg:px-5 
+  text-xs lg:text-sm font-medium
+  transition-all duration-300
+  hover:shadow-lg hover:shadow-secondary-gray/30
+  hover:-translate-y-0.5`}
   target="_blank"
   rel="noopener noreferrer"
 >
-  <slot />
+  {/* Efecto de brillo al hover */}
+  <span class="absolute inset-0 w-0 bg-white/10 
+    group-hover/btn:w-full transition-all duration-500 ease-out">
+  </span>
+  
+  {/* Contenido del botón */}
+  <span class="relative flex items-center gap-x-2">
+    <slot />
+  </span>
 </a>

@@ -2,11 +2,31 @@
 const { aboutInfo } = Astro.props;
 ---
 
-<p 
-  class="flex items-center gap-x-2 text-start text-xs lg:text-sm p-3 rounded-lg border-2 
-  bg-primary-gray border-secondary-gray text-tertiary-gray">
-  <span class="flex items-center justify-center w-20 mr-1">
-    <aboutInfo.icon class="size-9 lg:size-11" />
-  </span>
-  {aboutInfo.content}
-</p>
+<div 
+  class="group relative flex flex-col items-center text-center p-6 lg:p-8 rounded-lg 
+  bg-gradient-to-br from-primary-gray to-secondary-gray border-2 border-secondary-gray 
+  hover:shadow-lg hover:shadow-secondary-gray/20 
+  transition-all duration-300 hover:-translate-y-1 w-full max-w-sm">
+  
+  <!-- Icono con efecto de fondo -->
+  <div class="relative mb-4">
+    <div class="absolute inset-0 bg-secondary-gray/20 rounded-full blur-xl 
+      group-hover:bg-secondary-gray/40 transition-all duration-300"></div>
+    <div class="relative flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 
+      rounded-full bg-gradient-to-br from-secondary-gray/30 to-transparent 
+      border border-secondary-gray/50 group-hover:scale-110 transition-transform duration-300">
+      <aboutInfo.icon class="size-8 lg:size-10 text-tertiary-gray" />
+    </div>
+  </div>
+  
+  <!-- Contenido -->
+  <p class="text-sm lg:text-base text-tertiary-gray/90 leading-relaxed">
+    {aboutInfo.content}
+  </p>
+  
+  <!-- Decoración inferior -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 
+    bg-gradient-to-r from-transparent via-secondary-gray/50 to-transparent 
+    rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+  </div>
+</div>

@@ -2,7 +2,7 @@ import ReactJS from "../icons/frameworks/ReactJS.astro";
 import MsSQL from "../icons/databases/MsSQL.astro";
 import MongoDB from "../icons/databases/MongoDB.astro";
 import Csharp from "../icons/languages/Csharp.astro";
-import Cplus from "../icons/languages/Cplus.astro";
+import Python from "../icons/languages/Python.astro";
 import JavaScript from "../icons/languages/JavaScript.astro";
 import TypeScript from "../icons/languages/TypeScript.astro";
 import HTML from "../icons/languages/HTML.astro";
@@ -64,9 +64,9 @@ export const languages: Record<string, Tag> = {
     icon: Csharp,
   },
   cPlus: {
-    name: "C++",
-    class: colors.blue,
-    icon: Cplus,
+    name: "Python",
+    class: colors.yellow,
+    icon: Python,
   },
   typeScript: {
     name: "TypeScript",

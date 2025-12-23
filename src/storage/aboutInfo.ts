@@ -10,17 +10,17 @@ export interface AboutInfo {
 export const aboutInfo: AboutInfo[] = [
   {
     content:
-      "Mi nombre completo es Anthony Edward Miranda Fuentes pero me puedes decir Tony, estudio Ingeniería en Sistemas en la UNAH Copán, estoy a un año de graduarme y abierto a nuevos proyectos.",
+      "Anthony Edward Miranda Fuentes, estudiante de Ingeniería en Sistemas en UNAH Campus Copán. A un año de graduarme y listo para nuevos desafíos.",
     icon: Contract,
   },
   {
     content:
-      "Mi especialización es el desarrollo de aplicaciones web y móviles, aunque también tengo experiencia en gestión de proyectos, bases de datos, diseño gráfico, ofimática, mantenimiento y nociones de contabilidad.",
+      "Especializado en desarrollo web y móvil. Experiencia en gestión de proyectos, bases de datos y diseño.",
     icon: Briefcase,
   },
   {
     content:
-      "Soy un apasionado por la tecnología y la innovación, disfruto aprender y crear soluciones nuevas. Soy proactivo, adaptable y trabajo bien en equipo para alcanzar metas desafiantes.",
+      "Apasionado por la innovación tecnológica. Proactivo, adaptable y orientado a resultados en equipo.",
     icon: Happy,
   },
 ];

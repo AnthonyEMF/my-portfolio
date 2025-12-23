@@ -3,66 +3,111 @@ import { educations } from "../storage/educations";
 import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
-<ol 
-  class="relative border-s-2 border-white ml-4  
-  before:content-[''] before:absolute before:left-[-6px] before:top-[-5px] 
-  before:w-2.5 before:h-2.5 before:rounded-full before:bg-white
-  after:content-[''] after:absolute after:left-[-6px] after:bottom-[-5px] 
-  after:w-2.5 after:h-2.5 after:rounded-full after:bg-white">
-  {
-    educations.map(({ title, date, description, link, logo }) => (
-      <span>
-        {/* Contenido */}
-        <li class="mb-4 lg:mb-10 flex flex-col lg:flex-row gap-1 lg:gap-4 lg:items-center">
-          {/* Imagen */}
-          <span class="flex items-center">
-            {/* Linea del diseño */}
-            <hr class="bg-white h-[2px] w-5" />
-            {/* Logo */}
-            <img src={logo} class="rounded-lg size-20 lg:size-30 border-2 border-white bg-primary-gray" alt={title} />
-          </span>
+<div class="relative max-w-5xl mx-auto px-4 py-8">
+  {/* Línea vertical principal con gradiente */}
+  <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-0.5 
+    bg-secondary-gray lg:-translate-x-1/2">
+  </div>
 
-          {/* Información */}
-          <span class="ml-5 lg:ml-0">
-            {/* Fecha */}
-            <time class="mb-1 text-sm font-normal leading-none text-tertiary-gray">
-              {date}
-            </time>
-            {/* Título */}
-            <h3 class="text-md lg:text-lg font-semibold text-white">
-              {title}
-            </h3>
-            {/* Descripción */}
-            <p class="mb-2 text-xs lg:text-base font-normal text-tertiary-gray">
-              {description}
-            </p>
-            {/* Sitio Web */}
-            {link && (
-              <ThemedButton
-                class="hidden lg:inline-flex"
-                href={link}
-              >
-                Ir al sitio{" "}
-                <svg
-                  class="size-3 rtl:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </ThemedButton>
-            )}
-          </span>       
-        </li>
-      </span>
-    ))
-  }
-</ol>
+  {/* Items de la timeline */}
+  <ol class="relative space-y-8 lg:space-y-12">
+    {educations.map((education, index) => (
+      <li class={`relative flex items-center gap-6 lg:gap-8 
+        ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+        
+        {/* Punto decorativo en la línea */}
+        <div class="absolute left-8 lg:left-1/2 lg:-translate-x-1/2 
+          flex items-center justify-center z-10">
+          <div class="w-4 h-4 rounded-full bg-secondary-gray border-4 border-primary-gray 
+            shadow-lg shadow-secondary-gray/50 
+            hover:scale-125 transition-transform duration-300">
+          </div>
+        </div>
+
+        {/* Espaciador para móvil */}
+        <div class="w-16 lg:hidden flex-shrink-0"></div>
+
+        {/* Card de contenido */}
+        <div class={`group relative flex-1 bg-gradient-to-br from-primary-gray to-secondary-gray 
+          rounded-lg border-2 border-secondary-gray p-6 lg:p-8
+          hover:border-secondary-gray hover:shadow-xl hover:shadow-secondary-gray/20
+          transition-all duration-300 hover:-translate-y-1
+          ${index % 2 === 0 ? 'lg:mr-8 lg:border-r-0' : 'lg:ml-8 lg:border-l-0'}`}>
+
+          <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-center">
+            {/* Logo con efecto */}
+            <div class="relative flex-shrink-0">
+              <div class="absolute inset-0 bg-secondary-gray/20 rounded-xl blur-lg 
+                group-hover:bg-secondary-gray/40 transition-all duration-300">
+              </div>
+              <img 
+                src={education.logo} 
+                alt={education.title}
+                class="relative w-20 h-20 lg:w-24 lg:h-24 rounded-xl 
+                  border-2 border-secondary-gray/50 bg-primary-gray object-cover
+                  group-hover:border-secondary-gray group-hover:scale-105
+                  transition-all duration-300"
+              />
+            </div>
+
+            {/* Información */}
+            <div class="flex-1 space-y-2">
+              {/* Fecha con badge */}
+              <div class="inline-flex items-center px-3 py-1 rounded-full 
+                bg-secondary-gray/20 border border-secondary-gray/30">
+                <time class="text-xs lg:text-sm font-medium text-tertiary-gray">
+                  {education.date}
+                </time>
+              </div>
+
+              {/* Título */}
+              <h3 class="text-base lg:text-lg font-bold text-white 
+                group-hover:text-tertiary-gray transition-colors duration-300">
+                {education.title}
+              </h3>
+
+              {/* Descripción */}
+              <p class="text-sm lg:text-sm text-tertiary-gray/90 leading-relaxed">
+                {education.description}
+              </p>
+
+              {/* Botón */}
+              {education.link && (
+                <div class="pt-2">
+                  <ThemedButton
+                    class="inline-flex"
+                    href={education.link}
+                  >
+                    Ver más
+                    <svg
+                      class="w-4 h-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </ThemedButton>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Línea decorativa inferior */}
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-0.5 
+            bg-gradient-to-r from-transparent via-secondary-gray/30 to-transparent 
+            rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          </div>
+        </div>
+
+        {/* Espaciador para desktop (mantiene el zigzag) */}
+        <div class="hidden lg:block flex-1"></div>
+      </li>
+    ))}
+  </ol>
+</div>
