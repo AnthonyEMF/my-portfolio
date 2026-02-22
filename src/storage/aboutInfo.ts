@@ -10,12 +10,12 @@ export interface AboutInfo {
 export const aboutInfo: AboutInfo[] = [
   {
     content:
-      "Anthony Edward Miranda Fuentes, estudiante de Ingeniería en Sistemas en UNAH Campus Copán. A un año de graduarme y listo para nuevos desafíos.",
+      "Estudiante de Ingeniería en Sistemas en UNAH Campus Copán. A punto de graduarme y listo para nuevos desafíos.",
     icon: Contract,
   },
   {
     content:
-      "Especializado en desarrollo web y móvil. Experiencia en gestión de proyectos, bases de datos y diseño.",
+      "Especializado en desarrollo web y móvil full stack. Experiencia en gestión de proyectos, infraestructura de redes, bases de datos, análisis y diseño de sistemas.",
     icon: Briefcase,
   },
   {
