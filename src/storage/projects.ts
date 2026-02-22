@@ -1,4 +1,4 @@
-import { languages, frameworks, databases } from "../storage/tags";
+import { languages, frameworks, databases, tools } from "../storage/tags";
 
 export interface Project {
   title: string;
@@ -9,6 +9,43 @@ export interface Project {
 }
 
 export const projects : Project[] = [
+  {
+    title: "SIGREF",
+    description: 
+      "Sistema de Gestión de Receptoria de Fondos, enfocado en la la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
+    images: [
+      "/images/sigref/sigref-01.webp",
+      "/images/sigref/sigref-02.webp",
+      "/images/sigref/sigref-03.webp",
+      "/images/sigref/sigref-04.webp",
+      "/images/sigref/sigref-05.webp",
+      "/images/sigref/sigref-06.webp",
+      "/images/sigref/sigref-07.webp",
+      "/images/sigref/sigref-08.webp",
+      "/images/sigref/sigref-09.webp",
+      "/images/sigref/sigref-10.webp",
+      "/images/sigref/sigref-11.webp",
+      "/images/sigref/sigref-12.webp",
+      "/images/sigref/sigref-13.webp",
+      "/images/sigref/sigref-14.webp",
+    ],
+    links: [
+      {
+        name: "Backend + Frontend Web",
+        href: "https://github.com/SIGREF-UNAH/SIGREF",
+      },
+    ],
+    tags: [
+      languages.cSharp,
+      languages.typeScript,
+      frameworks.react,
+      frameworks.net,
+      databases.postgree,
+      databases.mongoDb,
+      tools.azure,
+      tools.docker,
+    ],
+  },
   {
     title: "ClassNotes",
     description: 
@@ -88,6 +125,7 @@ export const projects : Project[] = [
       frameworks.react,
       frameworks.net,
       databases.mssql,
+      tools.docker,
     ],
   },
   {

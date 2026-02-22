@@ -128,7 +128,7 @@ import ThemedButton from "./ui/ThemedButton.astro";
       <!-- Etiquetas — clases originales + pill shape -->
       <div class="flex gap-2 flex-wrap mt-2">
         {tags.map((tag) => (
-          <span class={`tag-pill ${tag.class} text-white`}>
+          <span class={`tag-pill ${tag?.class} text-white`}>
             <tag.icon class="size-4" /> {tag.name}
           </span>
         ))}
