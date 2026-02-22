@@ -3,94 +3,93 @@ import { educations } from "../storage/educations";
 import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
-<div class="relative max-w-5xl mx-auto px-4 py-8">
-  {/* Línea vertical principal con gradiente */}
-  <div class="absolute left-8 lg:left-1/2 top-0 bottom-0 w-0.5 
-    bg-secondary-gray lg:-translate-x-1/2">
-  </div>
+<style>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .edu-card {
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .edu-card:nth-child(1) { animation-delay: 0.05s; }
+  .edu-card:nth-child(2) { animation-delay: 0.15s; }
+  .edu-card:nth-child(3) { animation-delay: 0.25s; }
+  .edu-card:nth-child(4) { animation-delay: 0.35s; }
 
-  {/* Items de la timeline */}
-  <ol class="relative space-y-8 lg:space-y-12">
-    {educations.map((education, index) => (
-      <li class={`relative flex items-center gap-6 lg:gap-8 
-        ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-        
-        {/* Punto decorativo en la línea */}
-        <div class="absolute left-8 lg:left-1/2 lg:-translate-x-1/2 
-          flex items-center justify-center z-10">
-          <div class="w-4 h-4 rounded-full bg-secondary-gray border-4 border-primary-gray 
-            shadow-lg shadow-secondary-gray/50 
-            hover:scale-125 transition-transform duration-300">
+  .desktop-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    height: 100%;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .desktop-inner:hover {
+    transform: translateY(-3px);
+  }
+
+  .edu-footer {
+    border-top: 1px solid rgb(255 255 255 / 0.05);
+  }
+</style>
+
+<!-- Diseño Mobile -->
+<div class="relative max-w-5xl mx-auto px-4 py-8 lg:hidden">
+  <!-- Línea vertical -->
+  <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-secondary-gray"></div>
+
+  <ol class="relative space-y-8">
+    {educations.map((education) => (
+      <li class="relative flex items-center gap-6 edu-card">
+
+        <!-- Punto decorativo -->
+        <div class="absolute left-8 flex items-center justify-center z-10">
+          <div class="w-4 h-4 rounded-full bg-secondary-gray border-4 border-primary-gray
+            shadow-lg shadow-secondary-gray/50 hover:scale-125 transition-transform duration-300">
           </div>
         </div>
 
-        {/* Espaciador para móvil */}
-        <div class="w-16 lg:hidden flex-shrink-0"></div>
+        <!-- Espaciador móvil -->
+        <div class="w-16 shrink-0"></div>
 
-        {/* Card de contenido */}
-        <div class={`group relative flex-1 bg-gradient-to-br from-primary-gray to-secondary-gray 
-          rounded-lg border-2 border-secondary-gray p-6 lg:p-8
+        <!-- Card original -->
+        <div class="group relative flex-1 bg-linear-to-br from-primary-gray to-secondary-gray
+          rounded-lg border-2 border-secondary-gray p-6
           hover:border-secondary-gray hover:shadow-xl hover:shadow-secondary-gray/20
-          transition-all duration-300 hover:-translate-y-1
-          ${index % 2 === 0 ? 'lg:mr-8 lg:border-r-0' : 'lg:ml-8 lg:border-l-0'}`}>
+          transition-all duration-300 hover:-translate-y-1">
 
-          <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-center">
-            {/* Logo con efecto */}
-            <div class="relative flex-shrink-0">
-              <div class="absolute inset-0 bg-secondary-gray/20 rounded-xl blur-lg 
+          <div class="flex flex-col gap-4">
+            <!-- Logo -->
+            <div class="relative shrink-0">
+              <div class="absolute inset-0 bg-secondary-gray/20 rounded-xl blur-lg
                 group-hover:bg-secondary-gray/40 transition-all duration-300">
               </div>
-              <img 
-                src={education.logo} 
+              <img
+                src={education.logo}
                 alt={education.title}
-                class="relative w-20 h-20 lg:w-24 lg:h-24 rounded-xl 
+                class="relative w-20 h-20 rounded-xl
                   border-2 border-secondary-gray/50 bg-primary-gray object-cover
-                  group-hover:border-secondary-gray group-hover:scale-105
-                  transition-all duration-300"
+                  group-hover:border-secondary-gray group-hover:scale-105 transition-all duration-300"
               />
             </div>
 
-            {/* Información */}
+            <!-- Info -->
             <div class="flex-1 space-y-2">
-              {/* Fecha con badge */}
-              <div class="inline-flex items-center px-3 py-1 rounded-full 
+              <div class="inline-flex items-center px-3 py-1 rounded-full
                 bg-secondary-gray/20 border border-secondary-gray/30">
-                <time class="text-xs lg:text-sm font-medium text-tertiary-gray">
-                  {education.date}
-                </time>
+                <time class="text-xs font-medium text-tertiary-gray">{education.date}</time>
               </div>
-
-              {/* Título */}
-              <h3 class="text-base lg:text-lg font-bold text-white 
+              <h3 class="text-base font-bold text-white
                 group-hover:text-tertiary-gray transition-colors duration-300">
                 {education.title}
               </h3>
-
-              {/* Descripción */}
-              <p class="text-sm lg:text-sm text-tertiary-gray/90 leading-relaxed">
-                {education.description}
-              </p>
-
-              {/* Botón */}
+              <p class="text-sm text-tertiary-gray/90 leading-relaxed">{education.description}</p>
               {education.link && (
                 <div class="pt-2">
-                  <ThemedButton
-                    class="inline-flex"
-                    href={education.link}
-                  >
+                  <ThemedButton class="inline-flex" href={education.link}>
                     Ver más
-                    <svg
-                      class="w-4 h-4 ml-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                     </svg>
                   </ThemedButton>
                 </div>
@@ -98,16 +97,76 @@ import ThemedButton from "./ui/ThemedButton.astro";
             </div>
           </div>
 
-          {/* Línea decorativa inferior */}
-          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-0.5 
-            bg-gradient-to-r from-transparent via-secondary-gray/30 to-transparent 
+          <!-- Línea decorativa inferior -->
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-0.5
+            bg-linear-to-r from-transparent via-secondary-gray/30 to-transparent
             rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           </div>
         </div>
-
-        {/* Espaciador para desktop (mantiene el zigzag) */}
-        <div class="hidden lg:block flex-1"></div>
       </li>
     ))}
   </ol>
+</div>
+
+<!-- Diseño Desktop -->
+<div class="hidden lg:block px-4 py-8 max-w-5xl mx-auto">
+  <div class="grid grid-cols-2 gap-5">
+    {educations.map((education) => (
+      <div class="group edu-card">
+        <div class="desktop-inner bg-linear-to-br from-primary-gray to-secondary-gray
+          border-2 border-secondary-gray p-8
+          hover:shadow-xl hover:shadow-secondary-gray/20">
+
+          <!-- Logo + fecha -->
+          <div class="flex items-start justify-between gap-4 mb-5">
+            <div class="relative">
+              <div class="absolute inset-0 bg-secondary-gray/20 rounded-xl blur-lg
+                opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              </div>
+              <img
+                src={education.logo}
+                alt={education.title}
+                class="relative w-20 h-20 rounded-xl border-2 border-secondary-gray/50 bg-primary-gray object-cover
+                  group-hover:border-secondary-gray group-hover:scale-105 transition-all duration-300"
+              />
+            </div>
+
+            <div class="inline-flex items-center px-3 py-1 rounded-full
+              bg-secondary-gray/20 border border-secondary-gray/30">
+              <time class="text-sm font-medium text-tertiary-gray">{education.date}</time>
+            </div>
+          </div>
+
+          <!-- Título -->
+          <h3 class="text-lg font-bold text-white leading-snug mb-1
+            group-hover:text-tertiary-gray transition-colors duration-300">
+            {education.title}
+          </h3>
+
+          <!-- Institución -->
+          <p class="text-sm text-tertiary-gray/90 mb-5 leading-relaxed">
+            {education.description}
+          </p>
+
+          <!-- Botón -->
+          <div class="edu-footer pt-4">
+            {education.link && (
+              <ThemedButton class="inline-flex" href={education.link}>
+                Ver más
+                <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+              </ThemedButton>
+            )}
+          </div>
+
+          <!-- Línea decorativa inferior hover -->
+          <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-0.5
+            bg-linear-to-r from-transparent via-secondary-gray/30 to-transparent
+            rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
 </div>

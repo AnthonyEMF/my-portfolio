@@ -31,7 +31,7 @@ export const educations : Education[] = [
   {
     title: "Educación Primaria",
     date: "2010 - 2015",
-    description: "Centro de Educación Básica Jesús Banegas Membreño",
+    description: "CEB Jesús Banegas Membreño",
     link: "https://www.facebook.com/profile.php?id=100063511182261",
     logo: "/images/logos/jbm.webp",
   },
