@@ -12,7 +12,7 @@ export const projects : Project[] = [
   {
     title: "SIGREF",
     description: 
-      "Sistema de Gestión de Receptoria de Fondos, enfocado en la la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
+      "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
     images: [
       "/images/sigref/sigref-01.webp",
       "/images/sigref/sigref-02.webp",
