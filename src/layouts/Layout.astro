@@ -22,7 +22,7 @@ import { ViewTransitions } from "astro:transitions";
   <ViewTransitions />
   <body>
     <!-- Background -->
-    <div class="fixed inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"/>
+    <div class="bg-animated fixed inset-0 -z-10 h-full w-full"/>
     <!-- Encabezado -->
     <Header /> 
     <!-- Contenido de la página -->
@@ -49,9 +49,43 @@ import { ViewTransitions } from "astro:transitions";
     flex-direction: column;
     min-height: 100vh;
   }
+
+  /* --- Propiedades animables del gradiente --- */
+  @property --gx {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 50%;
+  }
+  @property --gy {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 10%;
+  }
+
+  /* --- Animación del background --- */
+  .bg-animated {
+    background: radial-gradient(125% 125% at var(--gx) var(--gy), #000 40%, #63e 100%);
+    animation: bgMove 12s linear infinite;
+  }
+
+  @keyframes bgMove {
+    0%   { --gx: 50%; --gy: 10%; }
+    12%  { --gx: 65%; --gy: 18%; }
+    25%  { --gx: 75%; --gy: 10%; }
+    37%  { --gx: 65%; --gy: 2%;  }
+    50%  { --gx: 50%; --gy: 10%; }
+    62%  { --gx: 35%; --gy: 18%; }
+    75%  { --gx: 25%; --gy: 10%; }
+    87%  { --gx: 35%; --gy: 2%;  }
+    100% { --gx: 50%; --gy: 10%; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+    .bg-animated {
+      animation: none;
     }
   }
 </style>
