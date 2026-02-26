@@ -24,6 +24,9 @@ import Figma from "../icons/tools/Figma.astro";
 import PowerBI from "../icons/tools/PowerBI.astro";
 import Tableau from "../icons/tools/Tableau.astro";
 import Pentaho from "../icons/tools/Pentaho.astro";
+import MaterialUI from "../icons/frameworks/MaterialUI.astro";
+import Notion from "../icons/tools/Notion.astro";
+import Vercel from "../icons/tools/Vercel.astro";
 
 const colors = {
   orange: "bg-orange-500/30 border-2 border-orange-500/30",
@@ -58,6 +61,11 @@ export const languages: Record<string, Tag> = {
     class: colors.yellow,
     icon: JavaScript,
   },
+  typeScript: {
+    name: "TypeScript",
+    class: colors.blue,
+    icon: TypeScript,
+  },
   cSharp: {
     name: "C#",
     class: colors.purple,
@@ -67,11 +75,6 @@ export const languages: Record<string, Tag> = {
     name: "Python",
     class: colors.yellow,
     icon: Python,
-  },
-  typeScript: {
-    name: "TypeScript",
-    class: colors.blue,
-    icon: TypeScript,
   },
 };
 
@@ -101,13 +104,13 @@ export const frameworks: Record<string, Tag> = {
     class: colors.cyan,
     icon: Tailwind,
   },
-  bootstrap: {
-    name: "Bootstrap",
-    class: colors.purple,
-    icon: Bootstrap,
+  materialui: {
+    name: "Material UI",
+    class: colors.blue,
+    icon: MaterialUI,
   },
   net: {
-    name: "ASP.NET Core",
+    name: ".NET Core",
     class: colors.purple,
     icon: MicrosoftNet,
   },
@@ -152,6 +155,11 @@ export const tools: Record<string, Tag> = {
     class: colors.orange,
     icon: Git,
   },
+  notion: {
+    name: "Notion",
+    class: colors.gray,
+    icon: Notion,
+  },
   azure: {
     name: "Azure",
     class: colors.blue,
@@ -171,11 +179,6 @@ export const tools: Record<string, Tag> = {
     name: "PowerBI",
     class: colors.yellow,
     icon: PowerBI,
-  },
-  tableau: {
-    name: "Tableau",
-    class: colors.gray,
-    icon: Tableau,
   },
   pentaho: {
     name: "Pentaho",
