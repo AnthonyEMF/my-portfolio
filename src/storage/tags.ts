@@ -107,7 +107,7 @@ export const frameworks: Record<string, Tag> = {
     icon: Bootstrap,
   },
   net: {
-    name: "DotNet Core",
+    name: "ASP.NET Core",
     class: colors.purple,
     icon: MicrosoftNet,
   },
