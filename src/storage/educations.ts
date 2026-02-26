@@ -11,7 +11,7 @@ export const educations : Education[] = [
     title: "Bachiller Técnico Profesional en Informática",
     date: "2019 - 2021",
     description: "Instituto Gubernamental Álvaro Contreras",
-    link: "https://www.facebook.com/p/Idac-Alvaro-Contreras-100037191416017/?locale=es_LA",
+    link: "https://drive.google.com/file/d/1gPp-VOkUocV4gwrO8h9rxfQ1kFTtFBC1/view?usp=sharing",
     logo: "/images/logos/idac.webp",
   },
   {
