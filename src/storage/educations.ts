@@ -8,13 +8,6 @@ export interface Education {
 
 export const educations : Education[] = [
   {
-    title: "Ingeniería en Sistemas",
-    date: "2022 - Actualidad",
-    description: "Universidad Nacional Autónoma de Honduras",
-    link: "https://www.unah.edu.hn",
-    logo: "/images/logos/unah.webp",
-  },
-  {
     title: "Bachiller Técnico Profesional en Informática",
     date: "2019 - 2021",
     description: "Instituto Gubernamental Álvaro Contreras",
@@ -22,17 +15,10 @@ export const educations : Education[] = [
     logo: "/images/logos/idac.webp",
   },
   {
-    title: "Educación Secundaria",
-    date: "2016 - 2018",
-    description: "Instituto Gubernamental Álvaro Contreras",
-    link: "https://www.facebook.com/p/Idac-Alvaro-Contreras-100037191416017/?locale=es_LA",
-    logo: "/images/logos/idac.webp",
-  },
-  {
-    title: "Educación Primaria",
-    date: "2010 - 2015",
-    description: "CEB Jesús Banegas Membreño",
-    link: "https://www.facebook.com/profile.php?id=100063511182261",
-    logo: "/images/logos/jbm.webp",
+    title: "Ingeniería en Sistemas",
+    date: "2022 - Act",
+    description: "Universidad Nacional Autónoma de Honduras",
+    link: "https://www.unah.edu.hn",
+    logo: "/images/logos/unah.webp",
   },
 ];
