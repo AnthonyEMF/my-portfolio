@@ -84,16 +84,16 @@ import ThemedButton from "./ui/ThemedButton.astro";
                 {education.title}
               </h3>
               <p class="text-sm text-tertiary-gray/90 leading-relaxed">{education.description}</p>
-              {education.link && (
-                <div class="pt-2">
-                  <ThemedButton class="inline-flex" href={education.link}>
-                    Ver más
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                  </ThemedButton>
-                </div>
-              )}
+                {education.link && (
+                  <div class="pt-2">
+                    <ThemedButton class="inline-flex" href={education.link}>
+                      <span class="education-link-text">Ver más</span>
+                      <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                      </svg>
+                    </ThemedButton>
+                  </div>
+                )}
             </div>
           </div>
 
@@ -152,7 +152,7 @@ import ThemedButton from "./ui/ThemedButton.astro";
           <div class="edu-footer pt-4">
             {education.link && (
               <ThemedButton class="inline-flex" href={education.link}>
-                Ver más
+                <span class="education-link-text">Ver más</span>
                 <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>

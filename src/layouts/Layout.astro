@@ -30,6 +30,93 @@ import { ViewTransitions } from "astro:transitions";
     <!-- Pie de página -->
     <Footer/>
   </body>
+
+  <script is:inline>
+    const translations = {
+      es: {
+        "nav-home": "Inicio",
+        "nav-about": "Sobre mí",
+        "nav-education": "Formación",
+        "nav-skills": "Habilidades",
+        "nav-projects": "Proyectos",
+        "hero-greeting": "Hola, soy Anthony 👋🏻",
+        "hero-available": "Disponible para trabajar",
+        "hero-title": "Ingeniero en Sistemas.",
+        "hero-subtitle": "Desarrollador Web/Mobile FullStack.",
+        "hero-focus": "Enfocado en la innovación.",
+        "hero-location": "De Santa Rosa de Copán, Honduras.",
+        "about-title": "Sobre mí",
+        "education-title": "Formación Académica",
+        "skills-title": "Habilidades",
+        "projects-title": "Proyectos",
+        "other-projects": "Otros Proyectos",
+        "footer-made-with": "Desarrollado por",
+        "cv-button-text": "Mi Hoja de Vida (CV)",
+        "education-link-text": "Ver más",
+        "about-info-0": "Estudiante de Ingeniería en Sistemas en UNAH Campus Copán. A punto de graduarme y listo para nuevos desafíos.",
+        "about-info-1": "Especializado en desarrollo web y móvil full stack. Experiencia en gestión de proyectos, infraestructura de redes, bases de datos, análisis y diseño de sistemas.",
+        "about-info-2": "Apasionado por la innovación tecnológica. Proactivo, adaptable y orientado a resultados en equipo.",
+        "project-desc-0": "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
+        "project-desc-1": "Este es un proyecto de clase que fue desarrollado en equipo, orientado al ámbito educativo con el fin de optimizar las laborales docentes. Ofrece una amplia variedad de herramientas intuitivas, prácticas y fáciles de implementar, garantizando una experiencia eficiente y accesible para los usuarios.",
+        "project-desc-2": "Una red social de eventos que permite a los usuarios descubrir, organizar y participar en eventos sociales. Los usuarios pueden crear eventos, registrarse para asistir a estos e interactuar a través de comentarios. La plataforma clasifica los eventos por categorías, facilita la gestión de asistencias y ofrece un espacio para la interacción social en torno a eventos de interés común.",
+        "project-desc-3": "Un sistema que esta enfocado en la gestión financiera con partidas contables para facilitar el registro de transacciones, ofreciendo un catálogo de cuentas estructurado, automatizando la actualización de saldos de cuentas, con el objetivo de proporcionar una herramienta eficiente y precisa para manejar la contabilidad de una empresa.",
+      },
+      en: {
+        "nav-home": "Home",
+        "nav-about": "About",
+        "nav-education": "Education",
+        "nav-skills": "Skills",
+        "nav-projects": "Projects",
+        "hero-greeting": "Hi, I'm Anthony 👋🏻",
+        "hero-available": "Available for work",
+        "hero-title": "Systems Engineer.",
+        "hero-subtitle": "FullStack Web/Mobile Developer.",
+        "hero-focus": "Focused on innovation.",
+        "hero-location": "From Santa Rosa de Copán, Honduras.",
+        "about-title": "About Me",
+        "education-title": "Education",
+        "skills-title": "Skills",
+        "projects-title": "Projects",
+        "other-projects": "Other Projects",
+        "footer-made-with": "Developed by",
+        "cv-button-text": "My Resume (CV)",
+        "education-link-text": "See more",
+        "about-info-0": "Systems Engineering student at UNAH Campus Copán. About to graduate and ready for new challenges.",
+        "about-info-1": "Specialized in full stack web and mobile development. Experience in project management, network infrastructure, databases, systems analysis and design.",
+        "about-info-2": "Passionate about technological innovation. Proactive, adaptable and results-oriented in teams.",
+        "project-desc-0": "Funds Collection Management System, focused on income management, billing and administrative operations in health institutions. The system is multi-role and implements international health interoperability standards (HL7 FHIR R4 and partially R5), ensuring compatibility with global health information systems. Developed and implemented for the public entity Regional Hospital of the West.",
+        "project-desc-1": "This is a class project developed as a team, oriented to the educational field to optimize teaching tasks. It offers a wide variety of intuitive, practical and easy-to-implement tools, guaranteeing an efficient and accessible experience for users.",
+        "project-desc-2": "An event-based social network that allows users to discover, organize and participate in social events. Users can create events, register to attend them and interact through comments. The platform classifies events by categories, facilitates attendance management and offers a space for social interaction around events of common interest.",
+        "project-desc-3": "A system focused on financial management with accounting items to facilitate transaction recording, offering a structured chart of accounts, automating account balance updates, with the goal of providing an efficient and accurate tool to manage a company's accounting.",
+      },
+    };
+
+    function applyTranslations(lang) {
+      document.documentElement.lang = lang;
+      const dict = translations[lang] || {};
+      Object.keys(dict).forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = dict[id];
+      });
+    }
+
+    function initLanguage() {
+      const storedLang = localStorage.getItem("lang") || "es";
+      const toggle = document.getElementById("language-toggle");
+      if (toggle) {
+        toggle.checked = storedLang === "en";
+        toggle.addEventListener("change", function() {
+          const lang = this.checked ? "en" : "es";
+          localStorage.setItem("lang", lang);
+          applyTranslations(lang);
+        });
+      }
+      applyTranslations(storedLang);
+    }
+
+    document.addEventListener("DOMContentLoaded", initLanguage);
+    document.addEventListener("astro:page-load", initLanguage);
+  </script>
   <!-- Script de Flowbite -->
   <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
 </html>

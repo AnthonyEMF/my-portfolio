@@ -1,5 +1,5 @@
 ---
-const { aboutInfo } = Astro.props;
+const { aboutInfo, index } = Astro.props;
 ---
 
 <div 
@@ -20,7 +20,7 @@ const { aboutInfo } = Astro.props;
   </div>
   
   <!-- Contenido -->
-  <p class="text-sm lg:text-base text-tertiary-gray/90 leading-relaxed">
+  <p id={`about-info-${index}`} class="text-sm lg:text-base text-tertiary-gray/90 leading-relaxed">
     {aboutInfo.content}
   </p>
   

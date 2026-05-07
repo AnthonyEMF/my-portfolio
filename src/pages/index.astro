@@ -30,22 +30,22 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
       />
       <!-- Titulo -->
       <h1 class="text-white text-2xl md:text-4xl lg:text-5xl font-bold flex flex-col lg:flex-row gap-x-4 pb-2 lg:pb-4">
-        Hola, soy Anthony 👋🏻
+        <span id="hero-greeting">Hola, soy Anthony 👋🏻</span>
         <a 
           class="flex justify-start lg:justify-center items-center mt-2 lg:my-0"
           href="https://www.linkedin.com/in/anthony-miranda-8a140b362/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Badge color="green">Disponible para trabajar</Badge>
+          <Badge id="hero-available" color="green">Disponible para trabajar</Badge>
         </a>
       </h1>
       <!-- Descripción breve -->
       <h2 class="text-xl lg:text-2xl opactiry-80 text-wrap max-w-200">
-        <span class="text-white">Ingeniero en Sistemas.</span>
-        <span class="text-yellow-200/90">Desarrollador Web/Mobile FullStack.</span>
-        <span class="text-red-200/90"> Enfocado en la innovación.</span>
-        <span class="text-blue-200/90"> De Santa Rosa de Copán, Honduras.</span>
+        <span id="hero-title" class="text-white">Ingeniero en Sistemas.</span>
+        <span id="hero-subtitle" class="text-yellow-200/90">Desarrollador Web/Mobile FullStack.</span>
+        <span id="hero-focus" class="text-red-200/90"> Enfocado en la innovación.</span>
+        <span id="hero-location" class="text-blue-200/90"> De Santa Rosa de Copán, Honduras.</span>
       </h2>
       <!-- Redes sociales -->
       <nav class="flex gap-2 pr-16 lg:pr-0 my-4 flex-wrap">	
@@ -71,7 +71,7 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
     <SectionContainer id="about" class="pt-20">
       <h2 class="text-white text-2xl font-semibold flex justify-center items-center gap-x-2">
         <AboutUserIcon class="size-6 lg:size-7"/>
-        Sobre mí
+        <span id="about-title">Sobre mí</span>
       </h2>
       <About/>
     </SectionContainer>
@@ -80,7 +80,7 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
     <SectionContainer id="timeline" class="pt-20">
       <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
         <SchoolIcon class="size-6 lg:size-7"/>
-        Formación Académica
+        <span id="education-title">Formación Académica</span>
       </h2>
       <Timeline/>
     </SectionContainer>
@@ -89,7 +89,7 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
     <SectionContainer id="skills" class="pt-20">
       <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
         <BladesIcon class="size-6 lg:size-7"/>
-        Habilidades
+        <span id="skills-title">Habilidades</span>
       </h2>
       <Skills/>
     </SectionContainer>
@@ -98,7 +98,7 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
     <SectionContainer id="projects" class="pt-20">
       <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
         <CodeIcon class="size-6 lg:size-7"/>
-        Proyectos
+        <span id="projects-title">Proyectos</span>
       </h2>
       <Projects/>
     </SectionContainer>
