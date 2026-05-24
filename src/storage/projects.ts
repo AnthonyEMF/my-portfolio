@@ -8,10 +8,10 @@ export interface Project {
   tags: any[];
 }
 
-export const projects : Project[] = [
+export const projects: Project[] = [
   {
     title: "SIGREF",
-    description: 
+    description:
       "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
     images: [
       "/images/sigref/sigref-01.webp",
@@ -42,13 +42,12 @@ export const projects : Project[] = [
       frameworks.net,
       databases.postgree,
       databases.mongoDb,
-      tools.azure,
       tools.docker,
     ],
   },
   {
     title: "ClassNotes",
-    description: 
+    description:
       "Este es un proyecto de clase que fue desarrollado en equipo, orientado al ámbito educativo con el fin de optimizar las labores docentes. Ofrece una amplia variedad de herramientas intuitivas, prácticas y fáciles de implementar, garantizando una experiencia eficiente y accesible para los usuarios.",
     images: [
       "/images/classnotes/classnotes-01.webp",
@@ -98,7 +97,8 @@ export const projects : Project[] = [
   },
   {
     title: "MeetPoint",
-    description: "Una red social de eventos que permite a los usuarios descubrir, organizar y participar en eventos sociales. Los usuarios pueden crear eventos, registrarse para asistir a estos e interactuar a través de comentarios. La plataforma clasifica los eventos por categorías, facilita la gestión de asistencias y ofrece un espacio para la interacción social en torno a eventos de interés común.",
+    description:
+      "Una red social de eventos que permite a los usuarios descubrir, organizar y participar en eventos sociales. Los usuarios pueden crear eventos, registrarse para asistir a estos e interactuar a través de comentarios. La plataforma clasifica los eventos por categorías, facilita la gestión de asistencias y ofrece un espacio para la interacción social en torno a eventos de interés común.",
     images: [
       "/images/meetpoint/meetpoint-01.webp",
       "/images/meetpoint/meetpoint-02.webp",
@@ -130,7 +130,8 @@ export const projects : Project[] = [
   },
   {
     title: "SisPaCo",
-    description: "Un sistema que esta enfocado en la gestión financiera con partidas contables para facilitar el registro de transacciones, ofreciendo un catálogo de cuentas estructurado, automatizando la actualización de saldos de cuentas, con el objetivo de proporcionar una herramienta eficiente y precisa para manejar la contabilidad de una empresa.",
+    description:
+      "Un sistema que esta enfocado en la gestión financiera con partidas contables para facilitar el registro de transacciones, ofreciendo un catálogo de cuentas estructurado, automatizando la actualización de saldos de cuentas, con el objetivo de proporcionar una herramienta eficiente y precisa para manejar la contabilidad de una empresa.",
     images: [
       "/images/sispaco/sispaco-01.webp",
       "/images/sispaco/sispaco-02.webp",
@@ -159,7 +160,8 @@ export const projects : Project[] = [
 
 export const otherProjects = {
   title: "Revistas",
-  description: "Durante el bachillerato, reforcé mis habilidades en diseño gráfico creando dos revistas con CorelDraw (para ilustración y maquetación) y Photoshop (para edición de imágenes), lo que me permitió mejorar en composición, tipografía y manejo de color.",
+  description:
+    "Durante el bachillerato, reforcé mis habilidades en diseño gráfico creando dos revistas con CorelDraw (para ilustración y maquetación) y Photoshop (para edición de imágenes), lo que me permitió mejorar en composición, tipografía y manejo de color.",
   links: [
     {
       name: "Revista de Carpintería",
@@ -172,4 +174,4 @@ export const otherProjects = {
       href: "https://drive.google.com/file/d/1woo7eHkjJC-z7FueLnuDbDXryXSxoNtL/view?usp=sharing",
     },
   ],
-}
+};

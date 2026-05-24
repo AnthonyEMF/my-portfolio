@@ -24,9 +24,11 @@ import Figma from "../icons/tools/Figma.astro";
 import PowerBI from "../icons/tools/PowerBI.astro";
 import Tableau from "../icons/tools/Tableau.astro";
 import Pentaho from "../icons/tools/Pentaho.astro";
-import MaterialUI from "../icons/frameworks/MaterialUI.astro";
 import Notion from "../icons/tools/Notion.astro";
 import Vercel from "../icons/tools/Vercel.astro";
+import Next from "../icons/frameworks/Next.astro";
+import Nest from "../icons/frameworks/Nest.astro";
+import Aws from "../icons/tools/Aws.astro";
 
 const colors = {
   orange: "bg-orange-500/30 border-2 border-orange-500/30",
@@ -37,7 +39,7 @@ const colors = {
   purple: "bg-purple-500/30 border-2 border-purple-500/30",
   cyan: "bg-cyan-500/30 border-2 border-cyan-500/30",
   gray: "bg-gray-500/30 border-2 border-gray-500/30",
-}
+};
 
 export interface Tag {
   name: string;
@@ -89,9 +91,14 @@ export const frameworks: Record<string, Tag> = {
     class: colors.cyan,
     icon: ReactJS,
   },
+  next: {
+    name: "Next",
+    class: colors.gray,
+    icon: Next,
+  },
   astro: {
     name: "Astro",
-    class: colors.gray,
+    class: colors.orange,
     icon: Astro,
   },
   expo: {
@@ -104,20 +111,15 @@ export const frameworks: Record<string, Tag> = {
     class: colors.cyan,
     icon: Tailwind,
   },
-  materialui: {
-    name: "Material UI",
-    class: colors.blue,
-    icon: MaterialUI,
-  },
   net: {
     name: ".NET Core",
     class: colors.purple,
     icon: MicrosoftNet,
   },
-  express: {
-    name: "Express.js",
-    class: colors.gray,
-    icon: ExpressJS,
+  nest: {
+    name: "Nest",
+    class: colors.red,
+    icon: Nest,
   },
 };
 
@@ -160,10 +162,10 @@ export const tools: Record<string, Tag> = {
     class: colors.gray,
     icon: Notion,
   },
-  azure: {
-    name: "Azure",
-    class: colors.blue,
-    icon: Azure,
+  aws: {
+    name: "AWS",
+    class: colors.orange,
+    icon: Aws,
   },
   docker: {
     name: "Docker",
@@ -185,4 +187,4 @@ export const tools: Record<string, Tag> = {
     class: colors.gray,
     icon: Pentaho,
   },
-}
+};

@@ -8,84 +8,118 @@ import { ViewTransitions } from "astro:transitions";
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Anthony Miranda | Desarrollador Web y Mobile Full Stack</title>
-    <meta 
-      name="description" 
-      content="Desarrollador web y mobile. Creo soluciones digitales a medida con tecnologías modernas. Mira mis proyectos y contáctame para tu próximo desarrollo."
-    />
-  </head>
-  <ViewTransitions />
-  <body>
-    <!-- Background -->
-    <div class="bg-animated fixed inset-0 -z-10 h-full w-full"/>
-    <!-- Encabezado -->
-    <Header /> 
-    <!-- Contenido de la página -->
-    <slot /> 
-    <!-- Pie de página -->
-    <Footer/>
-  </body>
-  <!-- Script de Flowbite -->
-  <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Anthony Miranda | Desarrollador Web y Mobile Full Stack</title>
+        <meta
+            name="description"
+            content="Desarrollador web y mobile. Creo soluciones digitales a medida con tecnologías modernas. Mira mis proyectos y contáctame para tu próximo desarrollo."
+        />
+    </head>
+    <ViewTransitions />
+    <body>
+        <!-- Background -->
+        <div class="bg-animated fixed inset-0 -z-10 h-full w-full"></div>
+        <!-- Encabezado -->
+        <Header />
+        <!-- Contenido de la página -->
+        <slot />
+        <!-- Pie de página -->
+        <Footer />
+    </body>
+    <!-- Script de Flowbite -->
+    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"
+    ></script>
+
+    <!-- Estilos globales -->
+    <style is:global>
+        :root {
+            /* color-scheme: light dark;  Tema claro y oscuro */
+        }
+        html {
+            font-family: "Onest Variable", system-ui, sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background: #050505;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Propiedades animables del gradiente --- */
+        @property --gx {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 50%;
+        }
+        @property --gy {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 10%;
+        }
+
+        /* --- Animación del background --- */
+        .bg-animated {
+            background: radial-gradient(
+                125% 125% at var(--gx) var(--gy),
+                #000 40%,
+                #63e 100%
+            );
+            animation: bgMove 8s linear infinite;
+        }
+
+        @keyframes bgMove {
+            0% {
+                --gx: 50%;
+                --gy: 10%;
+            }
+            12% {
+                --gx: 65%;
+                --gy: 18%;
+            }
+            25% {
+                --gx: 75%;
+                --gy: 10%;
+            }
+            37% {
+                --gx: 65%;
+                --gy: 2%;
+            }
+            50% {
+                --gx: 50%;
+                --gy: 10%;
+            }
+            62% {
+                --gx: 35%;
+                --gy: 18%;
+            }
+            75% {
+                --gx: 25%;
+                --gy: 10%;
+            }
+            87% {
+                --gx: 35%;
+                --gy: 2%;
+            }
+            100% {
+                --gx: 50%;
+                --gy: 10%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            .bg-animated {
+                animation: none;
+            }
+        }
+    </style>
+
+
 </html>
-
-<!-- Estilos globales -->
-<style is:global>
-  :root {
-    /* color-scheme: light dark;  Tema claro y oscuro */
-  }
-  html {
-    font-family: "Onest Variable", system-ui, sans-serif;
-    scroll-behavior: smooth;
-  }
-  body {
-    background: #050505;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  /* --- Propiedades animables del gradiente --- */
-  @property --gx {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 50%;
-  }
-  @property --gy {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 10%;
-  }
-
-  /* --- Animación del background --- */
-  .bg-animated {
-    background: radial-gradient(125% 125% at var(--gx) var(--gy), #000 40%, #63e 100%);
-    animation: bgMove 12s linear infinite;
-  }
-
-  @keyframes bgMove {
-    0%   { --gx: 50%; --gy: 10%; }
-    12%  { --gx: 65%; --gy: 18%; }
-    25%  { --gx: 75%; --gy: 10%; }
-    37%  { --gx: 65%; --gy: 2%;  }
-    50%  { --gx: 50%; --gy: 10%; }
-    62%  { --gx: 35%; --gy: 18%; }
-    75%  { --gx: 25%; --gy: 10%; }
-    87%  { --gx: 35%; --gy: 2%;  }
-    100% { --gx: 50%; --gy: 10%; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    .bg-animated {
-      animation: none;
-    }
-  }
-</style>
