@@ -8,7 +8,7 @@
 - Contacto y enlaces.
 
 ## Tecnologías utilizadas
-- Node.js
+- Node.js 24
 - Astro 7
 - Tailwind CSS 4
 - Vercel
