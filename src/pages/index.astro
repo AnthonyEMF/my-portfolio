@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SectionContainer from "../components/ui/SectionContainer.astro";
-import Badge from "../components/ui/Badge.astro";
 import GitHub from "../icons/social/GitHub.astro";
 import LinkedIn from "../icons/social/LinkedIn.astro";
 import Instagram from "../icons/social/Instagram.astro";
@@ -19,88 +18,144 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
 ---
 
 <Layout>
-  <main class="px-4 lg:px-10 2xl:px-16">
-    <!-- Perfil -->
-    <SectionContainer class="mt-30 lg:mt-40">
-      <!-- Foto de perfil -->
-      <img
-        class="rounded-full size-24 mb-4"
-        src="/images/profile-photo.webp"
-        alt="profile photo"
-      />
-      <!-- Titulo -->
-      <h1 class="text-white text-2xl md:text-4xl lg:text-5xl font-bold flex flex-col lg:flex-row gap-x-4 pb-2 lg:pb-4">
-        Hola, soy Anthony 👋🏻
-        <a 
-          class="flex justify-start lg:justify-center items-center mt-2 lg:my-0"
-          href="https://www.linkedin.com/in/anthony-miranda-8a140b362/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Badge color="green">Disponible para trabajar</Badge>
-        </a>
-      </h1>
-      <!-- Descripción breve -->
-      <h2 class="text-xl lg:text-2xl opactiry-80 text-wrap max-w-200">
-        <span class="text-white">Ingeniero en Sistemas.</span>{" "}
-        <span class="text-yellow-200/90">Desarrollador Web/Mobile FullStack.</span>{" "}
-        <span class="text-red-200/90">Enfocado en la innovación.</span>{" "}
-        <span class="text-blue-200/90">De Santa Rosa de Copán, Honduras.</span>
-      </h2>
-      <!-- Redes sociales -->
-      <nav class="flex gap-2 pr-16 lg:pr-0 my-4 flex-wrap">	
-        <ThemedButton href="https://github.com/AnthonyEMF">
-         <GitHub class="size-5 lg:size-6"/> GitHub
-        </ThemedButton>
-        <ThemedButton href="https://www.linkedin.com/in/anthony-miranda-8a140b362/">
-          <LinkedIn class="size-5 lg:size-6"/> LinkedIn
-        </ThemedButton>
-        <ThemedButton href="https://www.instagram.com/anthony.emf/">
-          <Instagram class="size-5 lg:size-6"/> Instagram
-        </ThemedButton>
-        <ThemedButton href="https://wa.me/50497354899">
-          <WhatsApp class="size-5 lg:size-6"/> WhatsApp
-        </ThemedButton>
-        <ThemedButton href="mailto:anthony07miranda@gmail.com">
-          <Gmail class="size-5 lg:size-6"/> anthony07miranda@gmail.com
-        </ThemedButton>
-      </nav>
+  <main class="overflow-hidden">
+    <!-- HERO -->
+    <SectionContainer class="pt-28 lg:pt-36 pb-6">
+      <div class="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-10 items-center">
+        <!-- Izquierda: texto -->
+        <div class="reveal is-visible">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 px-3 py-1.5 text-xs text-white/70 mb-5">
+            <span class="size-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Disponible para nuevos proyectos
+          </div>
+          <h1 class="text-white text-[2.1rem] md:text-5xl lg:text-[3.3rem] font-bold leading-[0.95] tracking-[-0.03em]">
+            Hola, soy
+            <span class="bg-gradient-to-r from-accent-blue via-accent-blue-strong to-accent-yellow bg-clip-text text-transparent"> Anthony</span> 👋🏻
+          </h1>
+          <h2 class="mt-4 text-lg lg:text-[1.35rem] leading-relaxed text-white/80 max-w-[60ch] font-light">
+            <span class="text-white font-medium">Ingeniero en Sistemas.</span>{" "}
+            <span class="text-accent-yellow/90">Desarrollador Web/Mobile FullStack.</span>{" "}
+            <span class="text-white/60">Enfocado en la innovación.</span>{" "}
+            <span class="text-accent-blue/90">De Santa Rosa de Copán, Honduras.</span>
+          </h2>
+          <div class="mt-7 flex flex-wrap gap-2.5">
+            <ThemedButton href="https://github.com/AnthonyEMF" variant="primary">
+              <GitHub class="size-4" /> GitHub
+            </ThemedButton>
+            <ThemedButton href="https://www.linkedin.com/in/anthony-miranda-8a140b362/" variant="glass">
+              <LinkedIn class="size-4" /> LinkedIn
+            </ThemedButton>
+            <ThemedButton href="https://wa.me/50497354899" variant="glass">
+              <WhatsApp class="size-4" /> WhatsApp
+            </ThemedButton>
+            <ThemedButton href="mailto:anthony07miranda@gmail.com" variant="ghost">
+              <Gmail class="size-4" /> anthony07miranda@gmail.com
+            </ThemedButton>
+            <ThemedButton href="https://www.instagram.com/anthony.emf/" variant="ghost">
+              <Instagram class="size-4" /> Instagram
+            </ThemedButton>
+          </div>
+        </div>
+
+        <!-- Derecha: foto + stats glass -->
+        <div class="relative lg:pl-6 reveal is-visible" style="transition-delay:120ms">
+          <div class="relative mx-auto max-w-[360px] lg:max-w-none">
+            <div class="absolute -inset-3 bg-gradient-to-br from-accent-blue/20 via-transparent to-accent-yellow/20 rounded-[28px] blur-2xl"></div>
+            <div class="relative glass rounded-[24px] p-3 shadow-glass-lg">
+              <img
+                class="rounded-[18px] w-full aspect-[4/4.6] object-cover"
+                src="/images/profile-photo.webp"
+                alt="Anthony Miranda"
+              />
+              <div class="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-3 flex items-center gap-3 shadow-glass">
+                <div class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold">✓</div>
+                <div>
+                  <div class="text-white text-sm font-semibold leading-none">+4 proyectos</div>
+                  <div class="text-white/60 text-xs">Producción real</div>
+                </div>
+              </div>
+              <div class="absolute -top-3 -right-3 hidden lg:flex glass-strong rounded-full px-3 py-1.5 items-center gap-2 text-xs font-medium text-white shadow-glass">
+                <span class="size-2 rounded-full bg-accent-yellow animate-pulse"></span> Enfocado en innovar
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 grid grid-cols-3 gap-3">
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="text-white text-xl font-bold">2+</div>
+              <div class="text-white/60 text-xs">Años exp.</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center">
+              <div class="text-white text-xl font-bold">20+</div>
+              <div class="text-white/60 text-xs">Techs</div>
+            </div>
+            <div class="glass rounded-2xl p-4 text-center bg-gradient-to-br from-accent-blue/20 to-accent-yellow/20 border-white/20">
+              <div class="text-white text-xl font-bold">100%</div>
+              <div class="text-white/70 text-xs">Compromiso</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </SectionContainer>
 
     <!-- Sobre mi -->
-    <SectionContainer id="about" class="pt-20">
-      <h2 class="text-white text-2xl font-semibold flex justify-center items-center gap-x-2">
-        <AboutUserIcon class="size-6 lg:size-7"/>
-        Sobre mí
-      </h2>
-      <About/>
+    <SectionContainer id="about" class="pt-16 lg:pt-20">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
+          <span class="size-9 rounded-xl bg-white text-black grid place-items-center"><AboutUserIcon class="size-5" /></span>
+          Sobre mí
+        </h2>
+        <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">01 — Perfil</span>
+      </div>
+      <About />
     </SectionContainer>
 
     <!-- Formación -->
-    <SectionContainer id="timeline" class="pt-20">
-      <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
-        <SchoolIcon class="size-6 lg:size-7"/>
-        Formación Académica
-      </h2>
-      <Timeline/>
+    <SectionContainer id="timeline" class="pt-16 lg:pt-20">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
+          <span class="size-9 rounded-xl bg-gradient-to-br from-accent-blue to-accent-yellow text-black grid place-items-center"><SchoolIcon class="size-5" /></span>
+          Formación
+        </h2>
+        <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">02 — Trayectoria</span>
+      </div>
+      <Timeline />
     </SectionContainer>
-    
+
     <!-- Habilidades -->
-    <SectionContainer id="skills" class="pt-20">
-      <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
-        <BladesIcon class="size-6 lg:size-7"/>
-        Habilidades
-      </h2>
-      <Skills/>
+    <SectionContainer id="skills" class="pt-16 lg:pt-20">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
+          <span class="size-9 rounded-xl bg-white/[0.08] border border-white/10 backdrop-blur-md grid place-items-center"><BladesIcon class="size-5 text-white" /></span>
+          Habilidades
+        </h2>
+        <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">03 — Stack</span>
+      </div>
+      <Skills />
     </SectionContainer>
 
     <!-- Proyectos -->
-    <SectionContainer id="projects" class="pt-20">
-      <h2 class="text-white text-2xl font-semibold mb-4 flex justify-center items-center gap-x-2">
-        <CodeIcon class="size-6 lg:size-7"/>
-        Proyectos
-      </h2>
-      <Projects/>
+    <SectionContainer id="projects" class="pt-16 lg:pt-20 pb-10">
+      <div class="flex items-end justify-between gap-4 mb-2">
+        <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
+          <span class="size-9 rounded-xl bg-accent-yellow text-black grid place-items-center"><CodeIcon class="size-5" /></span>
+          Proyectos
+        </h2>
+        <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">04 — Selección</span>
+      </div>
+      <p class="text-white/60 text-sm mb-6 max-w-2xl">Selección bento con enfoque editorial y carrusel inmersivo. Cada proyecto revela imágenes con navegación cinemática.</p>
+      <Projects />
     </SectionContainer>
   </main>
+
+  <script>
+    const ro = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          ro.unobserve(e.target);
+        }
+      });
+    }, { threshold:0.12, rootMargin:"0px 0px -8% 0px" });
+    document.querySelectorAll(".reveal").forEach(el=> ro.observe(el));
+  </script>
 </Layout>

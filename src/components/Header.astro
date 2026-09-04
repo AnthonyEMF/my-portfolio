@@ -7,37 +7,73 @@ import BladesIcon from "../icons/Blades.astro";
 import AboutUserIcon from "../icons/AboutUser.astro";
 ---
 
-<header class="fixed z-50 bg-primary-black backdrop-blur-xs flex justify-center items-center py-5 w-full xl:w-full mx-auto">
-  <nav class="opacity-80 flex flex-row gap-x-3 lg:gap-x-6 text-white">
-    <!-- Inicio -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-2xl flex justify-center">
+  <nav
+    class="flex items-center gap-1 p-1.5 rounded-full bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/[0.06] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
+    aria-label="Navegación principal"
+  >
+    <a href="#top" class="hidden md:flex items-center gap-2 pl-3 pr-1 text-white/90 text-sm font-medium">
+      <span class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-xs">AM</span>
+      <span class="hidden lg:inline opacity-60">Anthony</span>
+    </a>
+    <div class="hidden md:block w-px h-6 bg-white/10 mx-1"></div>
     <NavPill href="#top">
       <span class="hidden sm:inline">Inicio</span>
-      <HomeIcon class="size-6 sm:hidden"/>
+      <HomeIcon class="size-4 sm:hidden" />
     </NavPill>
-    
-    <!-- Sobre mí -->
     <NavPill href="#about">
       <span class="hidden sm:inline">Sobre mí</span>
-      <AboutUserIcon class="size-6 sm:hidden"/>
+      <AboutUserIcon class="size-4 sm:hidden" />
     </NavPill>
-    
-    <!-- Formación -->
     <NavPill href="#timeline">
       <span class="hidden sm:inline">Formación</span>
-      <SchoolIcon class="size-6 sm:hidden"/>
+      <SchoolIcon class="size-4 sm:hidden" />
     </NavPill>
-    
-    <!-- Habilidades -->
     <NavPill href="#skills">
       <span class="hidden sm:inline">Habilidades</span>
-      <BladesIcon class="size-6 sm:hidden"/>
+      <BladesIcon class="size-4 sm:hidden" />
     </NavPill>
-    
-    <!-- Proyectos -->
     <NavPill href="#projects">
       <span class="hidden sm:inline">Proyectos</span>
-      <CodeIcon class="size-6 sm:hidden"/>
+      <CodeIcon class="size-4 sm:hidden" />
     </NavPill>
   </nav>
 </header>
 
+<script>
+  const header = document.querySelector("header nav");
+  let ticking = false;
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 40) {
+          header?.classList.add("bg-black/55", "backdrop-blur-xl");
+          header?.classList.remove("bg-black/40", "backdrop-blur-md");
+        } else {
+          header?.classList.remove("bg-black/55", "backdrop-blur-xl");
+          header?.classList.add("bg-black/40", "backdrop-blur-md");
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  // active pill on scroll
+  const sections = ["top","about","timeline","skills","projects"];
+  const pills = document.querySelectorAll("header a[href^='#']");
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id || "top";
+        pills.forEach(p=> p.classList.remove("!bg-white","!text-black","shadow-md"));
+        const active = document.querySelector(`header a[href="#${id}"]`);
+        if(active) active.classList.add("!bg-white","!text-black","shadow-md");
+      }
+    });
+  }, { rootMargin:"-40% 0px -55% 0px", threshold:0 });
+  sections.forEach(id=>{
+    const el = id==="top" ? document.body : document.getElementById(id);
+    if(el) observer.observe(el);
+  });
+</script>

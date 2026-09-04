@@ -1,7 +1,12 @@
 ---
-const { tag } = Astro.props;
+const { tag, featured = false } = Astro.props;
 ---
 
-<li class={`${tag.class} text-white flex justify-center items-center gap-x-1 lg:gap-x-2 gap-y-1 rounded-md p-3 text-sm`}>
-  <tag.icon class="size-6 lg:size-9" /> {tag.name}
+<li
+  class={`${tag.class} flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium backdrop-blur-md border shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md ${featured ? "scale-[1.03] shadow-lg" : ""} text-white`}
+>
+  <span class="size-7 rounded-full bg-white grid place-items-center shrink-0">
+    <tag.icon class="size-4" />
+  </span>
+  {tag.name}
 </li>

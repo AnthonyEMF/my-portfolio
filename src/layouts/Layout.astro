@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css"; /* Importe de los estilos con Tailwind */
-import "@fontsource-variable/onest"; /* Importe de las fuentes */
+import "@fontsource-variable/inter"; /* Inter Variable - body */
+import "@fontsource-variable/space-grotesk"; /* Space Grotesk Variable - display */
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from "astro:transitions";
@@ -22,11 +23,16 @@ import { ClientRouter } from "astro:transitions";
         <!-- Estilos globales -->
         <style is:global>
             :root {
-                /* color-scheme: light dark;  Tema claro y oscuro */
+                color-scheme: dark;
             }
             html {
-                font-family: "Onest Variable", system-ui, sans-serif;
+                font-family: var(--font-body);
                 scroll-behavior: smooth;
+                scroll-padding-top: 88px;
+            }
+            h1,h2,h3 {
+                font-family: var(--font-display);
+                letter-spacing: -0.02em;
             }
             body {
                 background: #050505;
@@ -39,61 +45,47 @@ import { ClientRouter } from "astro:transitions";
             @property --gx {
                 syntax: "<percentage>";
                 inherits: false;
-                initial-value: 50%;
+                initial-value: 55%;
             }
             @property --gy {
                 syntax: "<percentage>";
                 inherits: false;
-                initial-value: 10%;
+                initial-value: 12%;
+            }
+            @property --bx {
+                syntax: "<percentage>";
+                inherits: false;
+                initial-value: 30%;
+            }
+            @property --by {
+                syntax: "<percentage>";
+                inherits: false;
+                initial-value: 85%;
             }
 
-            /* --- Animación del background --- */
+            /* --- Background amarillo-azul suave --- */
             .bg-animated {
-                background: radial-gradient(
-                    125% 125% at var(--gx) var(--gy),
-                    #000 40%,
-                    #63e 100%
-                );
-                animation: bgMove 8s linear infinite;
+                background:
+                    radial-gradient(110% 90% at var(--gx) var(--gy), color-mix(in oklab, var(--color-accent-blue) 22%, transparent) 0%, transparent 55%),
+                    radial-gradient(90% 80% at var(--bx) var(--by), color-mix(in oklab, var(--color-accent-yellow) 16%, transparent) 0%, transparent 55%),
+                    radial-gradient(125% 125% at 50% 0%, color-mix(in oklab, var(--color-accent-blue-strong) 10%, transparent) 0%, transparent 40%),
+                    #050505;
+                animation: bgMove 12s ease-in-out infinite;
+            }
+            .bg-animated::after {
+                content:"";
+                position:absolute;
+                inset:0;
+                background: radial-gradient(60% 50% at 50% 100%, rgba(255,255,255,0.04), transparent 60%);
+                pointer-events:none;
             }
 
             @keyframes bgMove {
-                0% {
-                    --gx: 50%;
-                    --gy: 10%;
-                }
-                12% {
-                    --gx: 65%;
-                    --gy: 18%;
-                }
-                25% {
-                    --gx: 75%;
-                    --gy: 10%;
-                }
-                37% {
-                    --gx: 65%;
-                    --gy: 2%;
-                }
-                50% {
-                    --gx: 50%;
-                    --gy: 10%;
-                }
-                62% {
-                    --gx: 35%;
-                    --gy: 18%;
-                }
-                75% {
-                    --gx: 25%;
-                    --gy: 10%;
-                }
-                87% {
-                    --gx: 35%;
-                    --gy: 2%;
-                }
-                100% {
-                    --gx: 50%;
-                    --gy: 10%;
-                }
+                0%   { --gx: 55%; --gy: 12%; --bx: 30%; --by: 85%; }
+                25%  { --gx: 70%; --gy: 18%; --bx: 22%; --by: 78%; }
+                50%  { --gx: 60%; --gy: 8%;  --bx: 38%; --by: 88%; }
+                75%  { --gx: 40%; --gy: 16%; --bx: 32%; --by: 80%; }
+                100% { --gx: 55%; --gy: 12%; --bx: 30%; --by: 85%; }
             }
 
             @media (prefers-reduced-motion: reduce) {
