@@ -10,17 +10,17 @@ export interface AboutInfo {
 export const aboutInfo: AboutInfo[] = [
   {
     content:
-      "Estudiante de Ingeniería en Sistemas en UNAH Campus Copán. A punto de graduarme y listo para nuevos desafíos.",
+      "Mis formaciones como Ingeniero en Sistemas de la Universidad Nacional Autónoma de Honduras y Bachiller Técnico en Informática me permitieron desarrollar habilidades en cuanto a cualquier tema de computación se refiere.",
     icon: Contract,
   },
   {
     content:
-      "Especializado en desarrollo web y móvil full stack. Experiencia en gestión de proyectos, infraestructura de redes, bases de datos, análisis y diseño de sistemas.",
+      "Me enfoco principalmente en el desarrollo de software pero tengo experiencia en DevOps, TI, redes, bases de datos, análisis y diseño de sistemas.",
     icon: Briefcase,
   },
   {
     content:
-      "Apasionado por la innovación tecnológica. Proactivo, adaptable y orientado a resultados en equipo.",
+      "Asumo el rol de líder cuando la situación lo requiere, priorizando el fortalecimiento de los vínculos con mis compañeros para asegurar que el equipo alcance sus objetivos.",
     icon: Happy,
   },
 ];

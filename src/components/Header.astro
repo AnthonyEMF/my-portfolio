@@ -5,6 +5,7 @@ import SchoolIcon from "../icons/School.astro";
 import CodeIcon from "../icons/Code.astro";
 import BladesIcon from "../icons/Blades.astro";
 import AboutUserIcon from "../icons/AboutUser.astro";
+import GitHub from "../icons/social/GitHub.astro";
 ---
 
 <header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-2xl flex justify-center">
@@ -12,9 +13,8 @@ import AboutUserIcon from "../icons/AboutUser.astro";
     class="flex items-center gap-1 p-1.5 rounded-full bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/[0.06] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
     aria-label="Navegación principal"
   >
-    <a href="#top" class="hidden md:flex items-center gap-2 pl-3 pr-1 text-white/90 text-sm font-medium">
-      <span class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-xs">AM</span>
-      <span class="hidden lg:inline opacity-60">Anthony</span>
+    <a href="https://github.com/AnthonyEMF" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center justify-center size-8 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:border-white/15 transition" aria-label="GitHub">
+      <GitHub class="size-4" />
     </a>
     <div class="hidden md:block w-px h-6 bg-white/10 mx-1"></div>
     <NavPill href="#top">
@@ -59,21 +59,33 @@ import AboutUserIcon from "../icons/AboutUser.astro";
     }
   };
   window.addEventListener("scroll", onScroll, { passive: true });
-  // active pill on scroll
-  const sections = ["top","about","timeline","skills","projects"];
+  // active pill on scroll - Inicio (#top) se marca cuando estás arriba
+  const sections = ["about","timeline","skills","projects"];
   const pills = document.querySelectorAll("header a[href^='#']");
+  const setActive = (id) => {
+    pills.forEach(p=> p.classList.remove("!bg-white","!text-black","shadow-md"));
+    const active = document.querySelector(`header a[href="#${id}"]`);
+    if(active) active.classList.add("!bg-white","!text-black","shadow-md");
+  };
+  // Estado inicial: Inicio activo
+  setActive("top");
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        const id = e.target.id || "top";
-        pills.forEach(p=> p.classList.remove("!bg-white","!text-black","shadow-md"));
-        const active = document.querySelector(`header a[href="#${id}"]`);
-        if(active) active.classList.add("!bg-white","!text-black","shadow-md");
+        const id = e.target.id;
+        if(id) setActive(id);
       }
     });
   }, { rootMargin:"-40% 0px -55% 0px", threshold:0 });
   sections.forEach(id=>{
-    const el = id==="top" ? document.body : document.getElementById(id);
+    const el = document.getElementById(id);
     if(el) observer.observe(el);
   });
+  // Si estás cerca del top (<120px), fuerza Inicio activo
+  const onScrollActive = () => {
+    if (window.scrollY < 120) setActive("top");
+  };
+  window.addEventListener("scroll", onScrollActive, { passive: true });
+  // Al hacer click en Inicio, feedback inmediato
+  document.querySelector('header a[href="#top"]')?.addEventListener("click", () => setActive("top"));
 </script>

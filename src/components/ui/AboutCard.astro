@@ -10,8 +10,8 @@ const { aboutInfo, span = "", delay = 0 } = Astro.props;
   <div class="relative flex items-start gap-4">
     <div class="relative shrink-0">
       <div class="absolute inset-0 bg-accent-blue/15 rounded-2xl blur-xl group-hover:bg-accent-yellow/15 transition duration-500"></div>
-      <div class="relative size-14 lg:size-14 rounded-2xl bg-white text-black grid place-items-center border border-white/10 group-hover:scale-[1.03] transition duration-300">
-        <aboutInfo.icon class="size-7 text-black/80" />
+      <div class="relative size-14 lg:size-14 rounded-2xl bg-white/[0.06] backdrop-blur-md text-white grid place-items-center border border-white/10 group-hover:scale-[1.03] transition duration-300">
+        <aboutInfo.icon class="size-7 text-white/90" />
       </div>
     </div>
     <div class="w-px self-stretch bg-white/10 hidden sm:block"></div>

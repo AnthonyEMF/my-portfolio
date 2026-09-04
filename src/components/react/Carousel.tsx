@@ -207,7 +207,7 @@ export const Carousel = ({ images, title }: { images: string[]; title?: string }
               <span className="bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs rounded-full px-3 py-1.5">
                 {lightbox+1} / {total}
               </span>
-              <button onClick={()=>setLightbox(null)} className="size-9 rounded-full bg-white text-black grid place-items-center hover:bg-white/90">
+              <button onClick={()=>setLightbox(null)} className="size-9 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center hover:bg-white/12">
                 <X className="size-4" />
               </button>
             </div>
