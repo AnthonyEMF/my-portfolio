@@ -21,76 +21,92 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
   <main class="overflow-hidden">
     <!-- HERO -->
     <SectionContainer class="pt-28 lg:pt-36 pb-6">
-      <div class="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-10 items-center">
-        <!-- Izquierda: texto -->
-        <div class="reveal is-visible">
+      <div class="relative grid lg:grid-cols-[0.62fr_1.38fr] gap-6 lg:gap-6 items-center">
+        <!-- Izquierda: texto (en desktop será derecha) -->
+        <div class="reveal is-visible lg:order-2 lg:pl-6">
           <div class="inline-flex items-center gap-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 px-3 py-1.5 text-xs text-white/70 mb-5">
             <span class="size-2 rounded-full bg-emerald-400 animate-pulse"></span>
             Disponible para nuevos proyectos
           </div>
           <h1 class="text-white text-[2.1rem] md:text-5xl lg:text-[3.3rem] font-bold leading-[0.95] tracking-[-0.03em]">
-            Hola, soy
-            <span class="bg-gradient-to-r from-accent-blue via-accent-blue-strong to-accent-yellow bg-clip-text text-transparent"> Anthony</span> 👋🏻
+            Soy
+            <span class="bg-gradient-to-r from-accent-blue via-accent-blue-strong to-accent-yellow bg-clip-text text-transparent"> Anthony Miranda</span>
           </h1>
-          <h2 class="mt-4 text-lg lg:text-[1.35rem] leading-relaxed text-white/80 max-w-[60ch] font-light">
+          <h2 class="mt-4 text-lg lg:text-[1.35rem] leading-relaxed text-white/80 max-w-[43ch] font-light">
             <span class="text-white font-medium">Ingeniero en Sistemas.</span>{" "}
             <span class="text-accent-yellow/90">Desarrollador Web/Mobile FullStack.</span>{" "}
-            <span class="text-white/60">Enfocado en la innovación.</span>{" "}
             <span class="text-accent-blue/90">De Santa Rosa de Copán, Honduras.</span>
           </h2>
-          <div class="mt-7 flex flex-wrap gap-2.5">
-            <ThemedButton href="https://github.com/AnthonyEMF" variant="primary">
-              <GitHub class="size-4" /> GitHub
-            </ThemedButton>
-            <ThemedButton href="https://www.linkedin.com/in/anthony-miranda-8a140b362/" variant="glass">
-              <LinkedIn class="size-4" /> LinkedIn
-            </ThemedButton>
-            <ThemedButton href="https://wa.me/50497354899" variant="glass">
-              <WhatsApp class="size-4" /> WhatsApp
-            </ThemedButton>
-            <ThemedButton href="mailto:anthony07miranda@gmail.com" variant="ghost">
-              <Gmail class="size-4" /> anthony07miranda@gmail.com
-            </ThemedButton>
-            <ThemedButton href="https://www.instagram.com/anthony.emf/" variant="ghost">
-              <Instagram class="size-4" /> Instagram
-            </ThemedButton>
+          <!-- Bento simétrico redes -->
+          <div class="mt-7 grid grid-cols-6 lg:grid-cols-12 gap-2.5">
+            <div class="col-span-2 lg:col-span-4">
+              <ThemedButton href="https://github.com/AnthonyEMF" variant="primary" class="w-full !px-3 sm:!px-5" aria-label="GitHub">
+                <GitHub class="size-4" /> GitHub
+              </ThemedButton>
+            </div>
+            <div class="col-span-2 lg:col-span-4">
+              <ThemedButton href="https://www.linkedin.com/in/anthony-miranda-8a140b362/" variant="glass" class="w-full !px-3 sm:!px-5" aria-label="LinkedIn">
+                <LinkedIn class="size-4" /> LinkedIn
+              </ThemedButton>
+            </div>
+            <div class="col-span-2 lg:col-span-4">
+              <ThemedButton href="mailto:anthony07miranda@gmail.com" variant="ghost" class="w-full !px-3 sm:!px-5" aria-label="Gmail">
+                <Gmail class="size-4" /> Gmail
+              </ThemedButton>
+            </div>
+            <div class="col-span-3 lg:col-span-6">
+              <ThemedButton href="https://wa.me/50497354899" variant="glass" class="w-full !px-3 sm:!px-5" aria-label="WhatsApp">
+                <WhatsApp class="size-4" /> WhatsApp
+              </ThemedButton>
+            </div>
+            <div class="col-span-3 lg:col-span-6">
+              <ThemedButton href="https://www.instagram.com/anthony.emf/" variant="ghost" class="w-full !px-3 sm:!px-5" aria-label="Instagram">
+                <Instagram class="size-4" /> Instagram
+              </ThemedButton>
+            </div>
           </div>
         </div>
 
-        <!-- Derecha: foto + stats glass -->
-        <div class="relative lg:pl-6 reveal is-visible" style="transition-delay:120ms">
-          <div class="relative mx-auto max-w-[360px] lg:max-w-none">
-            <div class="absolute -inset-3 bg-gradient-to-br from-accent-blue/20 via-transparent to-accent-yellow/20 rounded-[28px] blur-2xl"></div>
-            <div class="relative glass rounded-[24px] p-3 shadow-glass-lg">
+        <!-- Derecha: foto + stats glass (en desktop será izquierda) -->
+        <div class="relative lg:order-1 lg:pr-2 reveal is-visible" style="transition-delay:120ms">
+          <div class="relative mx-auto max-w-[220px] lg:max-w-[260px]">
+            <div class="absolute -inset-1.5 bg-gradient-to-br from-accent-blue/14 via-transparent to-accent-yellow/14 rounded-[20px] blur-xl"></div>
+            <div class="relative glass rounded-[18px] p-2 shadow-glass">
               <img
-                class="rounded-[18px] w-full aspect-[4/4.6] object-cover"
+                id="gh-avatar"
+                class="rounded-[14px] w-full aspect-[4/4.6] object-cover"
                 src="/images/profile-photo.webp"
                 alt="Anthony Miranda"
+                width="260"
+                height="299"
+                loading="eager"
+                decoding="async"
+                onerror="this.onerror=null;this.src='/images/profile-photo.webp'"
               />
-              <div class="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-3 flex items-center gap-3 shadow-glass">
-                <div class="size-10 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold">✓</div>
+              <div class="absolute -bottom-3 -left-3 glass rounded-xl px-3 py-2 flex items-center gap-2.5 shadow-glass">
+                <div class="size-8 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-sm">✓</div>
                 <div>
-                  <div class="text-white text-sm font-semibold leading-none">+4 proyectos</div>
-                  <div class="text-white/60 text-xs">Producción real</div>
+                  <div class="text-white text-xs font-semibold leading-none">+4 proyectos</div>
+                  <div class="text-white/60 text-[11px]">Producción real</div>
                 </div>
               </div>
-              <div class="absolute -top-3 -right-3 hidden lg:flex glass-strong rounded-full px-3 py-1.5 items-center gap-2 text-xs font-medium text-white shadow-glass">
-                <span class="size-2 rounded-full bg-accent-yellow animate-pulse"></span> Enfocado en innovar
+              <div class="absolute -top-2 -right-2 hidden lg:flex glass-strong rounded-full px-2.5 py-1 items-center gap-1.5 text-[11px] font-medium text-white shadow-glass">
+                <span class="size-1.5 rounded-full bg-accent-yellow animate-pulse"></span> Enfocado en innovar
               </div>
             </div>
           </div>
-          <div class="mt-8 grid grid-cols-3 gap-3">
-            <div class="glass rounded-2xl p-4 text-center">
-              <div class="text-white text-xl font-bold">2+</div>
-              <div class="text-white/60 text-xs">Años exp.</div>
+          <div class="mt-6 grid grid-cols-3 gap-2">
+            <div class="glass rounded-xl p-3 text-center">
+              <div class="text-white text-base font-bold">2+</div>
+              <div class="text-white/60 text-[11px]">Años exp.</div>
             </div>
-            <div class="glass rounded-2xl p-4 text-center">
-              <div class="text-white text-xl font-bold">20+</div>
-              <div class="text-white/60 text-xs">Techs</div>
+            <div class="glass rounded-xl p-3 text-center">
+              <div class="text-white text-base font-bold">20+</div>
+              <div class="text-white/60 text-[11px]">Techs</div>
             </div>
-            <div class="glass rounded-2xl p-4 text-center bg-gradient-to-br from-accent-blue/20 to-accent-yellow/20 border-white/20">
-              <div class="text-white text-xl font-bold">100%</div>
-              <div class="text-white/70 text-xs">Compromiso</div>
+            <div class="glass rounded-xl p-3 text-center bg-gradient-to-br from-accent-blue/14 to-accent-yellow/14 border-white/20">
+              <div class="text-white text-base font-bold">100%</div>
+              <div class="text-white/70 text-[11px]">Compromiso</div>
             </div>
           </div>
         </div>
@@ -157,5 +173,23 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
       });
     }, { threshold:0.12, rootMargin:"0px 0px -8% 0px" });
     document.querySelectorAll(".reveal").forEach(el=> ro.observe(el));
+
+    // GitHub avatar siempre fresco sin token - URL directa (sin rate limit) + fallback local
+    (function(){
+      const img = document.getElementById("gh-avatar") as HTMLImageElement | null;
+      if(!img) return;
+      const FALLBACK = "/images/profile-photo.webp";
+      // URL directa 302 -> avatars.githubusercontent.com, siempre refleja el avatar actual
+      const GH_AVATAR = "https://github.com/AnthonyEMF.png?size=460";
+      // Evita flasheo si ya es fallback y la carga fue ok
+      const tryLoad = (url: string, fallback: string) => {
+        const test = new Image();
+        test.onload = () => { img.src = url; };
+        test.onerror = () => { if(img.src !== location.origin + fallback) img.src = fallback; };
+        test.src = url;
+      };
+      // Carga fresca en segundo plano, sin token, sin API
+      tryLoad(GH_AVATAR, FALLBACK);
+    })();
   </script>
 </Layout>
