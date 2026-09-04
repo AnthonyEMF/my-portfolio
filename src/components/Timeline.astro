@@ -4,15 +4,10 @@ import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
 <!-- Mobile -->
-<div class="relative lg:hidden">
-  <div class="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-accent-blue/40 via-white/10 to-accent-yellow/40"></div>
-  <ol class="relative space-y-5">
+<div class="lg:hidden">
+  <ol class="space-y-5">
     {educations.map((edu, i) => (
-      <li class="relative flex gap-4 reveal" style={`transition-delay:${i*100}ms`}>
-        <div class="relative z-10 shrink-0 mt-6">
-          <div class="size-3.5 rounded-full bg-white/80 shadow-[0_0_0_6px_rgba(255,255,255,0.08)] backdrop-blur-sm"></div>
-          <div class="absolute inset-0 size-3.5 rounded-full bg-accent-blue/30 blur-md"></div>
-        </div>
+      <li class="flex gap-4 reveal" style={`transition-delay:${i*100}ms`}>
         <div class="flex-1 glass rounded-[18px] p-5 hover:bg-white/[0.08] transition">
           <div class="flex items-start gap-4">
             <img src={edu.logo} alt={edu.title} class="size-14 rounded-xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1" />
@@ -22,20 +17,31 @@ import ThemedButton from "./ui/ThemedButton.astro";
               <p class="text-white/60 text-sm mt-1">{edu.description}</p>
             </div>
           </div>
-          {edu.link && <div class="mt-4"><ThemedButton href={edu.link} variant="glass" class="text-xs">Ver más →</ThemedButton></div>}
+          {edu.link && <div class="mt-4"><ThemedButton href={edu.link} variant="glass" class="text-xs">Ver certificado</ThemedButton></div>}
         </div>
       </li>
     ))}
   </ol>
 </div>
 
+<!-- Mobile: Trayectoria en curso - sin línea vertical -->
+<div class="lg:hidden mt-6 glass rounded-[20px] p-5 flex flex-col gap-4 reveal" style="transition-delay:220ms">
+  <div class="flex items-start gap-3">
+    <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 rounded-xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
+    <div class="flex-1 min-w-0">
+      <div class="text-white font-semibold leading-tight">Trayectoria en curso</div>
+      <div class="text-white/60 text-sm mt-1">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
+    </div>
+  </div>
+  <div class="mt-1"><ThemedButton href={'https://contadito.com'} variant="glass" class="text-xs">Conocer más</ThemedButton></div>
+</div>
+
 <!-- Desktop: bento asimétrico 12 col -->
 <div class="hidden lg:grid grid-cols-12 gap-5 auto-rows-[minmax(180px,auto)] relative">
-  <div class="absolute left-1/2 top-6 bottom-6 w-px -translate-x-1/2 bg-gradient-to-b from-accent-blue/30 via-white/10 to-accent-yellow/30 hidden xl:block"></div>
 
   {educations.map((edu, i) => (
     <div
-      class={`group relative glass rounded-[20px] p-7 hover:bg-white/[0.08] hover:border-white/15 hover:-translate-y-1 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col ${i===0 ? "col-span-7" : "col-span-5"}`}
+      class="group relative glass rounded-[20px] p-7 hover:bg-white/[0.08] hover:border-white/15 hover:-translate-y-1 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col col-span-6"
       style={`transition-delay:${i*120}ms`}
     >
       <div class="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition rounded-[20px] pointer-events-none"></div>
@@ -48,19 +54,20 @@ import ThemedButton from "./ui/ThemedButton.astro";
       <div class="relative mt-auto pt-5">
         {edu.link && <ThemedButton href={edu.link} variant="primary" class="!px-4 !py-2">Ver certificado</ThemedButton>}
       </div>
-      <span class="absolute -top-3 -right-2 size-8 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs font-bold shadow-lg">{String(i+1).padStart(2,"0")}</span>
     </div>
   ))}
 
-  <!-- Card extra asimétrica: CTA -->
+  <!-- Card extra asimétrica: CTA - sin línea por encima -->
   <div class="col-span-12 glass rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-4 reveal" style="transition-delay:260ms">
     <div class="flex items-center gap-3">
-      <div class="size-10 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center font-bold">↗</div>
+      <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm" />
       <div>
         <div class="text-white font-semibold">Trayectoria en curso</div>
-        <div class="text-white/60 text-sm">Ingeniería en Sistemas — UNAH, enfoque en innovación y producto.</div>
+        <div class="text-white/60 text-sm">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
       </div>
     </div>
-    <span class="text-white/40 text-xs tracking-widest uppercase hidden lg:inline">02 — Trayectoria</span>
+    <div class="relative mr-1 shrink-0">
+      <ThemedButton href={'https://contadito.com'} variant="primary" class="!px-5 !py-3">Conocer más</ThemedButton>
+    </div>
   </div>
 </div>
