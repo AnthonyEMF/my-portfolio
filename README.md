@@ -9,6 +9,6 @@
 
 ## Tecnologías utilizadas
 - Node.js
-- Astro 5
+- Astro 7
 - Tailwind CSS 4
 - Vercel
