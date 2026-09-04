@@ -3,7 +3,7 @@ import "../styles/global.css"; /* Importe de los estilos con Tailwind */
 import "@fontsource-variable/onest"; /* Importe de las fuentes */
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -18,8 +18,8 @@ import { ViewTransitions } from "astro:transitions";
             name="description"
             content="Desarrollador web y mobile. Creo soluciones digitales a medida con tecnologías modernas. Mira mis proyectos y contáctame para tu próximo desarrollo."
         />
+        <ClientRouter />
     </head>
-    <ViewTransitions />
     <body>
         <!-- Background -->
         <div class="bg-animated fixed inset-0 -z-10 h-full w-full"></div>
@@ -29,10 +29,10 @@ import { ViewTransitions } from "astro:transitions";
         <slot />
         <!-- Pie de página -->
         <Footer />
+        <!-- Script de Flowbite -->
+        <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"
+        ></script>
     </body>
-    <!-- Script de Flowbite -->
-    <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js"
-    ></script>
 
     <!-- Estilos globales -->
     <style is:global>
