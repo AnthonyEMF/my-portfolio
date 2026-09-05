@@ -24,11 +24,12 @@ import Figma from "../icons/tools/Figma.astro";
 import PowerBI from "../icons/tools/PowerBI.astro";
 import Tableau from "../icons/tools/Tableau.astro";
 import Pentaho from "../icons/tools/Pentaho.astro";
-import Notion from "../icons/tools/Notion.astro";
 import Vercel from "../icons/tools/Vercel.astro";
 import Next from "../icons/frameworks/Next.astro";
 import Nest from "../icons/frameworks/Nest.astro";
 import Aws from "../icons/tools/Aws.astro";
+import GoogleCloud from "../icons/tools/GoogleCloud.astro";
+import Supabase from "../icons/frameworks/Supabase.astro";
 
 const colors = {
   orange: "bg-orange-500/15 backdrop-blur-md border border-orange-400/20",
@@ -144,6 +145,11 @@ export const databases: Record<string, Tag> = {
     class: colors.green,
     icon: MongoDB,
   },
+  supabase: {
+    name: "Supabase",
+    class: colors.green,
+    icon: Supabase,
+  },
 };
 
 export const tools: Record<string, Tag> = {
@@ -157,15 +163,10 @@ export const tools: Record<string, Tag> = {
     class: colors.orange,
     icon: Git,
   },
-  notion: {
-    name: "Notion",
+  cloud: {
+    name: "Google Cloud",
     class: colors.gray,
-    icon: Notion,
-  },
-  aws: {
-    name: "AWS",
-    class: colors.orange,
-    icon: Aws,
+    icon: GoogleCloud,
   },
   docker: {
     name: "Docker",

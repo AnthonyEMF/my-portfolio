@@ -25,15 +25,22 @@ import ThemedButton from "./ui/ThemedButton.astro";
 </div>
 
 <!-- Mobile: Trayectoria en curso - sin línea vertical -->
-<div class="lg:hidden mt-6 glass rounded-[20px] p-5 flex flex-col gap-4 reveal" style="transition-delay:220ms">
-  <div class="flex items-start gap-3">
+<div class="lg:hidden mt-6 glass rounded-[20px] p-5 flex flex-col gap-4 reveal relative overflow-hidden" style="transition-delay:220ms">
+  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.04] via-transparent to-transparent pointer-events-none"></div>
+  <div class="flex items-start gap-3 relative">
     <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 rounded-xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
     <div class="flex-1 min-w-0">
-      <div class="text-white font-semibold leading-tight">Trayectoria en curso</div>
+      <div class="text-white font-semibold leading-tight flex flex-wrap items-center gap-2">
+        <span class="relative flex size-2">
+          <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full size-2 bg-emerald-400"></span>
+        </span>
+        Trayectoria en curso
+      </div>
       <div class="text-white/60 text-sm mt-1">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
     </div>
   </div>
-  <div class="mt-1"><ThemedButton href={'https://contadito.com'} variant="glass" class="text-xs">Conocer más</ThemedButton></div>
+  <div class="mt-1 relative"><ThemedButton href={'https://contadito.com'} variant="glass" class="text-xs">Conocer más</ThemedButton></div>
 </div>
 
 <!-- Desktop: bento asimétrico 12 col -->
@@ -58,11 +65,18 @@ import ThemedButton from "./ui/ThemedButton.astro";
   ))}
 
   <!-- Card extra asimétrica: CTA - sin línea por encima -->
-  <div class="col-span-12 glass rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-4 reveal" style="transition-delay:260ms">
-    <div class="flex items-center gap-3">
+  <div class="col-span-12 glass rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-4 reveal relative overflow-hidden" style="transition-delay:260ms">
+    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.04] via-transparent to-transparent pointer-events-none"></div>
+    <div class="flex items-center gap-3 relative">
       <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm" />
       <div>
-        <div class="text-white font-semibold">Trayectoria en curso</div>
+        <div class="text-white font-semibold flex flex-wrap items-center gap-2">
+          <span class="relative flex size-2">
+            <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full size-2 bg-emerald-400"></span>
+          </span>
+          Trayectoria en curso
+        </div>
         <div class="text-white/60 text-sm">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
       </div>
     </div>
