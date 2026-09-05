@@ -21,10 +21,10 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
   <main class="overflow-hidden">
     <!-- HERO -->
     <SectionContainer class="pt-28 lg:pt-36 pb-6">
-      <div class="relative grid lg:grid-cols-[0.62fr_1.38fr] gap-6 lg:gap-6 items-center">
+      <div class="relative grid lg:grid-cols-[0.62fr_1.38fr] gap-6 lg:gap-6 items-stretch">
         <!-- Izquierda: texto (en desktop será derecha) -->
-        <div class="reveal is-visible lg:order-2 lg:pl-6">
-          <div class="inline-flex items-center gap-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 px-3 py-1.5 text-xs text-white/70 mb-5">
+        <div class="reveal is-visible lg:order-2 lg:pl-6 flex flex-col justify-center">
+          <div class="inline-flex w-fit self-start items-center gap-2 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10 px-3 py-1.5 text-xs text-white/70 mb-5">
             <span class="size-2 rounded-full bg-emerald-400 animate-pulse"></span>
             Disponible para nuevos proyectos
           </div>
@@ -67,46 +67,47 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
           </div>
         </div>
 
-        <!-- Derecha: foto + stats glass (en desktop será izquierda) -->
-        <div class="relative lg:order-1 lg:pr-2 reveal is-visible" style="transition-delay:120ms">
-          <div class="relative mx-auto max-w-[220px] lg:max-w-[260px]">
-            <div class="absolute -inset-1.5 bg-gradient-to-br from-accent-blue/14 via-transparent to-accent-yellow/14 rounded-[20px] blur-xl"></div>
-            <div class="relative glass rounded-[18px] p-2 shadow-glass">
-              <img
-                id="gh-avatar"
-                class="rounded-[14px] w-full aspect-[4/4.6] object-cover"
-                src="/images/profile-photo.webp"
-                alt="Anthony Miranda"
-                width="260"
-                height="299"
-                loading="eager"
-                decoding="async"
-                onerror="this.onerror=null;this.src='/images/profile-photo.webp'"
-              />
-              <div class="absolute -bottom-3 -left-3 glass rounded-xl px-3 py-2 flex items-center gap-2.5 shadow-glass">
-                <div class="size-8 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-sm">✓</div>
-                <div>
-                  <div class="text-white text-xs font-semibold leading-none">+4 proyectos</div>
-                  <div class="text-white/60 text-[11px]">Producción real</div>
+        <!-- Derecha: foto + stats glass (en desktop será izquierda) - ocupa todo el ancho en móvil como otras secciones -->
+        <div class="relative lg:order-1 lg:pr-2 reveal is-visible flex flex-col justify-center" style="transition-delay:120ms">
+          <div class="grid grid-cols-12 gap-3 h-full w-full">
+            <!-- Foto - ocupa todo el ancho simétrico en móvil, bento en desktop -->
+            <div class="col-span-8 sm:col-span-8 lg:col-span-8 relative flex flex-col">
+              <div class="absolute -inset-1.5 bg-gradient-to-br from-accent-blue/14 via-transparent to-accent-yellow/14 rounded-[18px] blur-xl"></div>
+              <div class="relative glass rounded-[16px] p-1.5 shadow-glass flex-1 flex flex-col">
+                <img
+                  id="gh-avatar"
+                  class="rounded-[12px] w-full flex-1 object-cover min-h-[200px] sm:min-h-[220px] lg:min-h-[250px]"
+                  src="/images/profile-photo.webp"
+                  alt="Anthony Miranda"
+                  width="400"
+                  height="490"
+                  loading="eager"
+                  decoding="async"
+                  onerror="this.onerror=null;this.src='/images/profile-photo.webp'"
+                />
+                <div class="absolute -bottom-2.5 -left-2.5 glass rounded-xl px-2.5 py-1.5 flex items-center gap-2 shadow-glass scale-[0.9]">
+                  <div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-xs">✓</div>
+                  <div>
+                    <div class="text-white text-[11px] font-semibold leading-none">+5 proyectos</div>
+                    <div class="text-white/60 text-[10px]">Soluciones reales</div>
+                  </div>
                 </div>
               </div>
-              <div class="absolute -top-2 -right-2 hidden lg:flex glass-strong rounded-full px-2.5 py-1 items-center gap-1.5 text-[11px] font-medium text-white shadow-glass">
-                <span class="size-1.5 rounded-full bg-accent-yellow animate-pulse"></span> Enfocado en innovar
+            </div>
+            <!-- 3 tarjetas en columna única a la derecha - simétrica, ocupa todo el ancho restante -->
+            <div class="col-span-4 sm:col-span-4 lg:col-span-4 flex flex-col gap-2.5 shrink-0">
+              <div class="glass rounded-xl p-3 text-center flex-1 flex flex-col justify-center min-h-[78px]">
+                <div class="text-white text-base lg:text-lg font-bold leading-none">2+</div>
+                <div class="text-white/60 text-[10px] lg:text-[11px] mt-1">Años exp.</div>
               </div>
-            </div>
-          </div>
-          <div class="mt-6 grid grid-cols-3 gap-2">
-            <div class="glass rounded-xl p-3 text-center">
-              <div class="text-white text-base font-bold">2+</div>
-              <div class="text-white/60 text-[11px]">Años exp.</div>
-            </div>
-            <div class="glass rounded-xl p-3 text-center">
-              <div class="text-white text-base font-bold">20+</div>
-              <div class="text-white/60 text-[11px]">Techs</div>
-            </div>
-            <div class="glass rounded-xl p-3 text-center bg-gradient-to-br from-accent-blue/14 to-accent-yellow/14 border-white/20">
-              <div class="text-white text-base font-bold">100%</div>
-              <div class="text-white/70 text-[11px]">Compromiso</div>
+              <div class="glass rounded-xl p-3 text-center flex-1 flex flex-col justify-center min-h-[78px]">
+                <div class="text-white text-base lg:text-lg font-bold leading-none">20+</div>
+                <div class="text-white/60 text-[10px] lg:text-[11px] mt-1">Techs</div>
+              </div>
+              <div class="glass rounded-xl p-3 text-center flex-1 flex flex-col justify-center min-h-[78px] bg-gradient-to-br from-accent-blue/14 to-accent-yellow/14 border-white/20">
+                <div class="text-white text-base lg:text-lg font-bold leading-none">100%</div>
+                <div class="text-white/70 text-[10px] lg:text-[11px] mt-1">Compromiso</div>
+              </div>
             </div>
           </div>
         </div>
