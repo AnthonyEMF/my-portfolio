@@ -13,6 +13,7 @@ const Slide = memo(function Slide({
   src,
   alt,
   index,
+  isActive,
   onExpand,
   onLoadRatio,
   priority,
@@ -20,6 +21,7 @@ const Slide = memo(function Slide({
   src: string;
   alt: string;
   index: number;
+  isActive: boolean;
   onExpand: () => void;
   onLoadRatio: (index: number, ratio: number) => void;
   priority: boolean;
@@ -54,12 +56,21 @@ const Slide = memo(function Slide({
   }, [src, handleLoad]);
 
   return (
-    <div data-slide={index} className="relative h-full w-full shrink-0 snap-start snap-always">
+    <div
+      data-slide={index}
+      className={cn(
+        "relative h-full w-full shrink-0 snap-start snap-always will-change-transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isActive ? "opacity-100 scale-100" : "opacity-60 scale-[0.98]"
+      )}
+    >
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        className="h-full w-full object-contain"
+        className={cn(
+          "h-full w-full object-contain will-change-transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          isActive ? "opacity-100 scale-100" : "opacity-80 scale-[0.98]"
+        )}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         draggable={false}
@@ -125,11 +136,15 @@ function Lightbox({
   onNext: () => void;
   title?: string;
 }) {
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const id = requestAnimationFrame(() => setIsVisible(true));
     return () => {
       document.body.style.overflow = prev;
+      cancelAnimationFrame(id);
     };
   }, []);
 
@@ -146,53 +161,98 @@ function Lightbox({
     }
   }, [index, images]);
 
+  const animatedClose = useCallback(() => {
+    setIsVisible(false);
+    window.setTimeout(() => onClose(), 280);
+  }, [onClose]);
+
+  // Cerrar con Escape con animación suave (evita el cierre instantáneo del padre)
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        animatedClose();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [animatedClose]);
+
   return createPortal(
     <div
-      className="fixed inset-0 z-[80] grid place-items-center bg-black/80 p-4 backdrop-blur-md lg:p-8"
-      onClick={onClose}
+      className={cn(
+        "fixed inset-0 z-[80] grid place-items-center p-4 backdrop-blur-md lg:p-6 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isVisible ? "bg-black/80 opacity-100" : "bg-black/0 opacity-0"
+      )}
+      onClick={animatedClose}
       role="dialog"
       aria-modal="true"
       aria-label={`${title || "Proyecto"} ${index + 1} de ${images.length}`}
     >
-      <div className="relative w-full max-w-6xl" onClick={(e) => e.stopPropagation()}>
-        <img
-          src={images[index]}
-          alt={`${title || "Proyecto"} ${index + 1}`}
-          className="max-h-[82vh] w-full rounded-md border border-white/10 bg-black object-contain shadow-2xl"
-        />
-        {/* Contador + cerrar — glass unificado */}
-        <div className="absolute right-3 top-3 flex items-center gap-1.5 sm:gap-2">
-          <span className="rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-[11px] text-white backdrop-blur-md sm:px-3 sm:py-1.5 sm:text-xs">
-            {index + 1} / {images.length}
-          </span>
-          <button
-            type="button"
-            onClick={onClose}
-            className="grid size-7 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 sm:size-8 lg:size-8"
-            aria-label="Cerrar vista ampliada"
-          >
-            <X className="size-3.5 sm:size-4" />
-          </button>
+      <div
+        className={cn(
+          "relative w-full max-w-5xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
+        )}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Card glass — imagen sin botones encima */}
+        <div className="glass rounded-[20px] sm:rounded-[24px] p-3 sm:p-4 shadow-glass-lg border border-white/10">
+          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-black">
+            <img
+              key={images[index]}
+              src={images[index]}
+              alt={`${title || "Proyecto"} ${index + 1}`}
+              className="max-h-[68vh] sm:max-h-[72vh] w-full object-contain animate-[lightboxContentIn_280ms_cubic-bezier(0.22,1,0.36,1)]"
+            />
+          </div>
+
+          {/* Barra de controles — título en medio, sin contador duplicado */}
+          <div className="mt-3 sm:mt-4 flex items-center justify-between gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <Button
+                variant="glass"
+                size="icon"
+                className="grid size-8 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 hover:text-white sm:size-8 lg:size-9"
+                onClick={onPrev}
+                aria-label="Imagen anterior"
+              >
+                <ChevronLeft className="size-4 sm:size-4 lg:size-5" />
+              </Button>
+              <Button
+                variant="glass"
+                size="icon"
+                className="grid size-8 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 hover:text-white sm:size-8 lg:size-9"
+                onClick={onNext}
+                aria-label="Imagen siguiente"
+              >
+                <ChevronRight className="size-4 sm:size-4 lg:size-5" />
+              </Button>
+            </div>
+
+            {title ? (
+              <p className="flex-1 min-w-0 text-center text-xs sm:text-sm font-semibold text-white truncate px-1 sm:px-3">
+                {title}
+              </p>
+            ) : (
+              <span className="flex-1" />
+            )}
+
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md sm:px-3.5">
+                {index + 1} / {images.length}
+              </span>
+              <button
+                type="button"
+                onClick={animatedClose}
+                className="grid size-8 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 sm:size-8 lg:size-9"
+                aria-label="Cerrar vista ampliada"
+              >
+                <X className="size-4 lg:size-4" />
+              </button>
+            </div>
+          </div>
         </div>
-        {/* Navegación — alineada con X (top-3) tanto en móvil como desktop */}
-        <Button
-          variant="glass"
-          size="icon"
-          className="absolute left-3 top-3 z-10 grid size-7 -translate-y-0 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 hover:text-white sm:size-8 lg:size-8"
-          onClick={onPrev}
-          aria-label="Imagen anterior"
-        >
-          <ChevronLeft className="size-3.5 sm:size-4" />
-        </Button>
-        <Button
-          variant="glass"
-          size="icon"
-          className="absolute left-12 top-3 z-10 grid size-7 -translate-y-0 place-items-center rounded-full border border-white/15 bg-black/25 text-white shadow-lg backdrop-blur-md hover:bg-black/35 hover:text-white sm:left-[52px] sm:size-8 lg:left-[52px] lg:size-8"
-          onClick={onNext}
-          aria-label="Imagen siguiente"
-        >
-          <ChevronRight className="size-3.5 sm:size-4" />
-        </Button>
       </div>
     </div>,
     document.body
@@ -375,7 +435,10 @@ export function Carousel({ images, title }: Props) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (lightboxIndex !== null) {
-        if (e.key === "Escape") setLightboxIndex(null);
+        if (e.key === "Escape") {
+          // Delegado a Lightbox para animación suave de cierre
+          return;
+        }
         if (e.key === "ArrowLeft") {
           e.preventDefault();
           setLightboxIndex((v) => (v === null ? null : Math.max(0, v - 1)));
@@ -421,12 +484,13 @@ export function Carousel({ images, title }: Props) {
           <div
             ref={viewportRef}
             className="no-scrollbar flex h-full w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth"
-            style={{ aspectRatio: currentRatio, transition: "aspect-ratio 300ms ease" }}
+            style={{ aspectRatio: currentRatio, transition: "aspect-ratio 300ms cubic-bezier(0.22,1,0.36,1)" }}
           >
             {images.map((src, i) => (
               <Slide
                 key={src}
                 index={i}
+                isActive={i === index}
                 src={src}
                 alt={`${title || "Proyecto"} ${i + 1} de ${total}`}
                 onExpand={() => setLightboxIndex(i)}

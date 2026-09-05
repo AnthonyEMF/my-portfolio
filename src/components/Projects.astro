@@ -17,17 +17,19 @@ import { Carousel } from "./react/Carousel";
             </div>
           </div>
           <p class="text-white/70 text-sm leading-relaxed">{description}</p>
-          <div class="flex flex-wrap gap-1.5">
-            {tags.map((tag) => (
-              <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border backdrop-blur-md ${tag?.class} text-white`}>
-                <tag.icon class="size-3.5" /> {tag.name}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div class="px-6 pb-6">
+
           <Carousel images={images} title={title} client:visible />
+
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            {tags.map((tag) => (
+              <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border backdrop-blur-md ${tag?.class} text-white`}>
+                <tag.icon class="size-1.5 lg:size-5" /> {tag.name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     )
