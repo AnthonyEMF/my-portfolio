@@ -44,6 +44,16 @@
   box-shadow: var(--shadow-glass-lg);
 }
 
+/* Utilidades carousel */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility will-change-transform {
+  will-change: transform;
+}
+
 /* Reveal on scroll */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }

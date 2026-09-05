@@ -1,29 +1,23 @@
 ---
 import { projects, otherProjects } from "../storage/projects";
 import { Carousel } from "./react/Carousel";
-import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
-<div class="grid grid-cols-12 gap-4 lg:gap-5 auto-rows-auto">
+<div class="flex flex-col gap-6 lg:gap-8">
   {projects.map(({ title, description, images, tags }, i) => {
-    const span = i===0 ? "col-span-12 lg:col-span-8" : i===1 ? "col-span-12 lg:col-span-4" : i===2 ? "col-span-12 lg:col-span-5" : "col-span-12 lg:col-span-7";
     const delay = i*100;
     return (
-      <div class={`group relative glass rounded-[20px] overflow-hidden hover:bg-white/[0.08] hover:border-white/15 hover:-translate-y-1 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col ${span}`} style={`transition-delay:${delay}ms`}>
-        <div class="absolute top-3 left-3 z-10 flex items-center gap-2">
-          <span class="size-7 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs font-bold shadow">{String(i+1).padStart(2,"0")}</span>
-          <span class="hidden sm:inline-flex px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white text-xs font-medium">{images.length} imágenes</span>
-        </div>
-        <div class="p-2">
-          <Carousel images={images} title={title} client:visible />
-        </div>
-        <div class="p-5 lg:p-6 pt-2 flex flex-col gap-3">
-          <div>
-            <h3 class="text-white text-lg lg:text-xl font-bold leading-tight">{title}</h3>
-            <span class="mt-2 block h-0.5 w-12 rounded-full bg-gradient-to-r from-accent-blue to-accent-yellow opacity-80"></span>
+      <div class={`group relative glass rounded-[20px] overflow-hidden hover:bg-white/[0.08] hover:border-white/15 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col`} style={`transition-delay:${delay}ms`}>
+        <!-- Header: número + título + descripción primero -->
+        <div class="p-5 lg:p-6 pb-4 flex flex-col gap-3">
+          <div class="flex items-start gap-3">
+            <span class="size-7 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs lg:text-sm font-bold shadow shrink-0 mt-0.5">{String(i+1).padStart(2,"0")}</span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white mt-1 lg:mt-0 text-xl lg:text-2xl font-bold leading-tight">{title}</h3>
+            </div>
           </div>
-          <p class="text-white/70 text-sm leading-relaxed line-clamp-4">{description}</p>
-          <div class="flex flex-wrap gap-1.5 pt-1">
+          <p class="text-white/70 text-sm leading-relaxed">{description}</p>
+          <div class="flex flex-wrap gap-1.5">
             {tags.map((tag) => (
               <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border backdrop-blur-md ${tag?.class} text-white`}>
                 <tag.icon class="size-3.5" /> {tag.name}
@@ -31,22 +25,25 @@ import ThemedButton from "./ui/ThemedButton.astro";
             ))}
           </div>
         </div>
+
+        <div class="px-6 pb-6">
+          <Carousel images={images} title={title} client:visible />
+        </div>
       </div>
     )
   })}
 
-  <!-- Revistas: bento vertical -->
-  <div class="col-span-12 lg:col-span-12 glass rounded-[20px] p-6 lg:p-7 reveal" style="transition-delay:420ms">
+  <!-- Diseño Grafico -->
+  <div class="glass rounded-[20px] p-6 lg:p-7 reveal" style="transition-delay:420ms">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
       <div>
-        <h3 class="text-white text-xl font-bold">{otherProjects.title}</h3>
-        <p class="text-white/60 text-sm mt-1 max-w-2xl">{otherProjects.description}</p>
+        <h3 class="text-white text-xl lg:text-2xl font-bold">{otherProjects.title}</h3>
+        <p class="text-white/60 text-sm mt-1">{otherProjects.description}</p>
       </div>
-      <span class="hidden lg:inline text-white/30 text-xs tracking-widest uppercase">Editorial</span>
     </div>
     <div class="grid grid-cols-12 gap-4">
       {otherProjects.links.map(({ name, image, href }, idx) => (
-        <a href={href} target="_blank" rel="noopener noreferrer" class={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/15 transition flex items-center justify-center p-4 ${idx===0 ? "col-span-12 md:col-span-7" : "col-span-12 md:col-span-5"}`}>
+        <a href={href} target="_blank" rel="noopener noreferrer" class={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/15 transition flex items-center justify-center p-4 col-span-12 md:col-span-6`}>
           <img src={image} alt={name} class="w-full max-w-[280px] h-auto object-contain group-hover:scale-[1.02] transition duration-500" />
           <span class="absolute bottom-3 right-3 size-8 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center opacity-0 group-hover:opacity-100 transition">↗</span>
         </a>
