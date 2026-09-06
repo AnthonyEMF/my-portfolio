@@ -5,10 +5,11 @@ import SchoolIcon from "../icons/School.astro";
 import CodeIcon from "../icons/Code.astro";
 import BladesIcon from "../icons/Blades.astro";
 import AboutUserIcon from "../icons/AboutUser.astro";
+import MailIcon from "../icons/Mail.astro";
 import GitHub from "../icons/social/GitHub.astro";
 ---
 
-<header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-2xl flex justify-center">
+<header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl flex justify-center">
   <nav
     class="flex items-center gap-1 p-1.5 rounded-full bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/[0.06] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
     aria-label="Navegación principal"
@@ -37,6 +38,10 @@ import GitHub from "../icons/social/GitHub.astro";
       <span class="hidden sm:inline">Proyectos</span>
       <CodeIcon class="size-4 sm:hidden" />
     </NavPill>
+    <NavPill href="#contact">
+      <span class="hidden sm:inline">Contáctame</span>
+      <MailIcon class="size-4 sm:hidden" />
+    </NavPill>
   </nav>
 </header>
 
@@ -60,7 +65,7 @@ import GitHub from "../icons/social/GitHub.astro";
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   // active pill on scroll - Inicio (#top) se marca cuando estás arriba
-  const sections = ["about","timeline","skills","projects"];
+  const sections = ["about","timeline","skills","projects","contact"];
   const pills = document.querySelectorAll("header a[href^='#']");
   const setActive = (id) => {
     pills.forEach(p=> p.classList.remove("!bg-white","!text-black","shadow-md"));

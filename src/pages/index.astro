@@ -13,8 +13,10 @@ import SchoolIcon from "../icons/School.astro";
 import CodeIcon from "../icons/Code.astro";
 import AboutUserIcon from "../icons/AboutUser.astro";
 import BladesIcon from "../icons/Blades.astro";
+import MailIcon from "../icons/Mail.astro";
 import ThemedButton from "../components/ui/ThemedButton.astro";
 import WhatsApp from "../icons/social/WhatsApp.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <Layout>
@@ -151,7 +153,7 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
     </SectionContainer>
 
     <!-- Proyectos -->
-    <SectionContainer id="projects" class="pt-16 lg:pt-20 pb-10">
+    <SectionContainer id="projects" class="pt-16 lg:pt-20">
       <div class="flex items-end justify-between gap-4 mb-6">
         <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
           <span class="size-9 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 text-white grid place-items-center"><CodeIcon class="size-5" /></span>
@@ -160,6 +162,18 @@ import WhatsApp from "../icons/social/WhatsApp.astro";
         <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">04 — Experiencia</span>
       </div>
       <Projects />
+    </SectionContainer>
+
+    <!-- Contáctame -->
+    <SectionContainer id="contact" class="pt-16 lg:pt-20 pb-16">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <h2 class="text-white text-[1.7rem] lg:text-3xl font-semibold flex items-center gap-3">
+          <span class="size-9 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 text-white grid place-items-center"><MailIcon class="size-5" /></span>
+          Contáctame
+        </h2>
+        <span class="hidden md:inline text-white/40 text-sm tracking-widest uppercase">05 — Contacto</span>
+      </div>
+      <Contact />
     </SectionContainer>
   </main>
 
