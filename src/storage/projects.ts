@@ -194,13 +194,15 @@ export const otherProjects = {
   links: [
     {
       name: "Revista de Carpintería",
-      image: "/images/revista-01.webp",
+      image: "/images/revista-carpinteria/revista-carpinteria-01.webp",
       href: "https://drive.google.com/file/d/1rvNVsJn-dUcBnSh6D6qSWkHfsBbXdVjK/view?usp=sharing",
+      pages: Array.from({ length: 20 }, (_, i) => `/images/revista-carpinteria/revista-carpinteria-${String(i + 1).padStart(2, "0")}.webp`),
     },
     {
       name: "Revista de Jardinería",
-      image: "/images/revista-02.webp",
+      image: "/images/revista-jardineria/revista-jardineria-01.webp",
       href: "https://drive.google.com/file/d/1woo7eHkjJC-z7FueLnuDbDXryXSxoNtL/view?usp=sharing",
+      pages: Array.from({ length: 20 }, (_, i) => `/images/revista-jardineria/revista-jardineria-${String(i + 1).padStart(2, "0")}.webp`),
     },
   ],
 };

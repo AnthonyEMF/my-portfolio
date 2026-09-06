@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
 import { MagazineViewer } from "./MagazineViewer";
 
@@ -16,12 +16,21 @@ type Props = {
 export function MagazineTable({ magazines }: Props) {
   const [selected, setSelected] = useState<Magazine | null>(null);
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
 
   return (
     <>
       <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => { if (!isMobile) setHovered(true); }}
+        onMouseLeave={() => { if (!isMobile) setHovered(false); }}
       >
         {/* Contenedor de revistas */}
         <div className="relative w-full min-h-[300px] sm:min-h-[360px] lg:min-h-[460px] flex items-center justify-center mb-6 lg:mb-16">
@@ -34,33 +43,37 @@ export function MagazineTable({ magazines }: Props) {
               const hoverX = isFirst ? -48 : 48;
               const baseY = isFirst ? 8 : -4;
 
+              const transform = isMobile
+                ? `translateX(${baseX}px) rotate(${baseRotate}deg)`
+                : hovered
+                  ? `translateX(${hoverX}px) rotate(${hoverRotate}deg) scale(1.02)`
+                  : `translateX(${baseX}px) rotate(${baseRotate}deg)`;
+
               return (
                 <button
                   key={mag.name}
                   type="button"
                   onClick={() => setSelected(mag)}
                   className={cn(
-                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] will-change-transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 rounded-sm"
+                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
+                    !isMobile && "will-change-transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   )}
                   style={{
                     left: isFirst ? "8%" : "auto",
                     right: isFirst ? "auto" : "8%",
                     top: `${12 + baseY}%`,
-                    transform: hovered
-                      ? `translateX(${hoverX}px) rotate(${hoverRotate}deg) scale(1.02)`
-                      : `translateX(${baseX}px) rotate(${baseRotate}deg)`,
+                    transform,
                     zIndex: isFirst ? 1 : 2,
                   }}
                   aria-label={`Abrir ${mag.name}`}
                 >
                   {/* Sombra de la revista */}
                   <div
-                    className="absolute inset-0 rounded-sm blur-xl transition-all duration-500"
+                    className={cn("absolute inset-0 rounded-sm blur-xl", !isMobile && "transition-all duration-500")}
                     style={{
                       background: "rgba(0,0,0,0.35)",
                       transform: "translateY(12px) scale(0.95)",
-                      opacity: hovered ? 0.5 : 0.4,
+                      opacity: isMobile ? 0.4 : hovered ? 0.5 : 0.4,
                     }}
                   />
 
@@ -88,11 +101,12 @@ export function MagazineTable({ magazines }: Props) {
                     <div className="absolute bottom-0 left-[1px] right-[1px] h-[4px] bg-gradient-to-t from-black/10 to-transparent pointer-events-none hidden sm:block" />
                   </div>
 
-                  {/* Etiqueta al hover */}
+                  {/* Etiqueta al hover — deshabilitada en móvil */}
                   <div
                     className={cn(
-                      "absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-black/25 px-3 py-1 text-xs font-medium text-white shadow-lg backdrop-blur-md transition-all duration-300 pointer-events-none",
-                      hovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
+                      "absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-black/25 px-3 py-1 text-xs font-medium text-white shadow-lg backdrop-blur-md pointer-events-none",
+                      !isMobile && "transition-all duration-300",
+                      hovered && !isMobile ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
                     )}
                   >
                     {mag.name}
