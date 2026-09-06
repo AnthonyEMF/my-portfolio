@@ -531,23 +531,33 @@ export function Carousel({ images, title }: Props) {
           )}
         </div>
 
-        {/* Miniaturas verticales — alto fijado en px, igual al de la imagen principal (medido con ResizeObserver) */}
+        {/* Miniaturas verticales — alto fijado en px, igual al de la imagen principal (medido con ResizeObserver). Skeleton evita salto de altura al hacer scroll rápido a #contact antes de medir */}
         {total > 1 && (
           <div
             ref={thumbsRef}
-            className="no-scrollbar hidden w-[136px] shrink-0 snap-y snap-mandatory flex-col gap-2.5 overflow-y-auto overflow-x-hidden overscroll-contain pr-1 sm:flex lg:w-[210px] xl:w-[230px]"
-            style={mainHeight ? { height: mainHeight, maxHeight: mainHeight } : undefined}
+            className="no-scrollbar hidden w-[136px] shrink-0 snap-y snap-mandatory flex-col gap-2.5 overflow-y-auto overflow-x-hidden overscroll-contain pr-1 sm:flex lg:w-[210px] xl:w-[230px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={
+              mainHeight
+                ? { height: mainHeight, maxHeight: mainHeight, opacity: 1 }
+                : { height: 360, maxHeight: 360, opacity: 1 }
+            }
           >
-            {images.map((src, i) => (
-              <div key={src} data-thumb={i} className="snap-start">
-                <Thumb
-                  src={src}
-                  alt={`${title || "Proyecto"} miniatura ${i + 1}`}
-                  isActive={i === index}
-                  onSelect={() => goTo(i)}
-                />
-              </div>
-            ))}
+            {!mainHeight
+              ? Array.from({ length: Math.min(total, 4) }).map((_, i) => (
+                  <div key={`sk-${i}`} className="snap-start">
+                    <div className="aspect-[16/9] animate-pulse rounded-md bg-white/[0.04] border border-white/5" />
+                  </div>
+                ))
+              : images.map((src, i) => (
+                  <div key={src} data-thumb={i} className="snap-start">
+                    <Thumb
+                      src={src}
+                      alt={`${title || "Proyecto"} miniatura ${i + 1}`}
+                      isActive={i === index}
+                      onSelect={() => goTo(i)}
+                    />
+                  </div>
+                ))}
           </div>
         )}
       </div>
