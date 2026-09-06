@@ -5,6 +5,87 @@
   --color-primary-gray: color-mix(in oklab, var(--color-gray-500) 30%, transparent);
   --color-secondary-gray: color-mix(in oklab, var(--color-white) 10%, transparent);
   --color-tertiary-gray: var(--color-gray-300);
-
   --color-primary-black: color-mix(in oklab, var(--color-black) 50%, transparent);
+
+  /* Glass sutil - sistema aditivo */
+  --color-glass: color-mix(in oklab, var(--color-white) 6%, transparent);
+  --color-glass-strong: color-mix(in oklab, var(--color-white) 10%, transparent);
+  --color-glass-hover: color-mix(in oklab, var(--color-white) 9%, transparent);
+  --color-glass-border: color-mix(in oklab, var(--color-white) 10%, transparent);
+  --color-glass-border-strong: color-mix(in oklab, var(--color-white) 14%, transparent);
+
+  /* Paleta amarillo-azul suave */
+  --color-accent-blue: #3b82f6;
+  --color-accent-blue-strong: #2563eb;
+  --color-accent-yellow: #facc15;
+  --color-accent-amber: #f59e0b;
+
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.36);
+  --shadow-glass-lg: 0 16px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+
+  /* Tipografía */
+  --font-display: "Space Grotesk Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", system-ui, sans-serif;
+}
+
+/* Utilidad glass sutil */
+@utility glass {
+  background-color: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+@utility glass-strong {
+  background-color: var(--color-glass-strong);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--color-glass-border-strong);
+  box-shadow: var(--shadow-glass-lg);
+}
+
+/* Utilidades carousel */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility will-change-transform {
+  will-change: transform;
+}
+
+/* Reveal on scroll */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lightboxContentIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes lightboxContentOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity:1; transform:none; transition:none; }
+  .reveal.is-visible { opacity:1; transform:none; }
+  [data-slide], [data-slide] img, [role="dialog"], [role="dialog"] > div { transition: none !important; animation: none !important; }
 }

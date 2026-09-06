@@ -1,4 +1,4 @@
-# Portfolio Web V1
+# Portfolio Web V2
 
 ## Contenido
 - Información básica sobre mí persona.

@@ -16,7 +16,7 @@ export const educations : Education[] = [
   },
   {
     title: "Ingeniería en Sistemas",
-    date: "2022 - Act",
+    date: "2022 - 2027",
     description: "Universidad Nacional Autónoma de Honduras",
     link: "https://www.unah.edu.hn",
     logo: "/images/logos/unah.webp",

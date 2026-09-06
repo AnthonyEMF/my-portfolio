@@ -10,6 +10,35 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "SGOA",
+    description:
+      "Sistema de Gestión y Organización Académica, es una plataforma integral para la administración académica que permite gestionar docentes, cursos, salones, períodos académicos, asignaciones de clases, actividades complementarias, inventario de equipos y más. Este proyecto fue realizado en colaboración con el personal administrativo de la UNAH, brindando información y los recursos para desplegar el sistema de forma totalmente funcional.",
+    images: [
+      "/images/sgoa/sgoa-01.webp",
+      "/images/sgoa/sgoa-02.webp",
+      "/images/sgoa/sgoa-03.webp",
+      "/images/sgoa/sgoa-04.webp",
+      "/images/sgoa/sgoa-05.webp",
+      "/images/sgoa/sgoa-06.webp",
+      "/images/sgoa/sgoa-07.webp",
+      "/images/sgoa/sgoa-08.webp",
+      "/images/sgoa/sgoa-09.webp",
+    ],
+    links: [
+      {
+        name: "Backend + Frontend Web",
+        href: "https://github.com/SGOA-UNAH/sgoa-projects",
+      },
+    ],
+    tags: [
+      languages.typeScript,
+      frameworks.react,
+      frameworks.nest,
+      databases.postgree,
+      tools.docker,
+    ],
+  },
+  {
     title: "SIGREF",
     description:
       "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
@@ -159,19 +188,21 @@ export const projects: Project[] = [
 ];
 
 export const otherProjects = {
-  title: "Revistas",
+  title: "Diseño Gráfico",
   description:
     "Durante el bachillerato, reforcé mis habilidades en diseño gráfico creando dos revistas con CorelDraw (para ilustración y maquetación) y Photoshop (para edición de imágenes), lo que me permitió mejorar en composición, tipografía y manejo de color.",
   links: [
     {
       name: "Revista de Carpintería",
-      image: "/images/revista-01.webp",
+      image: "/images/revista-carpinteria/revista-carpinteria-01.webp",
       href: "https://drive.google.com/file/d/1rvNVsJn-dUcBnSh6D6qSWkHfsBbXdVjK/view?usp=sharing",
+      pages: Array.from({ length: 20 }, (_, i) => `/images/revista-carpinteria/revista-carpinteria-${String(i + 1).padStart(2, "0")}.webp`),
     },
     {
       name: "Revista de Jardinería",
-      image: "/images/revista-02.webp",
+      image: "/images/revista-jardineria/revista-jardineria-01.webp",
       href: "https://drive.google.com/file/d/1woo7eHkjJC-z7FueLnuDbDXryXSxoNtL/view?usp=sharing",
+      pages: Array.from({ length: 20 }, (_, i) => `/images/revista-jardineria/revista-jardineria-${String(i + 1).padStart(2, "0")}.webp`),
     },
   ],
 };

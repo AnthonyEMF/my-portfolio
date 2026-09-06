@@ -1,163 +1,49 @@
 ---
 import { projects, otherProjects } from "../storage/projects";
 import { Carousel } from "./react/Carousel";
-import ProjectCard from "./ui/ProjectCard.astro";
-import ThemedButton from "./ui/ThemedButton.astro";
+import { MagazineTable } from "./react/MagazineTable";
 ---
 
-<style>
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .project-entry {
-    opacity: 0;
-    animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  .project-entry:nth-child(1) { animation-delay: 0.05s; }
-  .project-entry:nth-child(2) { animation-delay: 0.18s; }
-  .project-entry:nth-child(3) { animation-delay: 0.31s; }
-  .project-entry:nth-child(4) { animation-delay: 0.44s; }
+<div class="flex flex-col gap-6 lg:gap-8">
+  {projects.map(({ title, description, images, tags }, i) => {
+    const delay = i*100;
+    return (
+      <div class={`group relative glass rounded-[20px] overflow-hidden hover:bg-white/[0.08] hover:border-white/15 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col`} style={`transition-delay:${delay}ms`}>
+        <!-- Header: número + título + descripción primero -->
+        <div class="p-5 lg:p-6 pb-4 flex flex-col gap-3">
+          <div class="flex items-start gap-3">
+            <span class="size-7 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs lg:text-sm font-bold shadow shrink-0 mt-0.5">{String(i+1).padStart(2,"0")}</span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-white mt-1 lg:mt-0 text-xl lg:text-2xl font-bold leading-tight">{title}</h3>
+            </div>
+          </div>
+          <p class="text-white/70 text-sm leading-relaxed">{description}</p>
+        </div>
 
-  /* Número decorativo grande */
-  .project-number {
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    opacity: 0.12;
-    user-select: none;
-    pointer-events: none;
-    color: white;
-    flex-shrink: 0;
-  }
+        <div class="px-6 pb-6">
 
-  /* Línea divisora bajo el título */
-  .title-line {
-    display: block;
-    margin-top: 4px;
-    height: 2px;
-    width: 48px;
-    border-radius: 999px;
-    background: linear-gradient(to right, rgb(34 211 238), transparent);
-  }
+          <Carousel images={images} title={title} client:visible />
 
-  /* Repo link */
-  .repo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: 1px solid rgba(34, 211, 238, 0.3);
-    color: rgb(34, 211, 238);
-    background: rgba(34, 211, 238, 0.05);
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-    text-decoration: none;
-  }
-  .repo-link:hover {
-    background: rgba(34, 211, 238, 0.12);
-    border-color: rgba(34, 211, 238, 0.6);
-    transform: translateY(-1px);
-  }
-
-  /* Tags */
-  .tag-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    padding: 4px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .tag-pill:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-  }
-
-  /* Revista cards */
-  .magazine-preview {
-    display: block;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
-    text-decoration: none;
-  }
-  .magazine-preview:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 18px 36px rgba(0,0,0,0.45);
-  }
-  .magazine-preview img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-</style>
-
-<!-- Proyectos de programación -->
-{projects.map(({ title, description, images, links, tags }, i) => (
-  <div class="project-entry">
-    <ProjectCard>
-      <!-- Header: número + título -->
-      <div class="flex items-start gap-3">
-        <span class="project-number" aria-hidden="true">
-          {String(i + 1).padStart(2, '0')}
-        </span>
-        <div class="flex-1 min-w-0 pt-2">
-          <h3 class="text-white text-2xl font-semibold leading-tight">{title}</h3>
-          <span class="title-line" />
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            {tags.map((tag) => (
+              <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border backdrop-blur-md ${tag?.class} text-white`}>
+                <tag.icon class="size-1.5 lg:size-5" /> {tag.name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
+    )
+  })}
 
-      <!-- Descripción — clase original -->
-      <p class="lg:text-start text-sm lg:text-base text-tertiary-gray mb-1">
-        {description}
-      </p>
-
-      <!-- Carrusel -->
-      <Carousel images={images} client:visible />
-
-      <!-- Etiquetas — clases originales + pill shape -->
-      <div class="flex gap-2 flex-wrap mt-2">
-        {tags.map((tag) => (
-          <span class={`tag-pill ${tag?.class} text-white`}>
-            <tag.icon class="size-4" /> {tag.name}
-          </span>
-        ))}
+  <!-- Diseño Grafico — revistas sobre mesa -->
+  <div class="glass rounded-[20px] p-6 lg:p-7 reveal" style="transition-delay:420ms">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div>
+        <h3 class="text-white text-xl lg:text-2xl font-bold">{otherProjects.title}</h3>
+        <p class="text-white/60 text-sm mt-1">{otherProjects.description}</p>
       </div>
-    </ProjectCard>
+    </div>
+    <MagazineTable magazines={otherProjects.links} client:visible />
   </div>
-))}
-
-<!-- Otros proyectos (Revistas) -->
-<ProjectCard>
-  {/* Información */}
-  <h3 class="text-white text-2xl text-center font-semibold">
-    {otherProjects.title}
-  </h3>
-  <p class="lg:text-center text-sm lg:text-base text-tertiary-gray mb-1">
-    {otherProjects.description}
-  </p>
-
-  {/* Links */}
-  <span class="flex justify-evenly gap-2 flex-wrap">
-    {
-      otherProjects.links.map(({ name, image, href }) => (
-        <ThemedButton
-          href={href}
-          class="rounded-lg"
-        >
-          <img src={image} alt={name} class="py-1 lg:py-2 w-60 h-full" />
-        </ThemedButton>
-      ))
-    }
-  </span>
-</ProjectCard>
+</div>

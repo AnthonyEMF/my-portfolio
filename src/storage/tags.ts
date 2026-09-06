@@ -24,21 +24,22 @@ import Figma from "../icons/tools/Figma.astro";
 import PowerBI from "../icons/tools/PowerBI.astro";
 import Tableau from "../icons/tools/Tableau.astro";
 import Pentaho from "../icons/tools/Pentaho.astro";
-import Notion from "../icons/tools/Notion.astro";
 import Vercel from "../icons/tools/Vercel.astro";
 import Next from "../icons/frameworks/Next.astro";
 import Nest from "../icons/frameworks/Nest.astro";
 import Aws from "../icons/tools/Aws.astro";
+import GoogleCloud from "../icons/tools/GoogleCloud.astro";
+import Supabase from "../icons/frameworks/Supabase.astro";
 
 const colors = {
-  orange: "bg-orange-500/30 border-2 border-orange-500/30",
-  yellow: "bg-yellow-500/30 border-2 border-yellow-500/30",
-  blue: "bg-blue-500/30 border-2 border-blue-500/30",
-  red: "bg-red-500/30 border-2 border-red-500/30",
-  green: "bg-green-500/30 border-2 border-green-500/30",
-  purple: "bg-purple-500/30 border-2 border-purple-500/30",
-  cyan: "bg-cyan-500/30 border-2 border-cyan-500/30",
-  gray: "bg-gray-500/30 border-2 border-gray-500/30",
+  orange: "bg-orange-500/15 backdrop-blur-md border border-orange-400/20",
+  yellow: "bg-yellow-500/15 backdrop-blur-md border border-yellow-400/20",
+  blue: "bg-blue-500/15 backdrop-blur-md border border-blue-400/20",
+  red: "bg-red-500/15 backdrop-blur-md border border-red-400/20",
+  green: "bg-emerald-500/15 backdrop-blur-md border border-emerald-400/20",
+  purple: "bg-violet-500/15 backdrop-blur-md border border-violet-400/20",
+  cyan: "bg-cyan-500/15 backdrop-blur-md border border-cyan-400/20",
+  gray: "bg-white/[0.06] backdrop-blur-md border border-white/10",
 };
 
 export interface Tag {
@@ -73,7 +74,7 @@ export const languages: Record<string, Tag> = {
     class: colors.purple,
     icon: Csharp,
   },
-  cPlus: {
+  python: {
     name: "Python",
     class: colors.yellow,
     icon: Python,
@@ -144,6 +145,11 @@ export const databases: Record<string, Tag> = {
     class: colors.green,
     icon: MongoDB,
   },
+  supabase: {
+    name: "Supabase",
+    class: colors.green,
+    icon: Supabase,
+  },
 };
 
 export const tools: Record<string, Tag> = {
@@ -157,20 +163,15 @@ export const tools: Record<string, Tag> = {
     class: colors.orange,
     icon: Git,
   },
-  notion: {
-    name: "Notion",
-    class: colors.gray,
-    icon: Notion,
-  },
-  aws: {
-    name: "AWS",
-    class: colors.orange,
-    icon: Aws,
-  },
   docker: {
     name: "Docker",
     class: colors.blue,
     icon: Docker,
+  },
+  cloud: {
+    name: "Google Cloud",
+    class: colors.gray,
+    icon: GoogleCloud,
   },
   figma: {
     name: "Figma",
