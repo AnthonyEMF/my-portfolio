@@ -56,20 +56,14 @@ const Slide = memo(function Slide({
   }, [src, handleLoad]);
 
   return (
-    <div
-      data-slide={index}
-      className={cn(
-        "relative h-full w-full shrink-0 snap-start snap-always will-change-transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        isActive ? "opacity-100 scale-100" : "opacity-60 scale-[0.98]"
-      )}
-    >
+    <div data-slide={index} className="relative h-full w-full shrink-0 snap-start snap-always">
       <img
         ref={imgRef}
         src={src}
         alt={alt}
         className={cn(
-          "h-full w-full object-contain will-change-transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          isActive ? "opacity-100 scale-100" : "opacity-80 scale-[0.98]"
+          "h-full w-full object-contain transition-opacity duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          isActive ? "opacity-100" : "opacity-85"
         )}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
@@ -191,19 +185,19 @@ function Lightbox({
     >
       <div
         className={cn(
-          "relative w-full max-w-5xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "relative w-full max-w-6xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Card glass — imagen sin botones encima */}
-        <div className="glass rounded-[20px] sm:rounded-[24px] p-3 sm:p-4 shadow-glass-lg border border-white/10">
+        <div className="glass rounded-[20px] sm:rounded-[24px] p-2.5 sm:p-3 lg:p-4 shadow-glass-lg border border-white/10">
           <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-black">
             <img
               key={images[index]}
               src={images[index]}
               alt={`${title || "Proyecto"} ${index + 1}`}
-              className="max-h-[68vh] sm:max-h-[72vh] w-full object-contain animate-[lightboxContentIn_280ms_cubic-bezier(0.22,1,0.36,1)]"
+              className="max-h-[76vh] sm:max-h-[80vh] lg:max-h-[84vh] w-full object-contain animate-[lightboxContentIn_280ms_cubic-bezier(0.22,1,0.36,1)]"
             />
           </div>
 
@@ -393,8 +387,15 @@ export function Carousel({ images, title }: Props) {
   const goTo = useCallback(
     (next: number) => {
       const clamped = Math.max(0, Math.min(total - 1, next));
-      const slide = viewportRef.current?.querySelector(`[data-slide="${clamped}"]`) as HTMLElement | null;
-      slide?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      setIndex(clamped);
+      const viewport = viewportRef.current;
+      if (!viewport) return;
+      const target = viewport.querySelector(`[data-slide="${clamped}"]`) as HTMLElement | null;
+      if (target) {
+        // offsetLeft es exacto (no depende de clientWidth fraccional) y evita el
+        // desfase de snap-mandatory que dejaba la imagen "retrasada" hasta el click
+        viewport.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+      }
     },
     [total]
   );
@@ -475,7 +476,7 @@ export function Carousel({ images, title }: Props) {
         {/* Imagen principal — la altura se adapta a la relación de aspecto real de cada foto */}
         <div
           ref={mainBoxRef}
-          className="group/carousel relative mx-auto w-full max-w-[420px] overflow-hidden rounded-md border border-white/10 bg-black/20 shadow-glass backdrop-blur-md sm:mx-0 sm:max-w-none sm:flex-1"
+          className="group/carousel relative mx-auto w-full max-w-[420px] min-w-0 overflow-hidden rounded-md border border-white/10 bg-black/20 shadow-glass backdrop-blur-md sm:mx-0 sm:max-w-none sm:flex-1"
           role="region"
           aria-roledescription="carrusel"
           aria-label={`${title || "Proyecto"} - ${index + 1} de ${total}`}
@@ -534,7 +535,7 @@ export function Carousel({ images, title }: Props) {
         {total > 1 && (
           <div
             ref={thumbsRef}
-            className="no-scrollbar hidden w-[136px] shrink-0 snap-y snap-mandatory flex-col gap-2.5 overflow-y-auto overflow-x-hidden overscroll-contain pr-1 sm:flex lg:w-[168px]"
+            className="no-scrollbar hidden w-[136px] shrink-0 snap-y snap-mandatory flex-col gap-2.5 overflow-y-auto overflow-x-hidden overscroll-contain pr-1 sm:flex lg:w-[210px] xl:w-[230px]"
             style={mainHeight ? { height: mainHeight, maxHeight: mainHeight } : undefined}
           >
             {images.map((src, i) => (
