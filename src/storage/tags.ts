@@ -163,15 +163,15 @@ export const tools: Record<string, Tag> = {
     class: colors.orange,
     icon: Git,
   },
-  cloud: {
-    name: "Google Cloud",
-    class: colors.gray,
-    icon: GoogleCloud,
-  },
   docker: {
     name: "Docker",
     class: colors.blue,
     icon: Docker,
+  },
+  cloud: {
+    name: "Google Cloud",
+    class: colors.gray,
+    icon: GoogleCloud,
   },
   figma: {
     name: "Figma",
