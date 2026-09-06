@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "./Button";
 import { cn } from "../../lib/utils";
@@ -21,7 +21,12 @@ export function MagazineViewer({ magazine, onClose }: Props) {
   const [page, setPage] = useState(0);
   const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-  const pages = magazine?.pages?.length ? magazine.pages : magazine ? [magazine.image] : [];
+  const viewportRef = useRef<HTMLDivElement>(null);
+
+  const pages = useMemo(
+    () => (magazine?.pages?.length ? magazine.pages : magazine ? [magazine.image] : []),
+    [magazine]
+  );
   const total = pages.length;
 
   useEffect(() => {
@@ -37,32 +42,36 @@ export function MagazineViewer({ magazine, onClose }: Props) {
   useEffect(() => {
     setPage(0);
     setIsPageLoaded(false);
+    // resetea el scroll al abrir otra revista, sin animación
+    requestAnimationFrame(() => {
+      const viewport = viewportRef.current;
+      if (viewport) viewport.scrollLeft = 0;
+    });
   }, [magazine]);
 
-  // reset loaded state al cambiar de página — la animación solo debe correr cuando la imagen ya está decodificada
+  // reset loaded state al cambiar de página — solo muestra spinner si la imagen aún no está cacheada
   useEffect(() => {
-    setIsPageLoaded(false);
     const src = pages[page];
     if (!src) return;
     const img = new Image();
     img.src = src;
-    // si ya está en caché, complete será true y decode resuelve inmediato
     if (img.complete) {
       if (img.decode) {
         img.decode().then(() => setIsPageLoaded(true)).catch(() => setIsPageLoaded(true));
       } else {
         setIsPageLoaded(true);
       }
-    } else {
-      img.onload = () => {
-        if (img.decode) {
-          img.decode().then(() => setIsPageLoaded(true)).catch(() => setIsPageLoaded(true));
-        } else {
-          setIsPageLoaded(true);
-        }
-      };
-      img.onerror = () => setIsPageLoaded(true);
+      return;
     }
+    setIsPageLoaded(false);
+    img.onload = () => {
+      if (img.decode) {
+        img.decode().then(() => setIsPageLoaded(true)).catch(() => setIsPageLoaded(true));
+      } else {
+        setIsPageLoaded(true);
+      }
+    };
+    img.onerror = () => setIsPageLoaded(true);
   }, [page, pages]);
 
   const animatedClose = useCallback(() => {
@@ -70,15 +79,29 @@ export function MagazineViewer({ magazine, onClose }: Props) {
     window.setTimeout(() => onClose(), 280);
   }, [onClose]);
 
+  const scrollToPage = useCallback(
+    (next: number) => {
+      const clamped = Math.max(0, Math.min(total - 1, next));
+      setPage(clamped);
+      const viewport = viewportRef.current;
+      if (!viewport) return;
+      const target = viewport.querySelector(`[data-slide="${clamped}"]`) as HTMLElement | null;
+      if (target) {
+        viewport.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+      }
+    },
+    [total]
+  );
+
   const handlePrev = useCallback(() => {
     if (page <= 0) return;
-    setPage((p) => Math.max(0, p - 1));
-  }, [page]);
+    scrollToPage(page - 1);
+  }, [page, scrollToPage]);
 
   const handleNext = useCallback(() => {
     if (page >= total - 1) return;
-    setPage((p) => Math.min(total - 1, p + 1));
-  }, [page, total]);
+    scrollToPage(page + 1);
+  }, [page, total, scrollToPage]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -98,6 +121,30 @@ export function MagazineViewer({ magazine, onClose }: Props) {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [animatedClose, handlePrev, handleNext]);
+
+  // Sincroniza el índice activo con lo que realmente se ve al hacer swipe,
+  // sin manejar el drag a mano — idéntico al Carousel
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const slides = Array.from(viewport.querySelectorAll("[data-slide]")) as HTMLElement[];
+    if (!slides.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const mostVisible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (mostVisible) {
+          const next = Number((mostVisible.target as HTMLElement).dataset.slide);
+          if (!Number.isNaN(next)) setPage(next);
+        }
+      },
+      { root: viewport, threshold: [0.6] }
+    );
+    slides.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [pages]);
 
   // precarga agresiva: todas las páginas al abrir + vecinos al navegar
   useEffect(() => {
@@ -145,32 +192,73 @@ export function MagazineViewer({ magazine, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="glass rounded-[20px] sm:rounded-[24px] p-3 sm:p-4 shadow-glass-lg border border-white/10">
-          {/* Imagen — 1 en 1, sin botones encima */}
+          {/* Visor con swipe nativo — imita el Carousel: snap-x + scroll-smooth */}
           <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-black">
-            {/* placeholder mientras decodifica */}
+            {/* placeholder mientras decodifica la página actual */}
             {!isPageLoaded && (
-              <div className="absolute inset-0 grid place-items-center bg-black">
+              <div className="absolute inset-0 z-10 grid place-items-center bg-black">
                 <div className="size-8 animate-spin rounded-full border-2 border-white/20 border-t-white/60" />
               </div>
             )}
-            <img
-              key={pages[page]}
-              src={pages[page]}
-              alt={`${magazine.name} página ${page + 1}`}
-              onLoad={() => setIsPageLoaded(true)}
-              onError={() => setIsPageLoaded(true)}
-              className={cn(
-                "max-h-[72vh] sm:max-h-[76vh] lg:max-h-[78vh] w-full object-contain will-change-transform",
-                isPageLoaded
-                  ? "opacity-100 scale-100 animate-[lightboxContentIn_300ms_cubic-bezier(0.22,1,0.36,1)]"
-                  : "opacity-0 scale-[0.98]"
-              )}
-              style={{ transition: "opacity 300ms cubic-bezier(0.22,1,0.36,1), transform 300ms cubic-bezier(0.22,1,0.36,1)" }}
-              draggable={false}
-            />
+            <div
+              ref={viewportRef}
+              className="no-scrollbar flex w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth"
+              style={{ scrollbarWidth: "none" } as React.CSSProperties}
+              aria-roledescription="carrusel"
+              aria-label={`${magazine.name} ${page + 1} de ${total}`}
+            >
+              {pages.map((src, i) => (
+                <div
+                  key={src}
+                  data-slide={i}
+                  className="relative w-full shrink-0 snap-start snap-always"
+                >
+                  <img
+                    src={src}
+                    alt={`${magazine.name} página ${i + 1}`}
+                    className={cn(
+                      "max-h-[72vh] sm:max-h-[76vh] lg:max-h-[78vh] w-full object-contain select-none",
+                      i === page && isPageLoaded
+                        ? "opacity-100"
+                        : i === page && !isPageLoaded
+                          ? "opacity-0"
+                          : "opacity-100"
+                    )}
+                    draggable={false}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Barra inferior — título centrado */}
+          {/* Dots de paginación — solo móvil, feedback visual del swipe */}
+          {total > 1 && (
+            <div className="mt-2.5 flex justify-center sm:hidden" aria-hidden="true">
+              <div className="flex items-center gap-1.5 max-w-full overflow-hidden px-2">
+                {(total <= 12
+                  ? pages.map((_, i) => i)
+                  : Array.from({ length: 12 }, (_, k) => {
+                      const windowSize = 12;
+                      const start = Math.max(0, Math.min(total - windowSize, page - Math.floor(windowSize / 2)));
+                      return start + k;
+                    })
+                ).map((i) => (
+                  <span
+                    key={i}
+                    className={cn(
+                      "h-1.5 shrink-0 rounded-full transition-all duration-300",
+                      i === page ? "w-5 bg-white" : "w-1.5 bg-white/35"
+                    )}
+                  />
+                ))}
+                {total > 12 && <span className="ml-1 text-[10px] text-white/60">+{total - 12}</span>}
+              </div>
+            </div>
+          )}
+
+          {/* Barra inferior — controles */}
           <div className="mt-3 sm:mt-4 flex items-center justify-between gap-2 sm:gap-3">
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <Button
