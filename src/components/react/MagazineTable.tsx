@@ -55,7 +55,7 @@ export function MagazineTable({ magazines }: Props) {
                   type="button"
                   onClick={() => setSelected(mag)}
                   className={cn(
-                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
+                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] rounded-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
                     !isMobile && "will-change-transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   )}
                   style={{

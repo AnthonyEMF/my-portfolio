@@ -47,7 +47,9 @@ export function ContactForm() {
   const handleChange = (field: keyof FormValues) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const next = { ...values, [field]: e.target.value };
     setValues(next);
-    if (touched[field]) {
+    // Live validation: si el campo ya está tocado o ya muestra error, revalida en cada tecla
+    // — así el borde rojo del mensaje desaparece en cuanto alcanza 20 caracteres
+    if (touched[field] || errors[field]) {
       setErrors(validate(next));
     }
     if (status !== "idle") {
@@ -148,8 +150,8 @@ export function ContactForm() {
           <label htmlFor="contact-name" className="text-xs font-medium text-white/80 ml-1">
             Nombre <span className="text-accent-yellow">*</span>
           </label>
-          <div className="relative group/input">
-            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within/input:text-white/60 transition">
+          <div className="relative group/input isolate">
+            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 z-10 text-white/30 group-focus-within/input:text-white/60 transition">
               <User className="size-4" />
             </span>
             <input
@@ -178,8 +180,8 @@ export function ContactForm() {
           <label htmlFor="contact-email" className="text-xs font-medium text-white/80 ml-1">
             Correo <span className="text-accent-yellow">*</span>
           </label>
-          <div className="relative group/input">
-            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within/input:text-white/60 transition">
+          <div className="relative group/input isolate">
+            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 z-10 text-white/30 group-focus-within/input:text-white/60 transition">
               <Mail className="size-4" />
             </span>
             <input
@@ -209,8 +211,8 @@ export function ContactForm() {
         <label htmlFor="contact-subject" className="text-xs font-medium text-white/80 ml-1">
           Asunto <span className="text-white/30 font-normal">(opcional)</span>
         </label>
-        <div className="relative group/input">
-          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within/input:text-white/60 transition">
+        <div className="relative group/input isolate">
+          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 z-10 text-white/30 group-focus-within/input:text-white/60 transition">
             <Type className="size-4" />
           </span>
           <input
@@ -243,8 +245,8 @@ export function ContactForm() {
             {values.message.length} / 1000
           </span>
         </div>
-        <div className="relative group/input">
-          <span className="pointer-events-none absolute left-3.5 top-3.5 text-white/30 group-focus-within/input:text-white/60 transition">
+        <div className="relative group/input isolate">
+          <span className="pointer-events-none absolute left-3.5 top-3.5 z-10 text-white/30 group-focus-within/input:text-white/60 transition">
             <MessageSquare className="size-4" />
           </span>
           <textarea
