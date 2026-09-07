@@ -46,38 +46,29 @@ import GitHub from "../icons/social/GitHub.astro";
 </header>
 
 <script>
-  const header = document.querySelector("header nav");
-  let ticking = false;
-  const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        if (window.scrollY > 40) {
-          header?.classList.add("bg-black/55", "backdrop-blur-xl");
-          header?.classList.remove("bg-black/40", "backdrop-blur-md");
-        } else {
-          header?.classList.remove("bg-black/55", "backdrop-blur-xl");
-          header?.classList.add("bg-black/40", "backdrop-blur-md");
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
+  const header = document.querySelector("header nav") as HTMLElement | null;
+  const pills = document.querySelectorAll("header a[href^='#']") as NodeListOf<HTMLElement>;
+  const pillsMap = new Map<string, HTMLElement>();
+  pills.forEach(p => {
+    const h = p.getAttribute('href')?.slice(1);
+    if (h) pillsMap.set(h, p);
+  });
+  let activeId = "top";
+  const setActive = (id: string) => {
+    if (activeId === id) return;
+    const prev = pillsMap.get(activeId);
+    if (prev) prev.classList.remove("!bg-white","!text-black","shadow-md");
+    const next = pillsMap.get(id);
+    if(next) next.classList.add("!bg-white","!text-black","shadow-md");
+    activeId = id;
   };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  // active pill on scroll - Inicio (#top) se marca cuando estás arriba
+  // Estado inicial: Inicio activo sin query extra
+  pillsMap.get("top")?.classList.add("!bg-white","!text-black","shadow-md");
   const sections = ["about","timeline","skills","projects","contact"];
-  const pills = document.querySelectorAll("header a[href^='#']");
-  const setActive = (id) => {
-    pills.forEach(p=> p.classList.remove("!bg-white","!text-black","shadow-md"));
-    const active = document.querySelector(`header a[href="#${id}"]`);
-    if(active) active.classList.add("!bg-white","!text-black","shadow-md");
-  };
-  // Estado inicial: Inicio activo
-  setActive("top");
   const observer = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        const id = e.target.id;
+        const id = (e.target as HTMLElement).id;
         if(id) setActive(id);
       }
     });
@@ -86,11 +77,29 @@ import GitHub from "../icons/social/GitHub.astro";
     const el = document.getElementById(id);
     if(el) observer.observe(el);
   });
-  // Si estás cerca del top (<120px), fuerza Inicio activo
-  const onScrollActive = () => {
-    if (window.scrollY < 120) setActive("top");
+  // Scroll unificado con rAF: maneja header blur + active top en un solo listener
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (header) {
+        if (y > 40) {
+          header.classList.add("bg-black/55", "backdrop-blur-xl");
+          header.classList.remove("bg-black/40", "backdrop-blur-md");
+        } else {
+          header.classList.remove("bg-black/55", "backdrop-blur-xl");
+          header.classList.add("bg-black/40", "backdrop-blur-md");
+        }
+      }
+      if (y < 120) setActive("top");
+      ticking = false;
+    });
   };
-  window.addEventListener("scroll", onScrollActive, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   // Al hacer click en Inicio, feedback inmediato
-  document.querySelector('header a[href="#top"]')?.addEventListener("click", () => setActive("top"));
+  pillsMap.get("top")?.addEventListener("click", () => setActive("top"));
+  // Cleanup para View Transitions si se reintroduce
+  document.addEventListener('astro:before-swap', () => observer.disconnect());
 </script>

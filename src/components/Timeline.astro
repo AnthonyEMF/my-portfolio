@@ -3,85 +3,52 @@ import { educations } from "../storage/educations";
 import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
-<!-- Mobile -->
-<div class="lg:hidden">
-  <ol class="space-y-5">
-    {educations.map((edu, i) => (
-      <li class="flex gap-4 reveal" style={`transition-delay:${i*100}ms`}>
-        <div class="flex-1 glass rounded-[18px] p-5 hover:bg-white/[0.08] transition">
-          <div class="flex items-start gap-4">
-            <img src={edu.logo} alt={edu.title} class="size-14 rounded-xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1" />
-            <div class="flex-1 min-w-0">
-              <div class="inline-flex px-2.5 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-semibold">{edu.date}</div>
-              <h3 class="mt-2 text-white font-semibold leading-tight text-[15px]">{edu.title}</h3>
-              <p class="text-white/60 text-sm mt-1">{edu.description}</p>
-            </div>
-          </div>
-          {edu.link && <div class="mt-4"><ThemedButton href={edu.link} variant="glass" class="text-xs">Ver certificado</ThemedButton></div>}
-        </div>
-      </li>
-    ))}
-  </ol>
-</div>
-
-<!-- Mobile: Trayectoria en curso - sin línea vertical -->
-<div class="lg:hidden mt-6 glass rounded-[20px] p-5 flex flex-col gap-4 reveal relative overflow-hidden" style="transition-delay:220ms">
-  <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.04] via-transparent to-transparent pointer-events-none"></div>
-  <div class="flex items-start gap-3 relative">
-    <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 rounded-xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
-    <div class="flex-1 min-w-0">
-      <div class="text-white font-semibold leading-tight flex flex-wrap items-center gap-2">
-        <span class="relative flex size-2">
-          <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full size-2 bg-emerald-400"></span>
-        </span>
-        Trayectoria en curso
-      </div>
-      <div class="text-white/60 text-sm mt-1">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
-    </div>
-  </div>
-  <div class="mt-1 relative"><ThemedButton href={'https://contadito.com'} variant="glass" class="text-xs">Conocer más</ThemedButton></div>
-</div>
-
-<!-- Desktop: bento asimétrico 12 col -->
-<div class="hidden lg:grid grid-cols-12 gap-5 auto-rows-[minmax(180px,auto)] relative">
-
+<!-- Timeline unificado responsive: elimina duplicación DOM (mitad de nodos) preservando diseño exacto -->
+<ol class="grid grid-cols-1 lg:grid-cols-12 gap-5">
   {educations.map((edu, i) => (
-    <div
-      class="group relative glass rounded-[20px] p-7 hover:bg-white/[0.08] hover:border-white/15 hover:-translate-y-1 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col col-span-6"
-      style={`transition-delay:${i*120}ms`}
-    >
-      <div class="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition rounded-[20px] pointer-events-none"></div>
-      <div class="relative flex items-start justify-between gap-4">
-        <img src={edu.logo} alt={edu.title} class="size-16 rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm" />
-        <span class="inline-flex px-3 py-1.5 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wide">{edu.date}</span>
+    <li class="col-span-1 lg:col-span-6 reveal" style={`transition-delay:${i*100}ms`}>
+      <div class="group relative glass rounded-[18px] lg:rounded-[20px] p-5 lg:p-7 hover:bg-white/[0.08] lg:hover:bg-white/[0.08] lg:hover:border-white/15 lg:hover:-translate-y-1 lg:hover:shadow-glass-lg transition-all duration-300 flex flex-col h-full">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition rounded-[18px] lg:rounded-[20px] pointer-events-none hidden lg:block"></div>
+        <div class="flex items-start gap-4 lg:justify-between relative">
+          <img src={edu.logo} alt={edu.title} width="64" height="64" loading={i === 0 ? "eager" : "lazy"} decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
+          <div class="flex-1 min-w-0 lg:hidden">
+            <div class="inline-flex px-2.5 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-semibold">{edu.date}</div>
+            <h3 class="mt-2 text-white font-semibold leading-tight text-[15px]">{edu.title}</h3>
+            <p class="text-white/60 text-sm mt-1">{edu.description}</p>
+          </div>
+          <span class="hidden lg:inline-flex px-3 py-1.5 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wide shrink-0">{edu.date}</span>
+        </div>
+        <h3 class="hidden lg:block relative mt-5 text-white text-lg font-bold leading-tight">{edu.title}</h3>
+        <p class="hidden lg:block relative text-white/60 text-sm mt-2">{edu.description}</p>
+        <div class="mt-4 lg:mt-auto lg:pt-5 relative">
+          {edu.link && <ThemedButton href={edu.link} variant="glass" class="lg:hidden text-xs">Ver certificado</ThemedButton>}
+          {edu.link && <div class="hidden lg:block"><ThemedButton href={edu.link} variant="primary" class="!px-4 !py-2">Ver certificado</ThemedButton></div>}
+        </div>
       </div>
-      <h3 class="relative mt-5 text-white text-lg font-bold leading-tight">{edu.title}</h3>
-      <p class="relative text-white/60 text-sm mt-2">{edu.description}</p>
-      <div class="relative mt-auto pt-5">
-        {edu.link && <ThemedButton href={edu.link} variant="primary" class="!px-4 !py-2">Ver certificado</ThemedButton>}
-      </div>
-    </div>
+    </li>
   ))}
 
-  <!-- Card extra asimétrica: CTA - sin línea por encima -->
-  <div class="col-span-12 glass rounded-[20px] p-6 flex flex-col md:flex-row items-center justify-between gap-4 reveal relative overflow-hidden" style="transition-delay:260ms">
+  <!-- Trayectoria en curso: un solo nodo responsive (antes duplicado) -->
+  <li class="col-span-1 lg:col-span-12 glass rounded-[20px] p-5 lg:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 reveal relative overflow-hidden" style="transition-delay:260ms">
     <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.04] via-transparent to-transparent pointer-events-none"></div>
-    <div class="flex items-center gap-3 relative">
-      <img src="/images/logos/contadito.webp" alt="Contadito" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm" />
+    <div class="flex items-start md:items-center gap-3 relative">
+      <img src="/images/logos/contadito.webp" alt="Contadito" width="64" height="64" loading="lazy" decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
       <div>
-        <div class="text-white font-semibold flex flex-wrap items-center gap-2">
+        <div class="text-white font-semibold leading-tight flex flex-wrap items-center gap-2">
           <span class="relative flex size-2">
             <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full size-2 bg-emerald-400"></span>
           </span>
           Trayectoria en curso
         </div>
-        <div class="text-white/60 text-sm">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
+        <div class="text-white/60 text-sm mt-1">Pasantía como Desarrollador FullStack en <a href="https://contadito.com" target="_blank" rel="noopener noreferrer" class="text-white font-medium hover:underline underline-offset-4 decoration-white/30 hover:decoration-white">Contadito</a></div>
       </div>
     </div>
-    <div class="relative mr-1 shrink-0">
-      <ThemedButton href={'https://contadito.com'} variant="primary" class="!px-5 !py-3">Conocer más</ThemedButton>
+    <div class="relative md:shrink-0 md:mr-1">
+      <ThemedButton href={'https://contadito.com'} variant="glass" class="lg:hidden text-xs">Conocer más</ThemedButton>
+      <div class="hidden lg:block">
+        <ThemedButton href={'https://contadito.com'} variant="primary" class="!px-5 !py-3">Conocer más</ThemedButton>
+      </div>
     </div>
-  </div>
-</div>
+  </li>
+</ol>

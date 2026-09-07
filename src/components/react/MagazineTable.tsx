@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
-import { MagazineViewer } from "./MagazineViewer";
+const MagazineViewer = lazy(() => import("./MagazineViewer").then(m => ({ default: m.MagazineViewer })) );
 
 type Magazine = {
   name: string;
@@ -33,7 +33,7 @@ export function MagazineTable({ magazines }: Props) {
         onMouseLeave={() => { if (!isMobile) setHovered(false); }}
       >
         {/* Contenedor de revistas */}
-        <div className="relative w-full min-h-[300px] sm:min-h-[360px] lg:min-h-[460px] flex items-center justify-center mb-6 lg:mb-16">
+        <div className="relative w-full min-h-[300px] sm:min-h-[360px] lg:min-h-[460px] flex items-center justify-center mb-10 lg:mb-20">
           <div className="relative flex items-center justify-center gap-0 w-full max-w-[560px] lg:max-w-[640px] h-[240px] sm:h-[300px] lg:h-[380px]">
             {magazines.slice(0, 2).map((mag, idx) => {
               const isFirst = idx === 0;
@@ -55,7 +55,7 @@ export function MagazineTable({ magazines }: Props) {
                   type="button"
                   onClick={() => setSelected(mag)}
                   className={cn(
-                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
+                    "absolute w-[158px] sm:w-[200px] lg:w-[260px] xl:w-[280px] aspect-[0.77] rounded-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30",
                     !isMobile && "will-change-transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   )}
                   style={{
@@ -119,7 +119,9 @@ export function MagazineTable({ magazines }: Props) {
       </div>
 
       {selected && (
-        <MagazineViewer magazine={selected} onClose={() => setSelected(null)} />
+        <Suspense fallback={null}>
+          <MagazineViewer magazine={selected} onClose={() => setSelected(null)} />
+        </Suspense>
       )}
     </>
   );

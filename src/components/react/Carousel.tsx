@@ -270,36 +270,40 @@ export function Carousel({ images, title }: Props) {
 
   const currentRatio = ratios[index] ?? FALLBACK_RATIO;
 
-  // Precarga los ratios reales con objetos Image nativos, sin depender del
-  // evento onLoad del <img> renderizado. Esto cubre el caso `client:visible`
-  // donde la imagen SSR ya terminó de cargar antes de hidratar (onLoad no
-  // dispara) y también las imágenes `loading="lazy"` que aún no entraron al
-  // viewport pero necesitan ratio para evitar barras.
+  // Calcula ratios sin bloquear el hilo principal: solo el slide activo y vecinos inmediato
+  // en idle; el resto se resuelve vía onLoad del <img> cuando entra al viewport.
+  // Evita precargar 20 imágenes de golpe (antes hacía new Image para todas).
   useEffect(() => {
     let cancelled = false;
-    images.forEach((src, i) => {
-      // Si ya tenemos el ratio, no recargamos
-      // (usamos callback funcional en setRatio así que no necesitamos ratios en deps)
+    const priorityIndices = new Set([0, index, index - 1, index + 1].filter(i => i >= 0 && i < images.length));
+    const loadRatio = (i: number) => {
+      const src = images[i];
+      if (!src) return;
       const img = new Image();
-      // decoding async no bloquea el main thread
       (img as any).decoding = "async";
       img.onload = () => {
         if (cancelled) return;
-        if (img.naturalWidth && img.naturalHeight) {
-          setRatio(i, img.naturalWidth / img.naturalHeight);
-        }
+        if (img.naturalWidth && img.naturalHeight) setRatio(i, img.naturalWidth / img.naturalHeight);
       };
       img.src = src;
-      // Si ya está en caché, onload puede no disparar de forma asíncrona en
-      // algunos navegadores; cubrimos complete síncrono
-      if (img.complete && img.naturalWidth && img.naturalHeight) {
-        setRatio(i, img.naturalWidth / img.naturalHeight);
-      }
+      if (img.complete && img.naturalWidth && img.naturalHeight) setRatio(i, img.naturalWidth / img.naturalHeight);
+    };
+    priorityIndices.forEach(loadRatio);
+    // Carga el resto diferida en idle para no competir con LCP ni saturar red (revistas ya optimizadas)
+    const idle = (window as any).requestIdleCallback || ((cb: ()=>void) => setTimeout(cb, 1200));
+    const idleId = idle(() => {
+      if (cancelled) return;
+      images.forEach((_, i) => {
+        if (priorityIndices.has(i)) return;
+        loadRatio(i);
+      });
     });
     return () => {
       cancelled = true;
+      if ((window as any).cancelIdleCallback) (window as any).cancelIdleCallback(idleId);
+      else clearTimeout(idleId);
     };
-  }, [images, setRatio]);
+  }, [images, setRatio, index]);
 
   // Mide la altura real (renderizada) de la imagen principal para que las
   // miniaturas puedan igualarla con un alto explícito en px. No podemos

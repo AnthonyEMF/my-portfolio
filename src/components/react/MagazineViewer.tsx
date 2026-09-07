@@ -146,27 +146,25 @@ export function MagazineViewer({ magazine, onClose }: Props) {
     return () => observer.disconnect();
   }, [pages]);
 
-  // precarga agresiva: todas las páginas al abrir + vecinos al navegar
+  // Precarga optimizada: solo vecinos inmediatos en idle, no las 20 páginas de golpe (ahorra ~3M por revista)
   useEffect(() => {
     if (!magazine) return;
-    pages.forEach((src) => {
-      const img = new Image();
-      img.decoding = "async" as any;
-      img.src = src;
-      if (img.decode) img.decode().catch(() => {});
+    const idle = (window as any).requestIdleCallback || ((cb: ()=>void) => setTimeout(cb, 900));
+    const id = idle(() => {
+      [pages[page - 1], pages[page + 1], pages[page + 2]].forEach((src) => {
+        if (src) {
+          const img = new Image();
+          (img as any).decoding = "async";
+          img.src = src;
+          if (img.decode) img.decode().catch(() => {});
+        }
+      });
     });
-  }, [magazine, pages]);
-
-  useEffect(() => {
-    [pages[page - 1], pages[page + 1]].forEach((src) => {
-      if (src) {
-        const img = new Image();
-        img.decoding = "async" as any;
-        img.src = src;
-        if (img.decode) img.decode().catch(() => {});
-      }
-    });
-  }, [page, pages]);
+    return () => {
+      if ((window as any).cancelIdleCallback) (window as any).cancelIdleCallback(id);
+      else clearTimeout(id);
+    };
+  }, [magazine, pages, page]);
 
   if (!magazine) return null;
 

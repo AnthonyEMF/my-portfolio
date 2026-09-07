@@ -85,7 +85,7 @@ import Contact from "../components/Contact.astro";
                   height="490"
                   loading="eager"
                   decoding="async"
-                  onerror="this.onerror=null;this.src='/images/profile-photo.webp'"
+                  fetchpriority="high"
                 />
                 <div class="absolute -bottom-2.5 -left-2.5 glass rounded-xl px-2.5 py-1.5 flex items-center gap-2 shadow-glass scale-[0.9]">
                   <div class="size-7 rounded-full bg-gradient-to-br from-accent-blue to-accent-yellow grid place-items-center text-black font-bold text-xs">✓</div>
@@ -186,24 +186,49 @@ import Contact from "../components/Contact.astro";
         }
       });
     }, { threshold:0.12, rootMargin:"0px 0px -8% 0px" });
-    document.querySelectorAll(".reveal").forEach(el=> ro.observe(el));
+    // Evita observar elementos ya visibles (hero) para ahorrar trabajo inicial
+    document.querySelectorAll(".reveal:not(.is-visible)").forEach(el=> ro.observe(el));
 
-    // GitHub avatar siempre fresco sin token - URL directa (sin rate limit) + fallback local
+    // GitHub avatar diferido a idle para no competir con LCP; evita doble descarga y swap inestable
     (function(){
       const img = document.getElementById("gh-avatar") as HTMLImageElement | null;
       if(!img) return;
       const FALLBACK = "/images/profile-photo.webp";
-      // URL directa 302 -> avatars.githubusercontent.com, siempre refleja el avatar actual
       const GH_AVATAR = "https://github.com/AnthonyEMF.png?size=460";
-      // Evita flasheo si ya es fallback y la carga fue ok
-      const tryLoad = (url: string, fallback: string) => {
+      const tryLoad = (url: string) => {
         const test = new Image();
         test.onload = () => { img.src = url; };
-        test.onerror = () => { if(img.src !== location.origin + fallback) img.src = fallback; };
+        // No onerror agresivo: si falla, se queda el LCP local sin flash
         test.src = url;
       };
-      // Carga fresca en segundo plano, sin token, sin API
-      tryLoad(GH_AVATAR, FALLBACK);
+      const idle = (cb: ()=>void) => {
+        if ('requestIdleCallback' in window) (window as any).requestIdleCallback(cb, { timeout: 2500 });
+        else window.setTimeout(cb, 1800);
+      };
+      // Solo intenta si no hay ahorro de datos y la conexión no es lenta
+      const conn = (navigator as any).connection;
+      if (conn?.saveData || conn?.effectiveType === '2g' || conn?.effectiveType === 'slow-2g') return;
+      idle(() => {
+        // Espera a que el LCP haya pintado
+        if (document.readyState === 'complete') tryLoad(GH_AVATAR);
+        else window.addEventListener('load', () => tryLoad(GH_AVATAR), { once: true });
+      });
+    })();
+
+    // Pausar animaciones infinitas fuera de viewport para ahorrar batería (respeta diseño)
+    (function(){
+      const sel = '.bg-animated';
+      const el = document.querySelector(sel) as HTMLElement | null;
+      if (!el) return;
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          (e.target as HTMLElement).style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+        });
+      }, { threshold: 0 });
+      // El bg es fixed, siempre visible: pausamos solo cuando tab oculto
+      document.addEventListener('visibilitychange', ()=>{
+        el.style.animationPlayState = document.hidden ? 'paused' : 'running';
+      });
     })();
   </script>
 </Layout>

@@ -1,25 +1,25 @@
 ---
 import "../styles/global.css"; /* Importe de los estilos con Tailwind */
-import "@fontsource-variable/inter"; /* Inter Variable - body */
+import "@fontsource-variable/inter"; /* Inter Variable - body (unicode-range hace lazy load automático, solo latin se descarga) */
 import "@fontsource-variable/space-grotesk"; /* Space Grotesk Variable - display */
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preload" as="image" href="/images/profile-photo.webp" imagesrcset="/images/profile-photo.webp" fetchpriority="high" />
+        <link rel="preconnect" href="https://github.com" crossorigin />
         <meta name="generator" content={Astro.generator} />
         <title>Anthony Miranda | Desarrollador Web y Mobile Full Stack</title>
         <meta
             name="description"
             content="Desarrollador web y mobile. Creo soluciones digitales a medida con tecnologías modernas. Mira mis proyectos y contáctame para tu próximo desarrollo."
         />
-        <ClientRouter />
         <!-- Estilos globales -->
         <style is:global>
             :root {
@@ -94,6 +94,13 @@ import { ClientRouter } from "astro:transitions";
                 }
                 .bg-animated {
                     animation: none;
+                }
+            }
+
+            /* Pausar animación de fondo cuando la pestaña no está visible para ahorrar GPU/batería */
+            @media (prefers-reduced-motion: no-preference) {
+                .bg-animated {
+                    will-change: --gx, --gy, --bx, --by;
                 }
             }
         </style>
