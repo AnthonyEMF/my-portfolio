@@ -74,6 +74,8 @@ export function ContactForm() {
     setStatus("loading");
     setStatusMessage("");
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     try {
       const payload = {
         name: values.name.trim(),
@@ -92,6 +94,7 @@ export function ContactForm() {
           Accept: "application/json",
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
 
       const data = await res.json().catch(() => ({}));
@@ -106,12 +109,19 @@ export function ContactForm() {
       setErrors({});
       setTouched({});
     } catch (err) {
+      if ((err as any)?.name === "AbortError") {
+        setStatus("error");
+        setStatusMessage("Tiempo agotado. Revisa tu conexión e intenta de nuevo.");
+        return;
+      }
       setStatus("error");
       setStatusMessage(
         err instanceof Error && err.message !== "No se pudo enviar."
           ? err.message
           : "No se pudo enviar el mensaje. Intenta de nuevo o escríbeme directo a anthony07miranda@gmail.com"
       );
+    } finally {
+      clearTimeout(timeout);
     }
   };
 

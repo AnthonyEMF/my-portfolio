@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
-import { MagazineViewer } from "./MagazineViewer";
+const MagazineViewer = lazy(() => import("./MagazineViewer").then(m => ({ default: m.MagazineViewer })) );
 
 type Magazine = {
   name: string;
@@ -119,7 +119,9 @@ export function MagazineTable({ magazines }: Props) {
       </div>
 
       {selected && (
-        <MagazineViewer magazine={selected} onClose={() => setSelected(null)} />
+        <Suspense fallback={null}>
+          <MagazineViewer magazine={selected} onClose={() => setSelected(null)} />
+        </Suspense>
       )}
     </>
   );

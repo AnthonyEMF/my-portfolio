@@ -5,11 +5,15 @@ export interface Props {
 }
 
 const { class: className, id } = Astro.props;
+const isBelowFold = id && id !== "top";
+// content-visibility para secciones bajo el fold: reduce render cost sin tocar diseño visual
+const intrinsic = isBelowFold ? "content-visibility:auto;contain-intrinsic-size: 600px 800px;" : "";
 ---
 
 <section
     id={id}
     class={`w-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 ${className}`}
+    style={intrinsic}
 >
     <slot />
 </section>
