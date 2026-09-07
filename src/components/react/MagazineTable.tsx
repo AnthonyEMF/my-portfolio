@@ -33,7 +33,7 @@ export function MagazineTable({ magazines }: Props) {
         onMouseLeave={() => { if (!isMobile) setHovered(false); }}
       >
         {/* Contenedor de revistas */}
-        <div className="relative w-full min-h-[300px] sm:min-h-[360px] lg:min-h-[460px] flex items-center justify-center mb-6 lg:mb-16">
+        <div className="relative w-full min-h-[300px] sm:min-h-[360px] lg:min-h-[460px] flex items-center justify-center mb-10 lg:mb-20">
           <div className="relative flex items-center justify-center gap-0 w-full max-w-[560px] lg:max-w-[640px] h-[240px] sm:h-[300px] lg:h-[380px]">
             {magazines.slice(0, 2).map((mag, idx) => {
               const isFirst = idx === 0;

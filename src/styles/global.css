@@ -31,17 +31,26 @@
 /* Utilidad glass sutil */
 @utility glass {
   background-color: var(--color-glass);
-  backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
   border: 1px solid var(--color-glass-border);
   box-shadow: var(--shadow-glass), inset 0 1px 0 rgba(255,255,255,0.06);
+  /* Aisla el backdrop del grouping de opacidad del ancestro .reveal */
+  isolation: isolate;
 }
 @utility glass-strong {
   background-color: var(--color-glass-strong);
-  backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
   border: 1px solid var(--color-glass-border-strong);
   box-shadow: var(--shadow-glass-lg);
+  isolation: isolate;
+}
+/* Fallback WebKit preservado fuera de @utility para que lightningcss no lo descarte */
+@supports (-webkit-backdrop-filter: blur(16px)) {
+  .glass, .glass-strong {
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  }
 }
 
 /* Utilidades carousel */
@@ -54,10 +63,20 @@
   will-change: transform;
 }
 
+/* Fix: elementos con backdrop-filter dentro de .reveal sufren doble-alpha
+   durante la transición de opacidad (group opacity). Aislarlos evita que
+   la opacidad del ancestro multiplique el alfa del bg translúcido.
+   Nota: no usa transform literal para no romper hover:translate de Tailwind */
+@utility isolate-backdrop {
+  isolation: isolate;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Reveal on scroll */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(18px) translateZ(0); }
+  to { opacity: 1; transform: translateY(0) translateZ(0); }
 }
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
@@ -77,12 +96,32 @@
 }
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(18px) translateZ(0);
   transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  /* Aisla el stacking context: evita que backdrop-filter hijo se agrupe
+     con la opacidad del padre (bug de doble-alpha en build/lightningcss) */
+  isolation: isolate;
+  /* Promueve a capa de compositor para muestreo correcto de backdrop */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
+  will-change: auto;
+}
+/* Hijos con backdrop dentro de .reveal también aislados.
+   Sin transform literal para preservar hover:translate de Tailwind */
+.reveal [class*="backdrop-blur"],
+.reveal [class*="bg-white/"],
+.reveal .glass,
+.reveal .glass-strong,
+.reveal.glass,
+.reveal.glass-strong {
+  isolation: isolate;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity:1; transform:none; transition:none; }
