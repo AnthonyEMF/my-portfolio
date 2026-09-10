@@ -12,7 +12,7 @@ export const projects: Project[] = [
   {
     title: "SGOA",
     description:
-      "Sistema de Gestión y Organización Académica, es una plataforma integral para la administración académica que permite gestionar docentes, cursos, salones, períodos académicos, asignaciones de clases, actividades complementarias, inventario de equipos y más. Este proyecto fue realizado en colaboración con el personal administrativo de la UNAH, brindando información y los recursos para desplegar el sistema de forma totalmente funcional.",
+      "Sistema de Gestión y Organización Académica, es una plataforma integral que actúa a su vez como un ERP para la administración académica que permite gestionar usuarios (como docentes, coordinadores o personal administrativo), centros, departamentos, salones, clases, secciones, períodos académicos, actividades complementarias, inventario de equipos y más. Este proyecto fue realizado en colaboración con el personal administrativo de la UNAH, brindando información y los recursos para desplegar el sistema de forma totalmente funcional.",
     images: [
       "/images/sgoa/sgoa-01.webp",
       "/images/sgoa/sgoa-02.webp",
@@ -41,7 +41,7 @@ export const projects: Project[] = [
   {
     title: "SIGREF",
     description:
-      "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema es multi rol e implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R4 y parcialmente R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
+      "Sistema de Gestión de Receptoria de Fondos, enfocado en la gestión de ingresos, facturación y operaciones administrativas en instituciones de salud. El sistema implementa estándares internacionales de interoperabilidad en salud (HL7 FHIR R5), garantizando compatibilidad con sistemas de información sanitaria global. Desarrollado e implementado para la entidad pública Hospital Regional de Occidente.",
     images: [
       "/images/sigref/sigref-01.webp",
       "/images/sigref/sigref-02.webp",
@@ -77,7 +77,7 @@ export const projects: Project[] = [
   {
     title: "ClassNotes",
     description:
-      "Este es un proyecto de clase que fue desarrollado en equipo, orientado al ámbito educativo con el fin de optimizar las labores docentes. Ofrece una amplia variedad de herramientas intuitivas, prácticas y fáciles de implementar, garantizando una experiencia eficiente y accesible para los usuarios.",
+      "Aplicación orientada al ámbito educativo con el fin de optimizar las labores docentes que incluye la gestión de centros, clases, alumnos y actividades. Entre sus funcionalidades clave se encuentra la toma de asistencia mediante geolocalización, entre otros apartados que garantizan una experiencia eficiente y real para los usuarios.",
     images: [
       "/images/classnotes/classnotes-01.webp",
       "/images/classnotes/classnotes-02.webp",
