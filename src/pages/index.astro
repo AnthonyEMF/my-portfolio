@@ -202,7 +202,7 @@ import Contact from "../components/Contact.astro";
         test.src = url;
       };
       const idle = (cb: ()=>void) => {
-        if ('requestIdleCallback' in window) (window as any).requestIdleCallback(cb, { timeout: 2500 });
+        if (typeof (window as any).requestIdleCallback === 'function') (window as any).requestIdleCallback(cb, { timeout: 2500 });
         else window.setTimeout(cb, 1800);
       };
       // Solo intenta si no hay ahorro de datos y la conexión no es lenta

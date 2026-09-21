@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "./Button";
-import { cn } from "../../lib/utils";
+import { cn } from "./utils";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 
 type Props = { images: string[]; title?: string };
