@@ -2,12 +2,12 @@ import Briefcase from "../icons/Briefcase.astro";
 import Contract from "../icons/Contract.astro";
 import Happy from "../icons/Happy.astro";
 
-export interface AboutInfo {
+export interface About {
   content: string;
   icon: any;
 }
 
-export const aboutInfo: AboutInfo[] = [
+export const about: About[] = [
   {
     content:
       "Mis formaciones como Ingeniero en Sistemas de la Universidad Nacional Autónoma de Honduras y Bachiller Técnico en Informática me permitieron desarrollar habilidades en cuanto a cualquier tema de computación se refiere.",

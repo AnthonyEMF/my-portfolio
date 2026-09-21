@@ -8,11 +8,11 @@ import { MagazineTable } from "./react/MagazineTable";
   {projects.map(({ title, description, images, tags }, i) => {
     const delay = i*100;
     return (
-      <div class={`group relative glass rounded-[20px] overflow-hidden hover:bg-white/[0.08] hover:border-white/15 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col`} style={`transition-delay:${delay}ms`}>
+      <div class={`group relative glass rounded-[20px] overflow-hidden hover:bg-white/8 hover:border-white/15 hover:shadow-glass-lg transition-all duration-300 reveal flex flex-col`} style={`transition-delay:${delay}ms`}>
         <!-- Header: número + título + descripción primero -->
         <div class="p-5 lg:p-6 pb-4 flex flex-col gap-3">
           <div class="flex items-start gap-3">
-            <span class="size-7 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs lg:text-sm font-bold shadow shrink-0 mt-0.5">{String(i+1).padStart(2,"0")}</span>
+            <span class="size-7 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white grid place-items-center text-xs lg:text-sm font-bold shadow shrink-0 mt-0.5">{String(i+1).padStart(2,"0")}</span>
             <div class="flex-1 min-w-0">
               <h3 class="text-white mt-1 lg:mt-0 text-xl lg:text-2xl font-bold leading-tight">{title}</h3>
             </div>
@@ -27,7 +27,7 @@ import { MagazineTable } from "./react/MagazineTable";
           <div class="flex flex-wrap gap-1.5 mt-4">
             {tags.map((tag) => (
               <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border backdrop-blur-md ${tag?.class} text-white`}>
-                <tag.icon class="size-1.5 lg:size-5" /> {tag.name}
+                <tag.icon class="size-3 lg:size-5" /> {tag.name}
               </span>
             ))}
           </div>
