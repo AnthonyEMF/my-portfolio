@@ -153,11 +153,6 @@ export const databases: Record<string, Tag> = {
 };
 
 export const tools: Record<string, Tag> = {
-  gitHub: {
-    name: "GitHub",
-    class: colors.gray,
-    icon: GitHub,
-  },
   git: {
     name: "Git",
     class: colors.orange,
@@ -172,6 +167,11 @@ export const tools: Record<string, Tag> = {
     name: "Google Cloud",
     class: colors.gray,
     icon: GoogleCloud,
+  },
+  aws: {
+    name: "AWS",
+    class: colors.orange,
+    icon: Aws,
   },
   figma: {
     name: "Figma",
