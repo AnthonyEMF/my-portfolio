@@ -11,21 +11,23 @@ import AboutCard from "./ui/AboutCard.astro";
   <a
     target="_blank"
     href="https://drive.google.com/file/d/1vL35BzCD70gszEGYL2FHTkRpXlFu7h7O/view?usp=sharing"
-    class="col-span-12 lg:col-span-5 group relative flex items-center justify-between gap-4 p-6 lg:p-7 rounded-[20px] glass-strong hover:bg-white/10 border border-white/15 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-glass-lg reveal overflow-hidden"
+    class="col-span-12 lg:col-span-5 group relative flex justify-center lg:justify-start flex-col p-6 lg:p-7 rounded-[20px] glass hover:bg-glass-hover hover:border-white/15 transition-all duration-300 hover:-translate-y-1 hover:shadow-glass-lg text-left overflow-hidden reveal"
     style="transition-delay:220ms"
   >
-    <div class="absolute inset-0 bg-linear-to-r from-accent-blue/15 via-transparent to-accent-yellow/15 opacity-0 group-hover:opacity-100 transition duration-500"></div>
-    <div class="relative flex items-center gap-4">
-      <div class="size-11 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white grid place-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+    <div class="absolute inset-0 bg-linear-to-br from-glass via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
+    <div class="relative flex items-center lg:items-start gap-4">
+      <div class="relative shrink-0">
+        <div class="absolute inset-0 bg-accent-blue/15 rounded-2xl blur-xl group-hover:bg-accent-yellow/15 transition duration-500"></div>
+        <div class="relative size-14 lg:size-14 rounded-2xl bg-glass backdrop-blur-md text-white grid place-items-center border border-white/10 group-hover:scale-[1.03] transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-7 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        </div>
       </div>
-      <div>
-        <div class="text-white font-semibold">Mi Hoja de Vida (CV)</div>
-        <div class="text-white/60 text-sm">Descarga directa · PDF</div>
+      <div class="w-px self-stretch bg-white/10 hidden sm:block"></div>
+      <div class="flex flex-col justify-center">
+        <div class="text-white font-semibold leading-tight">Mi Hoja de Vida (CV)</div>
+        <div class="text-white/60 text-sm mt-1">Descarga directa</div>
+        <div class="text-white/60 text-sm mt-1">Formato PDF</div>
       </div>
     </div>
-    <span class="relative size-9 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white grid place-items-center group-hover:translate-x-0.5 transition">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </span>
   </a>
 </div>

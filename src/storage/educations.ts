@@ -4,7 +4,7 @@ import GoogleCloud from "../icons/tools/GoogleCloud.astro";
 
 export interface Education {
   title: string;
-  date: string;
+  date?: string;
   description: string;
   link: string;
   logo: string | AstroComponentFactory;
@@ -34,5 +34,14 @@ export const certifications: Education[] = [
     description: "Commit Academy",
     link: "https://www.commitacademy.io/app/verify-certificate/cert_yhe5UVqhmO",
     logo: Aws,
+  },
+];
+
+export const ongoing: Education[] = [
+  {
+    title: "Trayectoria en curso",
+    description: "Pasantía como Desarrollador FullStack en Contadito",
+    link: "https://contadito.com",
+    logo: "/images/logos/contadito.webp",
   },
 ];
