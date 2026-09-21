@@ -1,22 +1,31 @@
 ---
-import { educations } from "../storage/educations";
+import { educations, certifications } from "../storage/educations";
 import ThemedButton from "./ui/ThemedButton.astro";
 ---
 
-<!-- Timeline unificado responsive: elimina duplicación DOM (mitad de nodos) preservando diseño exacto -->
+<!-- Timeline -->
 <ol class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-  {educations.map((edu, i) => (
+  {educations.map((edu, i) => {
+    const Logo = edu.logo;
+    const isString = typeof Logo === "string";
+    return (
     <li class="col-span-1 lg:col-span-6 reveal" style={`transition-delay:${i*100}ms`}>
-      <div class="group relative glass rounded-[18px] lg:rounded-[20px] p-5 lg:p-7 hover:bg-white/[0.08] lg:hover:bg-white/[0.08] lg:hover:border-white/15 lg:hover:-translate-y-1 lg:hover:shadow-glass-lg transition-all duration-300 flex flex-col h-full">
-        <div class="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition rounded-[18px] lg:rounded-[20px] pointer-events-none hidden lg:block"></div>
+      <div class="group relative glass rounded-[18px] lg:rounded-[20px] p-5 lg:p-7 hover:bg-white/8 lg:hover:bg-white/8 lg:hover:border-white/15 lg:hover:-translate-y-1 lg:hover:shadow-glass-lg transition-all duration-300 flex flex-col h-full">
+        <div class="absolute inset-0 bg-linear-to-br from-white/5 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition rounded-[18px] lg:rounded-[20px] pointer-events-none hidden lg:block"></div>
         <div class="flex items-start gap-4 lg:justify-between relative">
-          <img src={edu.logo} alt={edu.title} width="64" height="64" loading={i === 0 ? "eager" : "lazy"} decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
+          {isString ? (
+            <img src={Logo as string} alt={edu.title} width="64" height="64" loading={i === 0 ? "eager" : "lazy"} decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/8 backdrop-blur-md p-1 shadow-sm shrink-0" />
+          ) : (
+            <div class="size-14 lg:size-16 rounded-xl lg:rounded-2xl border border-white/10 bg-white/8 backdrop-blur-md grid place-items-center text-white shrink-0">
+              {(Logo as any) && (() => { const C = Logo as any; return <C class="size-8 lg:size-9" /> })()}
+            </div>
+          )}
           <div class="flex-1 min-w-0 lg:hidden">
-            <div class="inline-flex px-2.5 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-semibold">{edu.date}</div>
+            <div class="inline-flex px-2.5 py-1 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white text-xs font-semibold">{edu.date}</div>
             <h3 class="mt-2 text-white font-semibold leading-tight text-[15px]">{edu.title}</h3>
             <p class="text-white/60 text-sm mt-1">{edu.description}</p>
           </div>
-          <span class="hidden lg:inline-flex px-3 py-1.5 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wide shrink-0">{edu.date}</span>
+          <span class="hidden lg:inline-flex px-3 py-1.5 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white text-xs font-bold tracking-wide shrink-0">{edu.date}</span>
         </div>
         <h3 class="hidden lg:block relative mt-5 text-white text-lg font-bold leading-tight">{edu.title}</h3>
         <p class="hidden lg:block relative text-white/60 text-sm mt-2">{edu.description}</p>
@@ -26,13 +35,65 @@ import ThemedButton from "./ui/ThemedButton.astro";
         </div>
       </div>
     </li>
-  ))}
+  )})}
 
-  <!-- Trayectoria en curso: un solo nodo responsive (antes duplicado) -->
-  <li class="col-span-1 lg:col-span-12 glass rounded-[20px] p-5 lg:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 reveal relative overflow-hidden" style="transition-delay:260ms">
-    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.04] via-transparent to-transparent pointer-events-none"></div>
+  {certifications.map((cert, j) => {
+    const Logo = cert.logo;
+    const isString = typeof Logo === "string";
+    const idx = educations.length + j;
+    const isSingle = certifications.length === 1;
+    return (
+    <li class={`col-span-1 ${isSingle ? "lg:col-span-12" : "lg:col-span-6"} reveal`} style={`transition-delay:${idx*100}ms`}>
+      <div class="group relative glass rounded-[18px] lg:rounded-[20px] p-5 lg:p-7 hover:bg-white/8 lg:hover:bg-white/8 lg:hover:border-white/15 lg:hover:-translate-y-1 lg:hover:shadow-glass-lg transition-all duration-300 flex flex-col h-full lg:flex-row lg:items-center lg:gap-6">
+        <div class="absolute inset-0 bg-linear-to-br from-white/5 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition rounded-[18px] lg:rounded-[20px] pointer-events-none hidden lg:block"></div>
+
+        <!-- Móvil -->
+        <div class="flex lg:hidden items-start gap-4 relative w-full">
+          {isString ? (
+            <img src={Logo as string} alt={cert.title} width="64" height="64" loading="lazy" decoding="async" class="size-14 rounded-xl object-cover border border-white/10 bg-white/8 backdrop-blur-md p-1 shadow-sm shrink-0" />
+          ) : (
+            <div class="size-14 rounded-xl border border-white/10 bg-white/8 backdrop-blur-md grid place-items-center text-white shrink-0">
+              {(Logo as any) && (() => { const C = Logo as any; return <C class="size-7" /> })()}
+            </div>
+          )}
+          <div class="flex-1 min-w-0">
+            <div class="inline-flex px-2.5 py-1 rounded-full bg-white/8 backdrop-blur-md border border-white/10 text-white text-xs font-semibold">{cert.date}</div>
+            <h3 class="mt-2 text-white font-semibold leading-tight text-[15px]">{cert.title}</h3>
+            <p class="text-white/60 text-sm mt-1">{cert.description}</p>
+          </div>
+        </div>
+        <div class="lg:hidden mt-4 relative">
+          {cert.link && <ThemedButton href={cert.link} variant="glass" class="text-xs">Ver certificado</ThemedButton>}
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden lg:flex items-center gap-5 flex-1 min-w-0 relative">
+          {isString ? (
+            <img src={Logo as string} alt={cert.title} width="64" height="64" loading="lazy" decoding="async" class="size-16 rounded-2xl object-cover border border-white/10 bg-white/8 backdrop-blur-md p-1 shadow-sm shrink-0" />
+          ) : (
+            <div class="size-16 rounded-2xl border border-white/10 bg-white/8 backdrop-blur-md grid place-items-center text-white shrink-0">
+              {(Logo as any) && (() => { const C = Logo as any; return <C class="size-9" /> })()}
+            </div>
+          )}
+          <div class="flex-1 min-w-0">
+            <h3 class="text-white text-[16px] font-bold leading-tight">{cert.title}</h3>
+            <p class="text-white/60 text-sm mt-1 flex items-center gap-2">
+              {cert.description} <span class="text-white/30 font-extrabold">·</span> {cert.date}
+            </p>
+          </div>
+        </div>
+        <div class="hidden lg:block relative shrink-0">
+          {cert.link && <ThemedButton href={cert.link} variant="primary" class="!px-5 !py-2.5 whitespace-nowrap">Ver certificado</ThemedButton>}
+        </div>
+      </div>
+    </li>
+  )})}
+
+  <!-- Trayectoria en curso -->
+  <li class="col-span-1 lg:col-span-12 glass rounded-[20px] p-5 lg:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 reveal relative overflow-hidden" style={`transition-delay:${(educations.length + certifications.length)*100 + 60}ms`}>
+    <div class="absolute inset-0 bg-linear-to-r from-emerald-500/4 via-transparent to-transparent pointer-events-none"></div>
     <div class="flex items-start md:items-center gap-3 relative">
-      <img src="/images/logos/contadito.webp" alt="Contadito" width="64" height="64" loading="lazy" decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/[0.08] backdrop-blur-md p-1 shadow-sm shrink-0" />
+      <img src="/images/logos/contadito.webp" alt="Contadito" width="64" height="64" loading="lazy" decoding="async" class="size-14 lg:size-16 rounded-xl lg:rounded-2xl object-cover border border-white/10 bg-white/8 backdrop-blur-md p-1 shadow-sm shrink-0" />
       <div>
         <div class="text-white font-semibold leading-tight flex flex-wrap items-center gap-2">
           <span class="relative flex size-2">
